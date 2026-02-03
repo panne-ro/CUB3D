@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mleschev <mleschev@student.42.fr>          +#+  +:+       +#+        */
+/*   By: panne-ro <panne-ro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/03 17:05:20 by panne-ro          #+#    #+#             */
-/*   Updated: 2026/02/03 18:14:53 by mleschev         ###   ########.fr       */
+/*   Updated: 2026/02/03 18:40:11 by panne-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,15 @@
 
 int main(int argc, char **argv)
 {
-	if (argc == 1)
-		printf("kk\n");
+	if (checkArg(argc, argv) == 1)
+		return (1);
+	printf("%s\n", argv[1]);
 
 	t_map *map;
+	map = malloc(sizeof(t_map));
 
-	initMapStruct(map);
+	initMapStruct(map, argv[1]);
+	checkmap(map);
 
-
-	printf("fuck yes");
 	return (0);
 }

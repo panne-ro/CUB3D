@@ -1,15 +1,23 @@
+#ifndef CUB3D_H
+#define CUB3D_H
+
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
 #include <unistd.h>
-#include <fcntl.h>
 #include <stdbool.h>
+#include <fcntl.h>
 
+#include "./libft/libft.h"
 
+int		extensionCheck(char *str);
+int		checkArg(int argc, char **argv);
+
+// struct for map with all his data's like gov.site for j
 typedef struct s_map
 {
 	int fdMap;
-	char filePath;
+	char *filePath;
 
 	char *northTexture;
 	char *southTexture;
@@ -25,8 +33,26 @@ typedef struct s_map
 	bool isClosed;
 	bool isCubMap;
 
+	int *matriceIntMap;
+
 } t_map;
 
 // parsing:
 
-void initMapStruct(t_map *map);
+void initMapStruct(t_map *map, char *pathToMapFile);
+int checkContentMaster(t_map *map);
+char *copyContent(char *lineRead, char *tmp, int i);
+
+int checkmap(t_map *map);
+
+// checkcontent.c
+
+char *checkContentNO(int fd, char *tmp, char *lineRead);
+char *checkContentSO(int fd, char *tmp, char *lineRead);
+char *checkContentWE(int fd, char *tmp, char *lineRead);
+char *checkContentEA(int fd, char *tmp, char *lineRead);
+
+void checkContentFC(int fd, char *tmp, char *lineRead, t_map *map);
+void rgbDispatchInfoFile(char *lineRead, char *tmp, int i, t_map *map);
+
+#endif
