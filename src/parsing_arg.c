@@ -6,12 +6,31 @@
 /*   By: panne-ro <panne-ro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/03 17:34:57 by panne-ro          #+#    #+#             */
-/*   Updated: 2026/02/03 18:10:04 by panne-ro         ###   ########.fr       */
+/*   Updated: 2026/02/03 18:22:53 by panne-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3D.h"
 
+//Take the number of args and the args to verify the number and the extension
+//Return 0 if they are one arg and the extension is ".cub" else return 1 
+int		parse(int argc, char **argv)
+{
+	if (argc != 2)
+	{
+		printf("Error\nJust map required\n");
+		return (1);		
+	}
+	if (parse_extension(argv[1]) == 1)
+	{
+		printf("Error\nMap extension is \".cub\"\n");
+		return (1);
+	}
+	return (0);
+}
+
+//Take a string to verify if the extansion is ".cub"
+//Return 0 if is it or 1 if not
 int		parse_extension(char *str)
 {
 	int		i;
