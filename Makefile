@@ -5,6 +5,7 @@ SRC_DIR = ./src
 OBJ_DIR = ./objects
 SRC = 	$(SRC_DIR)/main.c
 OBJ = $(SRC:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
+LIB = 
 
 all: $(NAME)
 
@@ -15,7 +16,7 @@ $(OBJ_DIR):
 			mkdir -p $(OBJ_DIR)
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c | $(OBJ_DIR)
-			$(CC) $(FLAGS) -c $< -o $@ 
+			$(CC) $(FLAGS) -c $< -o $@
 
 clean:
 			rm -f $(OBJ) | rm -rf $(OBJ_DIR)
