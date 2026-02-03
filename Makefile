@@ -5,11 +5,10 @@ SRC_DIR = ./src
 OBJ_DIR = ./objects
 SRC = 	$(SRC_DIR)/main.c
 OBJ = $(SRC:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
-LIB = 
 
 all: $(NAME)
 
-$(NAME): $(OBJ)
+$(NAME): $(OBJ) | $(LIB)
 			$(CC) $(FLAGS) -o $(NAME) $(OBJ)
 
 $(OBJ_DIR):
