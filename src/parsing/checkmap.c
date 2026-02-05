@@ -6,7 +6,7 @@
 /*   By: mleschev <mleschev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/03 18:02:13 by mleschev          #+#    #+#             */
-/*   Updated: 2026/02/05 22:09:39 by mleschev         ###   ########.fr       */
+/*   Updated: 2026/02/05 22:21:56 by mleschev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,20 +95,20 @@ int checkContentMaster(t_map *map)
 	map->startMapInReading,
 	map->LineOfEof);
 
-	// printf("\n\nmap (%d):\n", map->readingHead);
-	// int i = 0;
-	// int j = 0;
-	// while (map->mapInt[i] != NULL)
-	// {
-	// 	j = 0;
-	// 	while (map->mapInt[i][j] != -2)
-	// 	{
-	// 		printf(" '%d' ", map->mapInt[i][j]);
-	// 		j++;
-	// 	}
-	// 	printf("heu\n");
-	// 	i++;
-	// }
+	printf("\n\nmap (%d):\n", map->readingHead);
+	int i = 0;
+	int j = 0;
+	while (map->mapInt[i] != NULL)
+	{
+		j = 0;
+		while (map->mapInt[i][j] != -2)
+		{
+			printf(" '%d' ", map->mapInt[i][j]);
+			j++;
+		}
+		printf("heu\n");
+		i++;
+	}
 	// ------------------------------------------------------------------------
 
 	return 0;

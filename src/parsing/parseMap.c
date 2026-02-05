@@ -6,7 +6,7 @@
 /*   By: mleschev <mleschev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/05 21:15:12 by mleschev          #+#    #+#             */
-/*   Updated: 2026/02/05 22:07:09 by mleschev         ###   ########.fr       */
+/*   Updated: 2026/02/05 22:21:44 by mleschev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void putReadingHeadInPlace(t_map *map, char *lineRead)
 	map->readingHead++;
 
 	//on se remet a la bonne positions dans le fichier
-	while (lineRead && map->readingHead < map->startMapInReading)
+	while (lineRead && map->readingHead < map->startMapInReading - 1)
 	{
 		lineRead = get_next_line(map->fdMap);
 		map->readingHead++;
@@ -80,15 +80,14 @@ void parseMap(t_map *map, char *lineRead)
 	while (lineRead && map->readingHead < map->LineOfEof)
 	{
 		i = 0;
+		// printf("DEBUG : '%s' '%d'\n", lineRead, map->readingHead);
 		while (lineRead[i])
 		{
-			printf("DEBUG : '%s' '%d' '%d' '%d'\n", lineRead, i, j, map->readingHead);
 			i++;
 		}
-		printf("ALED\n");
 		map->mapInt[j] = malloc(sizeof(int) * (i + 1));
 		i = 0;
-		while (lineRead[i])
+		while (lineRead[i] && map->readingHead >= (map->startMapInReading && map->readingHead <= map->LineOfEof))
 		{
 			if (lineRead[i] == '1')
 				map->mapInt[j][i] = 1;
