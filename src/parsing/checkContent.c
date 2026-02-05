@@ -6,7 +6,7 @@
 /*   By: mleschev <mleschev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/04 23:21:25 by mleschev          #+#    #+#             */
-/*   Updated: 2026/02/04 00:21:52 by mleschev         ###   ########.fr       */
+/*   Updated: 2026/02/05 19:04:53 by mleschev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "../../includes/cub3D.h"
 
 // a sub_functions for find NO in files and returns texture of north (NO ./holakalainorth.texture)
-char *checkContentNO(int fd, char *tmp, char *lineRead)
+char *checkContentNO(t_map *map, char *tmp, char *lineRead)
 {
 	int i;
 
@@ -36,13 +36,14 @@ char *checkContentNO(int fd, char *tmp, char *lineRead)
 			}
 			i++;
 		}
-		lineRead = get_next_line(fd);
+		lineRead = get_next_line(map->fdMap);
+		map->readingHead++;
 	}
 	return NULL;
 }
 
 // a sub_functions for find SO in files and returns texture of south (NO ./ilovepdfsouth.texture)
-char *checkContentSO(int fd, char *tmp, char *lineRead)
+char *checkContentSO(t_map *map, char *tmp, char *lineRead)
 {
 	int i;
 
@@ -64,13 +65,13 @@ char *checkContentSO(int fd, char *tmp, char *lineRead)
 			}
 			i++;
 		}
-		lineRead = get_next_line(fd);
-	}
+		lineRead = get_next_line(map->fdMap);
+		map->readingHead++;	}
 	return NULL;
 }
 
 // a sub_functions for find WE in files and returns texture of west (WE ./westside.2pac.bigi...texture)
-char *checkContentWE(int fd, char *tmp, char *lineRead)
+char *checkContentWE(t_map *map, char *tmp, char *lineRead)
 {
 	int i;
 
@@ -92,13 +93,14 @@ char *checkContentWE(int fd, char *tmp, char *lineRead)
 			}
 			i++;
 		}
-		lineRead = get_next_line(fd);
+		lineRead = get_next_line(map->fdMap);
+		map->readingHead++;
 	}
 	return NULL;
 }
 
 // a sub_functions for find EA in files and returns texture of east (EA ./bigchybreeastcost.texture)
-char *checkContentEA(int fd, char *tmp, char *lineRead)
+char *checkContentEA(t_map *map, char *tmp, char *lineRead)
 {
 	int i;
 
@@ -120,11 +122,12 @@ char *checkContentEA(int fd, char *tmp, char *lineRead)
 			}
 			i++;
 		}
-		lineRead = get_next_line(fd);
+		lineRead = get_next_line(map->fdMap);
+		map->readingHead++;
 	}
 	return NULL;
 }
-//sub fonction of checkcontentmaster resturn all of rgb in array of t_map for the floor 
+//sub fonction of checkcontentmaster resturn all of rgb in array of t_map for the floor
 void checkContentFC(int fd, char *tmp, char *lineRead, t_map *map)
 { //faut faire bellek ya pas les erreurs d'over-nombre pour l'instant (F 0,250,300,54654,484,31,5156,4,51,48,4,3,84,5)
 	int i;
@@ -143,12 +146,41 @@ void checkContentFC(int fd, char *tmp, char *lineRead, t_map *map)
 					return ;
 				while (lineRead[i] && lineRead[i] == ' ')
 					i++;
-				rgbDispatchInfoFile(lineRead, tmp, i, map);
+				rgbDispatchInfoFile(lineRead, tmp, i, map, false);
                 return ;
 			}
 			i++;
 		}
 		lineRead = get_next_line(fd);
+		map->readingHead++;
+	}
+}
+//sub fonction of checkcontentmaster resturn all of rgb in array of t_map for the ceiling
+void checkContentCC(int fd, char *tmp, char *lineRead, t_map *map)
+{ //faut faire bellek ya pas les erreurs d'over-nombre pour l'instant (F 0,250,300,54654,484,31,5156,4,51,48,4,3,84,5)
+	int i;
+
+	if (!lineRead)
+		return ;
+	while (lineRead)
+	{
+		i = 0;
+		while (lineRead[i])
+		{
+			if (lineRead[i] == 'C')
+			{
+				i++;
+				if (!lineRead[i])
+					return ;
+				while (lineRead[i] && lineRead[i] == ' ')
+					i++;
+				rgbDispatchInfoFile(lineRead, tmp, i, map, true);
+                return ;
+			}
+			i++;
+		}
+		lineRead = get_next_line(fd);
+		map->readingHead++;
 	}
 }
 
@@ -170,7 +202,7 @@ char *copyContent(char *lineRead, char *tmp, int i)
 	return result;
 }
 // sub fonction for dispatch rgb (floor or ceiling) into t_map data
-void rgbDispatchInfoFile(char *lineRead, char *tmp, int i, t_map *map)
+void rgbDispatchInfoFile(char *lineRead, char *tmp, int i, t_map *map, bool forCeiling)
 {
     int j;
     int nbr;
@@ -187,9 +219,51 @@ void rgbDispatchInfoFile(char *lineRead, char *tmp, int i, t_map *map)
             i++;
         }
         tmp[j] = 0;
-        map->floorColor[nbr] = ft_atoi(tmp);
+		if (forCeiling)
+			map->ceilingColor[nbr] = ft_atoi(tmp);
+		else
+        	map->floorColor[nbr] = ft_atoi(tmp);
         i++;
         nbr++;
     }
 }
+
+// void parseMap(t_map *map, char *lineRead)
+// {
+// 	int i;
+// 	bool isMap;
+
+// 	isMap = false;
+// 	if (!lineRead)
+// 		return ;
+// 	while (lineRead)
+// 	{
+// 		while (lineRead[i])
+// 		{
+// 			if (lineRead[i] != ' ' && lineRead[i] != '\n')
+// 			{
+// 				isMap = true;
+// 				break ;
+// 			}
+// 			i++;
+// 		}
+// 		if (isMap)
+// 			break ;
+// 		lineRead = get_next_line(map->fdMap);
+// 		map->readingHead++;
+// 	}
+
+
+// 	while (lineRead)
+// 	{
+// 		i = 0;
+// 		while (lineRead[i])
+// 		{
+
+// 			i++;
+// 		}
+// 		lineRead = get_next_line(map->fdMap);
+// 		map->readingHead++;
+// 	}
+// } wip
 

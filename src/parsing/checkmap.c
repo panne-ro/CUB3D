@@ -6,7 +6,7 @@
 /*   By: mleschev <mleschev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/03 18:02:13 by mleschev          #+#    #+#             */
-/*   Updated: 2026/02/04 00:20:40 by mleschev         ###   ########.fr       */
+/*   Updated: 2026/02/05 19:07:56 by mleschev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,9 @@ void initMapStruct(t_map *map, char *pathToMap)
 
 	map->filePath = pathToMap;
 	map->fdMap = -1;
-	map->matriceIntMap = NULL;
+	map->mapInt = NULL;
+	map->readingHead = -1;
+	map->startMapInReading = -1;
 
 	while (i++ < 3)
 	{
@@ -37,12 +39,12 @@ void initMapStruct(t_map *map, char *pathToMap)
 	map->height = -1;
 	map->size = -1;
 
-	map->isCubMap = false;
+	map->isValid = false;
 	map->isClosed = false;
 }
 
 
-// take a t_map already init with initMapStruct() and check all the infos inside return an error with printf and -1 or 0 if all good 
+// take a t_map already init with initMapStruct() and check all the infos inside return an error with printf and -1 or 0 if all good
 int checkmap(t_map *map)
 {
 	map->fdMap =  open(map->filePath, O_RDONLY);
@@ -67,23 +69,29 @@ int checkContentMaster(t_map *map)
 	char tmp[1000];
 	char *lineRead;
 
+	map->readingHead++;
 	lineRead = get_next_line(map->fdMap);
-
-	map->northTexture = checkContentNO(map->fdMap, tmp, lineRead);
-	map->southTexture = checkContentSO(map->fdMap, tmp, lineRead);
-	map->westTexture = checkContentWE(map->fdMap, tmp, lineRead);
-	map->eastTexture = checkContentEA(map->fdMap, tmp, lineRead);
+	map->northTexture = checkContentNO(map, tmp, lineRead);
+	map->southTexture = checkContentSO(map, tmp, lineRead);
+	map->westTexture = checkContentWE(map, tmp, lineRead);
+	map->eastTexture = checkContentEA(map, tmp, lineRead);
 	checkContentFC(map->fdMap, tmp, lineRead, map);
+	checkContentCC(map->fdMap, tmp, lineRead, map);
+	// parseMap(map, lineRead);
 
-	printf("NO '%s'\nSO '%s'\nWE '%s'\nEA '%s'\nCC0 '%ld'\nCC1 '%ld'\nCC2 '%ld'\n", 
+
+	//printf debug:
+	printf("NO '%s'\nSO '%s'\nWE '%s'\nEA '%s'\nfC0 '%ld'\nfC1 '%ld'\nfC2 '%ld'\nCC0 '%ld'\nCC1 '%ld'\nCC2 '%ld'\n",
 	map->northTexture,
 	map->southTexture,
 	map->westTexture,
 	map->eastTexture,
 	map->floorColor[0],
 	map->floorColor[1],
-	map->floorColor[2]);
-
+	map->floorColor[2],
+	map->ceilingColor[0],
+	map->ceilingColor[1],
+	map->ceilingColor[2]);
 
 	return 0;
 }

@@ -29,11 +29,13 @@ typedef struct s_map
 
 	size_t height;
 	size_t size;
+	size_t readingHead;
+	size_t startMapInReading;
 
 	bool isClosed;
-	bool isCubMap;
+	bool isValid;
 
-	int *matriceIntMap;
+	int *mapInt;
 
 } t_map;
 
@@ -47,12 +49,14 @@ int checkmap(t_map *map);
 
 // checkcontent.c
 
-char *checkContentNO(int fd, char *tmp, char *lineRead);
-char *checkContentSO(int fd, char *tmp, char *lineRead);
-char *checkContentWE(int fd, char *tmp, char *lineRead);
-char *checkContentEA(int fd, char *tmp, char *lineRead);
+char *checkContentNO(t_map *map, char *tmp, char *lineRead);
+char *checkContentSO(t_map *map, char *tmp, char *lineRead);
+char *checkContentWE(t_map *map, char *tmp, char *lineRead);
+char *checkContentEA(t_map *map, char *tmp, char *lineRead);
 
 void checkContentFC(int fd, char *tmp, char *lineRead, t_map *map);
-void rgbDispatchInfoFile(char *lineRead, char *tmp, int i, t_map *map);
+void checkContentCC(int fd, char *tmp, char *lineRead, t_map *map);
+void rgbDispatchInfoFile(char *lineRead, char *tmp, int i, t_map *map, bool forCeiling);
+void parseMap(t_map *map, char *lineRead);
 
 #endif
