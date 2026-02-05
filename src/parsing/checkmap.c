@@ -6,7 +6,7 @@
 /*   By: mleschev <mleschev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/03 18:02:13 by mleschev          #+#    #+#             */
-/*   Updated: 2026/02/05 19:07:56 by mleschev         ###   ########.fr       */
+/*   Updated: 2026/02/05 22:09:39 by mleschev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,7 @@ void initMapStruct(t_map *map, char *pathToMap)
 	map->filePath = pathToMap;
 	map->fdMap = -1;
 	map->mapInt = NULL;
-	map->readingHead = -1;
-	map->startMapInReading = -1;
+	map->readingHead = 0;
 
 	while (i++ < 3)
 	{
@@ -36,8 +35,8 @@ void initMapStruct(t_map *map, char *pathToMap)
 	map->northTexture = NULL;
 	map->southTexture = NULL;
 
-	map->height = -1;
-	map->size = -1;
+	map->startMapInReading = 0;
+	map->LineOfEof = 0;
 
 	map->isValid = false;
 	map->isClosed = false;
@@ -77,11 +76,12 @@ int checkContentMaster(t_map *map)
 	map->eastTexture = checkContentEA(map, tmp, lineRead);
 	checkContentFC(map->fdMap, tmp, lineRead, map);
 	checkContentCC(map->fdMap, tmp, lineRead, map);
-	// parseMap(map, lineRead);
+	lineRead = get_next_line(map->fdMap);
+	map->readingHead++;
+	parseMap(map, lineRead);
 
-
-	//printf debug:
-	printf("NO '%s'\nSO '%s'\nWE '%s'\nEA '%s'\nfC0 '%ld'\nfC1 '%ld'\nfC2 '%ld'\nCC0 '%ld'\nCC1 '%ld'\nCC2 '%ld'\n",
+	//printf debug ------------------------------------------------------------------------
+	printf("NO '%s'\nSO '%s'\nWE '%s'\nEA '%s'\nfC0 '%ld'\nfC1 '%ld'\nfC2 '%ld'\nCC0 '%ld'\nCC1 '%ld'\nCC2 '%ld'\nSTARTofMap '%d'\nENDofMap '%d'\n",
 	map->northTexture,
 	map->southTexture,
 	map->westTexture,
@@ -91,7 +91,25 @@ int checkContentMaster(t_map *map)
 	map->floorColor[2],
 	map->ceilingColor[0],
 	map->ceilingColor[1],
-	map->ceilingColor[2]);
+	map->ceilingColor[2],
+	map->startMapInReading,
+	map->LineOfEof);
+
+	// printf("\n\nmap (%d):\n", map->readingHead);
+	// int i = 0;
+	// int j = 0;
+	// while (map->mapInt[i] != NULL)
+	// {
+	// 	j = 0;
+	// 	while (map->mapInt[i][j] != -2)
+	// 	{
+	// 		printf(" '%d' ", map->mapInt[i][j]);
+	// 		j++;
+	// 	}
+	// 	printf("heu\n");
+	// 	i++;
+	// }
+	// ------------------------------------------------------------------------
 
 	return 0;
 }

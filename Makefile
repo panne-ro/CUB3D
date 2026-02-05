@@ -6,7 +6,8 @@ OBJ_DIR = ./objects
 SRC = 	$(SRC_DIR)/main.c \
 		$(SRC_DIR)/parsing/parsing_arg.c \
 		$(SRC_DIR)/parsing/checkmap.c \
-		$(SRC_DIR)/parsing/checkContent.c
+		$(SRC_DIR)/parsing/checkContent.c \
+		$(SRC_DIR)/parsing/parseMap.c
 
 OBJS = $(SRC:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
 
@@ -26,7 +27,7 @@ $(NAME): $(LIBFT_LIB) $(OBJS)
 	@$(CC) $(FLAGS) -o $(NAME) $(OBJS) $(LIBFT_FLAGS)
 
 $(OBJ_DIR):
-			@mkdir -p $(OBJ_DIR) 
+			@mkdir -p $(OBJ_DIR)
 
 $(LIBFT_LIB):
 	@$(MAKE) -C $(LIBFT_DIR)

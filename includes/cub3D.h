@@ -27,15 +27,15 @@ typedef struct s_map
 	size_t floorColor[3];
 	size_t ceilingColor[3];
 
-	size_t height;
-	size_t size;
-	size_t readingHead;
-	size_t startMapInReading;
+	size_t heightOfMap;
+	int LineOfEof;
+	int readingHead;
+	int startMapInReading;
 
 	bool isClosed;
 	bool isValid;
 
-	int *mapInt;
+	int **mapInt;
 
 } t_map;
 

@@ -6,7 +6,7 @@
 /*   By: mleschev <mleschev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/04 23:21:25 by mleschev          #+#    #+#             */
-/*   Updated: 2026/02/05 19:04:53 by mleschev         ###   ########.fr       */
+/*   Updated: 2026/02/05 21:15:50 by mleschev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,8 @@ char *checkContentSO(t_map *map, char *tmp, char *lineRead)
 			i++;
 		}
 		lineRead = get_next_line(map->fdMap);
-		map->readingHead++;	}
+		map->readingHead++;
+	}
 	return NULL;
 }
 
@@ -227,43 +228,4 @@ void rgbDispatchInfoFile(char *lineRead, char *tmp, int i, t_map *map, bool forC
         nbr++;
     }
 }
-
-// void parseMap(t_map *map, char *lineRead)
-// {
-// 	int i;
-// 	bool isMap;
-
-// 	isMap = false;
-// 	if (!lineRead)
-// 		return ;
-// 	while (lineRead)
-// 	{
-// 		while (lineRead[i])
-// 		{
-// 			if (lineRead[i] != ' ' && lineRead[i] != '\n')
-// 			{
-// 				isMap = true;
-// 				break ;
-// 			}
-// 			i++;
-// 		}
-// 		if (isMap)
-// 			break ;
-// 		lineRead = get_next_line(map->fdMap);
-// 		map->readingHead++;
-// 	}
-
-
-// 	while (lineRead)
-// 	{
-// 		i = 0;
-// 		while (lineRead[i])
-// 		{
-
-// 			i++;
-// 		}
-// 		lineRead = get_next_line(map->fdMap);
-// 		map->readingHead++;
-// 	}
-// } wip
 
