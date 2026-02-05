@@ -10,11 +10,14 @@ LIBFT_DIR   := ./includes/libft
 LIBFT_LIB   := $(LIBFT_DIR)/libft.a
 LIBFT_FLAGS := -L$(LIBFT_DIR) -lft
 INCLUDES := -I./includes -I./includes/libft
+MLX_DIR = includes/minilibx-linux
+MLX = $(MLX_DIR)/libmlx.a
+MLX_FLAGS = -L$(MLX_DIR) -lmlx -lXext -lX11 -lm -lz
 
 all: $(NAME)
 
-$(NAME): $(LIBFT_LIB) $(OBJ)
-			$(CC) $(FLAGS) -o $(NAME) $(OBJ) $(LIBFT_FLAGS)
+$(NAME): $(LIBFT_LIB) $(MLX) $(OBJ)
+			$(CC) $(FLAGS) -o $(NAME) $(OBJ) $(LIBFT_FLAGS) $(MLX_FLAGS)
 
 $(OBJ_DIR):
 			mkdir -p $(OBJ_DIR)
@@ -23,11 +26,14 @@ $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c | $(OBJ_DIR)
 			$(CC) $(FLAGS) $(INCLUDES) -c $< -o $@ 
 
 $(LIBFT_LIB):
-	$(MAKE) -C $(LIBFT_DIR)
+			make -C $(LIBFT_DIR)
+
+$(MLX):
+			make -C $(MLX_DIR)
 
 clean:
 			rm -f $(OBJ) | rm -rf $(OBJ_DIR)
-			$(MAKE) -C $(LIBFT_DIR) clean
+			make -C $(LIBFT_DIR) clean
 
 fclean:	clean
 			rm -f $(NAME)
