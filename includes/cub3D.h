@@ -35,7 +35,7 @@ typedef struct s_map
 	bool isClosed;
 	bool isValid;
 
-	int **mapInt;
+	char **mapChar;
 
 } t_map;
 
@@ -54,9 +54,11 @@ char *checkContentSO(t_map *map, char *tmp, char *lineRead);
 char *checkContentWE(t_map *map, char *tmp, char *lineRead);
 char *checkContentEA(t_map *map, char *tmp, char *lineRead);
 
-void checkContentFC(int fd, char *tmp, char *lineRead, t_map *map);
-void checkContentCC(int fd, char *tmp, char *lineRead, t_map *map);
+void checkContentFC(char *tmp, char *lineRead, t_map *map);
+void checkContentCC(char *tmp, char *lineRead, t_map *map);
 void rgbDispatchInfoFile(char *lineRead, char *tmp, int i, t_map *map, bool forCeiling);
 void parseMap(t_map *map, char *lineRead);
 
-#endif
+char *readAndCleanLine(char *lineRead, t_map *map);
+
+# endif

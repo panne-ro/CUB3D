@@ -6,7 +6,7 @@
 /*   By: mleschev <mleschev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/03 18:02:13 by mleschev          #+#    #+#             */
-/*   Updated: 2026/02/05 22:21:56 by mleschev         ###   ########.fr       */
+/*   Updated: 2026/02/06 17:06:22 by mleschev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void initMapStruct(t_map *map, char *pathToMap)
 
 	map->filePath = pathToMap;
 	map->fdMap = -1;
-	map->mapInt = NULL;
+	map->mapChar = NULL;
 	map->readingHead = 0;
 
 	while (i++ < 3)
@@ -57,9 +57,28 @@ int checkmap(t_map *map)
 	checkContentMaster(map);
 
 	return 0;
+}
 
+// function for recall get_next_line into lineRead and change the \n to \0
+char *readAndCleanLine(char *lineRead, t_map *map)
+{
+	int i;
 
-
+	i = 0;
+	lineRead = get_next_line(map->fdMap);
+	if (!lineRead)
+		return lineRead;
+	map->readingHead++;
+	while (lineRead[i])
+	{
+		if (lineRead[i] == '\n')
+		{
+			lineRead[i] = 0;
+			break ;
+		}
+		i++;
+	}
+	return (lineRead);
 }
 
 // baise ta mere c'est ecrit dans le nom
@@ -68,16 +87,15 @@ int checkContentMaster(t_map *map)
 	char tmp[1000];
 	char *lineRead;
 
-	map->readingHead++;
-	lineRead = get_next_line(map->fdMap);
+	lineRead = NULL;
+	lineRead = readAndCleanLine(lineRead, map);
 	map->northTexture = checkContentNO(map, tmp, lineRead);
 	map->southTexture = checkContentSO(map, tmp, lineRead);
 	map->westTexture = checkContentWE(map, tmp, lineRead);
 	map->eastTexture = checkContentEA(map, tmp, lineRead);
-	checkContentFC(map->fdMap, tmp, lineRead, map);
-	checkContentCC(map->fdMap, tmp, lineRead, map);
-	lineRead = get_next_line(map->fdMap);
-	map->readingHead++;
+	checkContentFC(tmp, lineRead, map);
+	checkContentCC(tmp, lineRead, map);
+	lineRead = readAndCleanLine(lineRead, map);
 	parseMap(map, lineRead);
 
 	//printf debug ------------------------------------------------------------------------
@@ -98,15 +116,11 @@ int checkContentMaster(t_map *map)
 	printf("\n\nmap (%d):\n", map->readingHead);
 	int i = 0;
 	int j = 0;
-	while (map->mapInt[i] != NULL)
+	while (map->mapChar[i])
 	{
 		j = 0;
-		while (map->mapInt[i][j] != -2)
-		{
-			printf(" '%d' ", map->mapInt[i][j]);
-			j++;
-		}
-		printf("heu\n");
+		printf(" '%s' ", map->mapChar[i]);
+		printf("\n");
 		i++;
 	}
 	// ------------------------------------------------------------------------

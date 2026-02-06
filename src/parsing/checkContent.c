@@ -6,7 +6,7 @@
 /*   By: mleschev <mleschev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/04 23:21:25 by mleschev          #+#    #+#             */
-/*   Updated: 2026/02/05 21:15:50 by mleschev         ###   ########.fr       */
+/*   Updated: 2026/02/06 16:31:44 by mleschev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,7 @@ char *checkContentNO(t_map *map, char *tmp, char *lineRead)
 			}
 			i++;
 		}
-		lineRead = get_next_line(map->fdMap);
-		map->readingHead++;
+		lineRead = readAndCleanLine(lineRead, map);
 	}
 	return NULL;
 }
@@ -65,8 +64,7 @@ char *checkContentSO(t_map *map, char *tmp, char *lineRead)
 			}
 			i++;
 		}
-		lineRead = get_next_line(map->fdMap);
-		map->readingHead++;
+		lineRead = readAndCleanLine(lineRead, map);
 	}
 	return NULL;
 }
@@ -94,8 +92,7 @@ char *checkContentWE(t_map *map, char *tmp, char *lineRead)
 			}
 			i++;
 		}
-		lineRead = get_next_line(map->fdMap);
-		map->readingHead++;
+		lineRead = readAndCleanLine(lineRead, map);
 	}
 	return NULL;
 }
@@ -123,13 +120,12 @@ char *checkContentEA(t_map *map, char *tmp, char *lineRead)
 			}
 			i++;
 		}
-		lineRead = get_next_line(map->fdMap);
-		map->readingHead++;
+		lineRead = readAndCleanLine(lineRead, map);
 	}
 	return NULL;
 }
 //sub fonction of checkcontentmaster resturn all of rgb in array of t_map for the floor
-void checkContentFC(int fd, char *tmp, char *lineRead, t_map *map)
+void checkContentFC(char *tmp, char *lineRead, t_map *map)
 { //faut faire bellek ya pas les erreurs d'over-nombre pour l'instant (F 0,250,300,54654,484,31,5156,4,51,48,4,3,84,5)
 	int i;
 
@@ -152,12 +148,11 @@ void checkContentFC(int fd, char *tmp, char *lineRead, t_map *map)
 			}
 			i++;
 		}
-		lineRead = get_next_line(fd);
-		map->readingHead++;
+		lineRead = readAndCleanLine(lineRead, map);
 	}
 }
 //sub fonction of checkcontentmaster resturn all of rgb in array of t_map for the ceiling
-void checkContentCC(int fd, char *tmp, char *lineRead, t_map *map)
+void checkContentCC(char *tmp, char *lineRead, t_map *map)
 { //faut faire bellek ya pas les erreurs d'over-nombre pour l'instant (F 0,250,300,54654,484,31,5156,4,51,48,4,3,84,5)
 	int i;
 
@@ -180,8 +175,7 @@ void checkContentCC(int fd, char *tmp, char *lineRead, t_map *map)
 			}
 			i++;
 		}
-		lineRead = get_next_line(fd);
-		map->readingHead++;
+		lineRead = readAndCleanLine(lineRead, map);
 	}
 }
 
@@ -191,7 +185,7 @@ char *copyContent(char *lineRead, char *tmp, int i)
 	int j;
     char *result;
 	j = 0;
-	while (lineRead[i] && lineRead[i] != '\n')
+	while (lineRead[i])
 	{
 		tmp[j] = lineRead[i];
 		j++;
@@ -210,10 +204,10 @@ void rgbDispatchInfoFile(char *lineRead, char *tmp, int i, t_map *map, bool forC
 
     nbr = 0;
 
-    while (lineRead[i] && lineRead[i] != '\n' && nbr < 3)
+    while (lineRead[i] && nbr < 3)
     {
         j = 0;
-        while (lineRead[i] && lineRead[i] != '\n' && lineRead[i] != ',')
+        while (lineRead[i] && lineRead[i] != ',')
         {
             tmp[j] = lineRead[i];
             j++;
