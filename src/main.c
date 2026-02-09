@@ -6,7 +6,7 @@
 /*   By: panne-ro <panne-ro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/03 17:05:20 by panne-ro          #+#    #+#             */
-/*   Updated: 2026/02/03 18:40:11 by panne-ro         ###   ########.fr       */
+/*   Updated: 2026/02/09 11:48:51 by panne-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,16 @@
 
 int main(int argc, char **argv)
 {
-	if (parse(argc, argv) == 1)
+	if (checkArg(argc, argv) == 1)
 		return (1);
-	printf("%s", argv[1]);
-	if (argc == 1)
-		printf("kk\n");
+	printf("%s\n", argv[1]);
+
 	t_map *map;
-	initMapStruct(map);
+	map = malloc(sizeof(t_map));
+
+	initMapStruct(map, argv[1]);
+
+	checkmap(map);
+
 	return (0);
 }
