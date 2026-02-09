@@ -9,9 +9,7 @@
 #include <fcntl.h>
 
 #include "./libft/libft.h"
-
-int		extensionCheck(char *str);
-int		checkArg(int argc, char **argv);
+#include "./minilibx-linux/mlx.h"
 
 // struct for map with all his data's like gov.site for j
 typedef struct s_map
@@ -47,6 +45,8 @@ typedef struct s_mlx
 
 
 // parsing:
+int		extensionCheck(char *str);
+int		checkArg(int argc, char **argv);
 
 void initMapStruct(t_map *map, char *pathToMapFile);
 int checkContentMaster(t_map *map);
