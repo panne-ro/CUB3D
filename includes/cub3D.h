@@ -23,7 +23,7 @@ typedef struct s_map
 	char *southTexture;
 	char *westTexture;
 	char *eastTexture;
-
+	
 	size_t floorColor[3];
 	size_t ceilingColor[3];
 
@@ -38,6 +38,13 @@ typedef struct s_map
 	char **mapChar;
 
 } t_map;
+
+typedef struct s_mlx
+{
+	void	*mlx;
+	void	*window;
+} t_mlx;
+
 
 // parsing:
 

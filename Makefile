@@ -20,6 +20,9 @@ LIBFT_DIR   := ./includes/libft
 LIBFT_LIB   := $(LIBFT_DIR)/libft.a
 LIBFT_FLAGS := -L$(LIBFT_DIR) -lft
 INCLUDES := -I./includes -I./includes/libft
+MLX_DIR = includes/minilibx-linux
+MLX = $(MLX_DIR)/libmlx.a
+MLX_FLAGS = -L$(MLX_DIR) -lmlx -lXext -lX11 -lm -lz
 
 all: $(NAME)
 
