@@ -6,7 +6,7 @@
 /*   By: mleschev <mleschev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/05 21:15:12 by mleschev          #+#    #+#             */
-/*   Updated: 2026/02/09 12:09:02 by mleschev         ###   ########.fr       */
+/*   Updated: 2026/02/10 00:08:30 by mleschev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,14 @@
 //check map in map file return a bool for error like:
 //true = error find
 //false = map is ok
-bool checkMap(t_map *map, char *lineRead)
+bool checkMap(t_map *map)
 {
 	int i;
 	int test;
 	test = 0;
+	char *lineRead = NULL;
+
+	lineRead = readAndCleanLine(lineRead, map);
 	while (lineRead)
 	{
 		i = 0;
@@ -36,19 +39,23 @@ bool checkMap(t_map *map, char *lineRead)
 				printf("TEMP: Error map in map file invalid, i:%d, mapread:%d\n", i, map->readingHead); //temporaire
 				return true;
 			}
-			if (lineRead[i] != 'S' && lineRead[i] != 'W' && lineRead[i] != 'E' && lineRead[i] != 'N')
+			if (lineRead[i] == 'S' || lineRead[i] == 'W' || lineRead[i] == 'E' || lineRead[i] == 'N')
 				test++;
 			i++;
 		}
+		free(lineRead);
 		lineRead = readAndCleanLine(lineRead, map);
 	}
 	if (test > 1)
 		return true;
+
 	return false;
 }
 
-char *putReadingHeadInPlace(t_map *map, char *lineRead)
+char *putReadingHeadInPlace(t_map *map)
 {
+	char *lineRead = NULL;
+
 	map->LineOfEof = map->readingHead;
 	close(map->fdMap);
 	map->fdMap = open(map->filePath, O_RDONLY);
@@ -58,22 +65,26 @@ char *putReadingHeadInPlace(t_map *map, char *lineRead)
 
 	//on se remet a la bonne positions dans le fichier
 	while (lineRead && map->readingHead < map->startMapInReading)
+	{
+		free(lineRead);
 		lineRead = readAndCleanLine(lineRead, map);
+	}
 	return (lineRead);
 }
 
 // sub_function for parse map only in map file return in map->
-void parseMap(t_map *map, char *lineRead)
+void parseMap(t_map *map)
 {
 	int i;
 	int j;
 	j = 0;
+	char *lineRead = NULL;
 
 	//on cherche quand la map commence et la fin du fichier + check erreur sur la map
-	if (checkMap(map, lineRead))
+	if (checkMap(map))
 		return ;
-	lineRead = putReadingHeadInPlace(map, lineRead);
-	map->mapChar = malloc(sizeof(char *) * (map->LineOfEof - map->startMapInReading + 1));
+	lineRead = putReadingHeadInPlace(map);
+	map->mapChar = malloc(sizeof(char *) * (map->LineOfEof - map->startMapInReading + 2));
 	if (!map->mapChar)
 		printf("TEMP malloc parseMap.c defaut\n");//temp
 
@@ -91,8 +102,10 @@ void parseMap(t_map *map, char *lineRead)
 			i++;
 		}
 		map->mapChar[j][i] = '\0';
+		free(lineRead);
 		lineRead = readAndCleanLine(lineRead, map);
 		j++;
 	}
 	map->mapChar[j] = NULL;
+	free(lineRead);
 }

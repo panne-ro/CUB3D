@@ -6,7 +6,7 @@
 /*   By: mleschev <mleschev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/04 23:21:25 by mleschev          #+#    #+#             */
-/*   Updated: 2026/02/06 16:31:44 by mleschev         ###   ########.fr       */
+/*   Updated: 2026/02/10 00:11:14 by mleschev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,12 @@
 #include "../../includes/cub3D.h"
 
 // a sub_functions for find NO in files and returns texture of north (NO ./holakalainorth.texture)
-char *checkContentNO(t_map *map, char *tmp, char *lineRead)
+char *checkContentNO(t_map *map, char *tmp)
 {
 	int i;
+	char *lineRead = NULL;
 
-	if (!lineRead)
-		return NULL;
+	lineRead = readAndCleanLine(lineRead, map);
 	while (lineRead)
 	{
 		i = 0;
@@ -36,18 +36,20 @@ char *checkContentNO(t_map *map, char *tmp, char *lineRead)
 			}
 			i++;
 		}
+		free(lineRead);
 		lineRead = readAndCleanLine(lineRead, map);
 	}
+	free(lineRead);
 	return NULL;
 }
 
 // a sub_functions for find SO in files and returns texture of south (NO ./ilovepdfsouth.texture)
-char *checkContentSO(t_map *map, char *tmp, char *lineRead)
+char *checkContentSO(t_map *map, char *tmp)
 {
 	int i;
+	char *lineRead = NULL;
 
-	if (!lineRead)
-		return NULL;
+	lineRead = readAndCleanLine(lineRead, map);
 	while (lineRead)
 	{
 		i = 0;
@@ -64,18 +66,21 @@ char *checkContentSO(t_map *map, char *tmp, char *lineRead)
 			}
 			i++;
 		}
+		free(lineRead);
 		lineRead = readAndCleanLine(lineRead, map);
 	}
+	free(lineRead);
 	return NULL;
 }
 
 // a sub_functions for find WE in files and returns texture of west (WE ./westside.2pac.bigi...texture)
-char *checkContentWE(t_map *map, char *tmp, char *lineRead)
+char *checkContentWE(t_map *map, char *tmp)
 {
 	int i;
+	char *lineRead = NULL;
 
-	if (!lineRead)
-		return NULL;
+	lineRead = readAndCleanLine(lineRead, map);
+
 	while (lineRead)
 	{
 		i = 0;
@@ -92,18 +97,21 @@ char *checkContentWE(t_map *map, char *tmp, char *lineRead)
 			}
 			i++;
 		}
+		free(lineRead);
 		lineRead = readAndCleanLine(lineRead, map);
 	}
+	free(lineRead);
 	return NULL;
 }
 
 // a sub_functions for find EA in files and returns texture of east (EA ./bigchybreeastcost.texture)
-char *checkContentEA(t_map *map, char *tmp, char *lineRead)
+char *checkContentEA(t_map *map, char *tmp)
 {
 	int i;
+	char *lineRead = NULL;
 
-	if (!lineRead)
-		return NULL;
+	lineRead = readAndCleanLine(lineRead, map);
+
 	while (lineRead)
 	{
 		i = 0;
@@ -120,17 +128,20 @@ char *checkContentEA(t_map *map, char *tmp, char *lineRead)
 			}
 			i++;
 		}
+		free(lineRead);
 		lineRead = readAndCleanLine(lineRead, map);
 	}
+	free(lineRead);
 	return NULL;
 }
 //sub fonction of checkcontentmaster resturn all of rgb in array of t_map for the floor
-void checkContentFC(char *tmp, char *lineRead, t_map *map)
+void checkContentFC(char *tmp, t_map *map)
 { //faut faire bellek ya pas les erreurs d'over-nombre pour l'instant (F 0,250,300,54654,484,31,5156,4,51,48,4,3,84,5)
 	int i;
+	char *lineRead = NULL;
 
-	if (!lineRead)
-		return ;
+	lineRead = readAndCleanLine(lineRead, map);
+
 	while (lineRead)
 	{
 		i = 0;
@@ -148,16 +159,19 @@ void checkContentFC(char *tmp, char *lineRead, t_map *map)
 			}
 			i++;
 		}
+		free(lineRead);
 		lineRead = readAndCleanLine(lineRead, map);
 	}
+	free(lineRead);
 }
 //sub fonction of checkcontentmaster resturn all of rgb in array of t_map for the ceiling
-void checkContentCC(char *tmp, char *lineRead, t_map *map)
+void checkContentCC(char *tmp, t_map *map)
 { //faut faire bellek ya pas les erreurs d'over-nombre pour l'instant (F 0,250,300,54654,484,31,5156,4,51,48,4,3,84,5)
 	int i;
+	char *lineRead = NULL;
 
-	if (!lineRead)
-		return ;
+	lineRead = readAndCleanLine(lineRead, map);
+
 	while (lineRead)
 	{
 		i = 0;
@@ -175,8 +189,10 @@ void checkContentCC(char *tmp, char *lineRead, t_map *map)
 			}
 			i++;
 		}
+		free(lineRead);
 		lineRead = readAndCleanLine(lineRead, map);
 	}
+	free(lineRead);
 }
 
 // a sub_functions for CheckContent_XXXX, copy a string in file at lineread[i] to tmp and return it (to free)
@@ -194,6 +210,7 @@ char *copyContent(char *lineRead, char *tmp, int i)
 	tmp[j] = 0;
     result = malloc(sizeof(char) * (j + 1));
     ft_strlcpy(result, tmp, j + 1);
+	free(lineRead);
 	return result;
 }
 // sub fonction for dispatch rgb (floor or ceiling) into t_map data
@@ -221,5 +238,6 @@ void rgbDispatchInfoFile(char *lineRead, char *tmp, int i, t_map *map, bool forC
         i++;
         nbr++;
     }
+	free(lineRead);
 }
 

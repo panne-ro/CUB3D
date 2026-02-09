@@ -6,14 +6,14 @@
 /*   By: mleschev <mleschev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/03 18:02:13 by mleschev          #+#    #+#             */
-/*   Updated: 2026/02/06 17:06:22 by mleschev         ###   ########.fr       */
+/*   Updated: 2026/02/10 00:02:29 by mleschev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3D.h"
 
 
-// take a *t_map, the path for map and init all the value at NULL or -1
+// take a *t_map, the path for map and init all the value at NULL or -1 and pass into checkmap()
 void initMapStruct(t_map *map, char *pathToMap)
 {
 	int i;
@@ -40,6 +40,8 @@ void initMapStruct(t_map *map, char *pathToMap)
 
 	map->isValid = false;
 	map->isClosed = false;
+
+	checkmap(map);
 }
 
 
@@ -85,18 +87,14 @@ char *readAndCleanLine(char *lineRead, t_map *map)
 int checkContentMaster(t_map *map)
 {
 	char tmp[1000];
-	char *lineRead;
 
-	lineRead = NULL;
-	lineRead = readAndCleanLine(lineRead, map);
-	map->northTexture = checkContentNO(map, tmp, lineRead);
-	map->southTexture = checkContentSO(map, tmp, lineRead);
-	map->westTexture = checkContentWE(map, tmp, lineRead);
-	map->eastTexture = checkContentEA(map, tmp, lineRead);
-	checkContentFC(tmp, lineRead, map);
-	checkContentCC(tmp, lineRead, map);
-	lineRead = readAndCleanLine(lineRead, map);
-	parseMap(map, lineRead);
+	map->northTexture = checkContentNO(map, tmp);
+	map->southTexture = checkContentSO(map, tmp);
+	map->westTexture = checkContentWE(map, tmp);
+	map->eastTexture = checkContentEA(map, tmp);
+	checkContentFC(tmp, map);
+	checkContentCC(tmp, map);
+	parseMap(map);
 
 	//printf debug ------------------------------------------------------------------------
 	printf("NO '%s'\nSO '%s'\nWE '%s'\nEA '%s'\nfC0 '%ld'\nfC1 '%ld'\nfC2 '%ld'\nCC0 '%ld'\nCC1 '%ld'\nCC2 '%ld'\nSTARTofMap '%d'\nENDofMap '%d'\n",

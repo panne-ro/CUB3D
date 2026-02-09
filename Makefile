@@ -29,6 +29,9 @@ all: $(NAME)
 $(NAME): $(LIBFT_LIB) $(OBJS)
 	@$(CC) $(FLAGS) -o $(NAME) $(OBJS) $(LIBFT_FLAGS)
 
+test: $(LIBFT_LIB) $(OBJS)
+	@$(CC) -o $(NAME) $(OBJS) $(LIBFT_FLAGS)
+
 $(OBJ_DIR):
 			@mkdir -p $(OBJ_DIR)
 

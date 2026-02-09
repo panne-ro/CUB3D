@@ -56,15 +56,15 @@ int checkmap(t_map *map);
 
 // checkcontent.c
 
-char *checkContentNO(t_map *map, char *tmp, char *lineRead);
-char *checkContentSO(t_map *map, char *tmp, char *lineRead);
-char *checkContentWE(t_map *map, char *tmp, char *lineRead);
-char *checkContentEA(t_map *map, char *tmp, char *lineRead);
+char *checkContentNO(t_map *map, char *tmp);
+char *checkContentSO(t_map *map, char *tmp);
+char *checkContentWE(t_map *map, char *tmp);
+char *checkContentEA(t_map *map, char *tmp);
 
-void checkContentFC(char *tmp, char *lineRead, t_map *map);
-void checkContentCC(char *tmp, char *lineRead, t_map *map);
+void checkContentFC(char *tmp, t_map *map);
+void checkContentCC(char *tmp, t_map *map);
 void rgbDispatchInfoFile(char *lineRead, char *tmp, int i, t_map *map, bool forCeiling);
-void parseMap(t_map *map, char *lineRead);
+void parseMap(t_map *map);
 
 char *readAndCleanLine(char *lineRead, t_map *map);
 
