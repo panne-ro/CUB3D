@@ -9,7 +9,7 @@
 #include <fcntl.h>
 
 #include "./libft/libft.h"
-#include "./minilibx-linux/mlx.h"
+// #include "./minilibx-linux/mlx.h"
 
 // struct for map with all his data's like gov.site for j
 typedef struct s_map
@@ -21,7 +21,7 @@ typedef struct s_map
 	char *southTexture;
 	char *westTexture;
 	char *eastTexture;
-	
+
 	size_t floorColor[3];
 	size_t ceilingColor[3];
 
