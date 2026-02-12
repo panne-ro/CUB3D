@@ -9,28 +9,28 @@ Usage : Projets pédagogiques (42 et similaires)
 
 # Table des matières
 
-1.  Introduction
-2.  Architecture X11 et fonctionnement interne
-3.  Initialisation de la bibliothèque
-4.  Gestion des fenêtres
-5.  Dessin direct dans une fenêtre
-6.  Gestion avancée des couleurs
-7.  Images et buffers mémoire (méthode recommandée)
-8.  Gestion complète de la mémoire image
-9.  Chargement d'images XPM
-10. Boucle d'événements
-11. Gestion des hooks (événements)
-12. Gestion avancée des événements X11
-13. Endianness et représentation mémoire
-14. Compilation et linkage
-15. Architecture interne de MiniLibX
-16. Bonnes pratiques et optimisation
-17. Erreurs fréquentes et debugging
-18. Tableau récapitulatif des fonctions
+1. [Introduction](#introduction)
+2. [Architecture](#architecture)
+3. [Initialisation de la bibliothèque](#initialisation-de-la-bibliothèque)
+4. [Gestion des fenêtres](#gestion-des-fenêtres)
+5. [Dessin direct dans une fenêtre](#dessin-direct-dans-une-fenetre)
+6. [Gestion avancée des couleurs](#gestion-avancee-des-couleurs)
+7. [Images et buffers mémoire (méthode recommandée)](#images-et-buffers-memoire)
+8. [Gestion complète de la mémoire image](#gestion-complete-de-la-memoire-image)
+9. [Chargement d'images XPM](#images-xpm)
+10. [Boucle d'événements](#boucle-evenements)
+11. [Gestion des hooks (événements)](#hooks)
+12. [Gestion avancée des événements X11](#gestion-avancee-des-evenements-x11)
+13. [Endianness et représentation mémoire](#endianness-et-representation-memoire)
+14. [Compilation et linkage](#compilation-et-linkage)
+15. [Architecture interne de MiniLibX](#architecture-interne-de-minilibX)
+16. [Bonnes pratiques et optimisation](#bonnes-pratiques-et-optimisation)
+17. [Erreurs fréquentes et debugging](#erreurs-frequentes-et-debugging)
+18. [Tableau récapitulatif des fonctions](#tableau-recapitulatif-des-fonctions)
 
 ------------------------------------------------------------------------
 
-# 1. Introduction
+# Introduction
 
 MiniLibX est une bibliothèque graphique minimaliste construite au-dessus
 de Xlib (X11).\
@@ -55,7 +55,7 @@ MiniLibX ne fournit pas :
 
 ------------------------------------------------------------------------
 
-# 2. Architecture X11
+# Architecture
 
 X11 fonctionne selon un modèle client/serveur.
 
@@ -73,7 +73,7 @@ void *mlx_init(void);
 
 ------------------------------------------------------------------------
 
-# 3. Initialisation
+# Initialisation de la bibliothèque
 
 ## Prototype
 
@@ -94,7 +94,7 @@ Ce pointeur est obligatoire pour toutes les autres fonctions.
 
 ------------------------------------------------------------------------
 
-# 4. Gestion des fenêtres
+# Gestion des fenêtres
 
 ## Création
 
@@ -124,7 +124,7 @@ Libère la fenêtre côté serveur.
 
 ------------------------------------------------------------------------
 
-# 5. Dessin direct (méthode lente)
+# Dessin direct dans une fenetre
 
 ## Pixel
 
@@ -148,7 +148,7 @@ Affiche une chaîne de caractères.
 
 ------------------------------------------------------------------------
 
-# 6. Gestion des couleurs
+# Gestion avancee des couleurs
 
 Format standard :
 
@@ -176,7 +176,7 @@ Convertit la couleur vers le format du serveur si nécessaire.
 
 ------------------------------------------------------------------------
 
-# 7. Images (méthode recommandée)
+# Images et buffers memoire
 
 La bonne pratique consiste à :
 
@@ -211,7 +211,7 @@ Variables remplies :
 
 ------------------------------------------------------------------------
 
-# 8. Manipulation mémoire image
+# Gestion complete de la memoire image
 
 Formule d'accès pixel :
 
@@ -244,7 +244,7 @@ int mlx_destroy_image(void *mlx_ptr, void *img_ptr);
 
 ------------------------------------------------------------------------
 
-# 9. Images XPM
+# Images XPM
 
 MiniLibX supporte partiellement XPM.
 
@@ -274,7 +274,7 @@ Support : - Transparence - Format XPM uniquement
 
 ------------------------------------------------------------------------
 
-# 10. Boucle principale
+# Boucle evenements
 
 ``` c
 int mlx_loop(void *mlx_ptr);
@@ -287,7 +287,7 @@ Répète
 
 ------------------------------------------------------------------------
 
-# 11. Hooks standards
+# Hooks
 
 ## Clavier
 
@@ -333,7 +333,7 @@ Utilisé pour : - Animation - Raycasting - Moteur de jeu simple
 
 ------------------------------------------------------------------------
 
-# 12. Hook générique X11
+# Hook générique X11
 
 ``` c
 int mlx_hook(void *win_ptr, int event, int mask, int (*f)(), void *param);
@@ -360,7 +360,7 @@ Important si serveur distant.
 
 ------------------------------------------------------------------------
 
-# 14. Compilation
+# Compilation
 
 ## Linux
 
@@ -376,7 +376,7 @@ gcc main.c -Lmlx -lmlx -lXext -lX11
 
 ------------------------------------------------------------------------
 
-# 15. Architecture interne
+# Architecture interne
 
 MiniLibX encapsule :
 
@@ -389,7 +389,7 @@ C'est un wrapper léger autour de Xlib.
 
 ------------------------------------------------------------------------
 
-# 16. Bonnes pratiques
+# Bonnes pratiques
 
 -   Ne jamais utiliser mlx_pixel_put pour du rendu massif
 -   Toujours utiliser un buffer image
@@ -399,7 +399,7 @@ C'est un wrapper léger autour de Xlib.
 
 ------------------------------------------------------------------------
 
-# 17. Erreurs fréquentes
+# Erreurs fréquentes
 
 -   Segfault → mauvais offset mémoire
 -   Image noire → oubli mlx_put_image_to_window
@@ -408,7 +408,7 @@ C'est un wrapper léger autour de Xlib.
 
 ------------------------------------------------------------------------
 
-# 18. Tableau récapitulatif
+# Tableau récapitulatif
 
   Catégorie   Fonction
   ----------- -------------------------
