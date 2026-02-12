@@ -1,175 +1,232 @@
-MiniLibX – Manuel Développeur Complet
+# MiniLibX -- Manuel Développeur Complet (Version Linux X11)
 
-Version Linux (X11)
-Auteur original : Olivier Crouzet
-Bibliothèque minimale graphique pour projets pédagogiques
+Auteur original : Olivier Crouzet\
+Bibliothèque : MiniLibX (MLX)\
+Plateforme : Linux (X11)\
+Usage : Projets pédagogiques (42 et similaires)
 
-Table des matières
+------------------------------------------------------------------------
 
-Architecture générale
+# Table des matières
 
-Initialisation
+1.  Introduction
+2.  Architecture X11 et fonctionnement interne
+3.  Initialisation de la bibliothèque
+4.  Gestion des fenêtres
+5.  Dessin direct dans une fenêtre
+6.  Gestion avancée des couleurs
+7.  Images et buffers mémoire (méthode recommandée)
+8.  Gestion complète de la mémoire image
+9.  Chargement d'images XPM
+10. Boucle d'événements
+11. Gestion des hooks (événements)
+12. Gestion avancée des événements X11
+13. Endianness et représentation mémoire
+14. Compilation et linkage
+15. Architecture interne de MiniLibX
+16. Bonnes pratiques et optimisation
+17. Erreurs fréquentes et debugging
+18. Tableau récapitulatif des fonctions
 
-Gestion des fenêtres
+------------------------------------------------------------------------
 
-Dessin direct
+# 1. Introduction
 
-Gestion des images (buffer mémoire)
+MiniLibX est une bibliothèque graphique minimaliste construite au-dessus
+de Xlib (X11).\
+Elle permet de créer des fenêtres, dessiner des pixels, manipuler des
+images et gérer les événements clavier/souris.
 
-Gestion des couleurs
+Elle est volontairement simple afin d'obliger le développeur à
+comprendre :
 
-Chargement XPM
+-   La mémoire
+-   Les buffers graphiques
+-   L'architecture événementielle
+-   Le rendu logiciel
 
-Boucle événementielle
+MiniLibX ne fournit pas :
 
-Hooks d’événements
+-   Accélération GPU
+-   Double buffering automatique
+-   Gestion FPS
+-   Thread safety
+-   Support PNG/JPEG natif
 
-Hook générique X11
+------------------------------------------------------------------------
 
-Architecture interne (fonctionnement bas niveau)
+# 2. Architecture X11
 
-Modèle mémoire des images
+X11 fonctionne selon un modèle client/serveur.
 
-Gestion endian
+-   Votre programme = client
+-   X Server = serveur graphique
 
-Compilation et linking
+Votre programme envoie des requêtes de dessin. Le serveur envoie des
+événements (clavier, souris, expose, fermeture).
 
-Limitations connues
+La connexion est ouverte via :
 
-Tableau complet des fonctions
-
-1. Architecture générale
-
-MiniLibX est un wrapper minimal autour de Xlib (X11).
-
-Elle fournit :
-
-Gestion connexion serveur X
-
-Création de fenêtres
-
-Dessin pixel
-
-Images mémoire
-
-Gestion événements clavier/souris
-
-Accès partiel aux événements X11
-
-Elle ne fournit pas :
-
-Primitive graphique avancée
-
-Double buffering automatique
-
-Gestion FPS
-
-Pipeline graphique
-
-Accélération GPU directe
-
-2. Initialisation
-mlx_init
+``` c
 void *mlx_init(void);
+```
 
-Description
+------------------------------------------------------------------------
 
-Initialise la connexion vers le serveur X.
+# 3. Initialisation
 
-Retour
+## Prototype
 
-NULL si échec
+``` c
+void *mlx_init(void);
+```
 
-pointeur interne de contexte (mlx_ptr)
+## Description
 
-Rôle interne
+Initialise la connexion avec le serveur X.
 
-Appel XOpenDisplay
+## Retour
 
-Création contexte interne MLX
+-   NULL en cas d'échec
+-   Un pointeur valide (mlx_ptr) sinon
 
-Initialisation structures internes
+Ce pointeur est obligatoire pour toutes les autres fonctions.
 
-3. Gestion des fenêtres
-mlx_new_window
+------------------------------------------------------------------------
+
+# 4. Gestion des fenêtres
+
+## Création
+
+``` c
 void *mlx_new_window(void *mlx_ptr, int width, int height, char *title);
+```
 
-Description
+Crée une fenêtre.
 
-Crée une fenêtre X11.
+Retour : - NULL si erreur - win_ptr sinon
 
-Paramètres
-Paramètre	Description
-mlx_ptr	Contexte MLX
-width	Largeur
-height	Hauteur
-title	Titre fenêtre
-Retour
+## Nettoyage
 
-NULL si échec
-
-pointeur fenêtre (win_ptr)
-
-mlx_clear_window
+``` c
 int mlx_clear_window(void *mlx_ptr, void *win_ptr);
+```
 
+Efface la fenêtre (noir).
 
-Efface la fenêtre en noir.
+## Destruction
 
-mlx_destroy_window
+``` c
 int mlx_destroy_window(void *mlx_ptr, void *win_ptr);
+```
 
+Libère la fenêtre côté serveur.
 
-Détruit la fenêtre X11 associée.
+------------------------------------------------------------------------
 
-4. Dessin direct
-mlx_pixel_put
+# 5. Dessin direct (méthode lente)
+
+## Pixel
+
+``` c
 int mlx_pixel_put(void *mlx_ptr, void *win_ptr, int x, int y, int color);
+```
 
-Description
+Chaque appel communique avec X11. Très lent → déconseillé pour rendu
+temps réel.
 
-Dessine un pixel via XDrawPoint.
+Coordonnées : - Origine en haut à gauche - X vers la droite - Y vers le
+bas
 
-Limitation
+## Texte
 
-Chaque appel = communication X11 → lent.
-
-mlx_string_put
+``` c
 int mlx_string_put(void *mlx_ptr, void *win_ptr, int x, int y, int color, char *str);
+```
 
+Affiche une chaîne de caractères.
 
-Affiche texte via XDrawString.
+------------------------------------------------------------------------
 
-5. Gestion des images (mode recommandé)
-mlx_new_image
+# 6. Gestion des couleurs
+
+Format standard :
+
+    0xRRGGBB
+
+Organisation mémoire (32 bits) :
+
+    | 00 | RR | GG | BB |
+
+Exemple :
+
+``` c
+int rouge = 0xFF0000;
+int vert  = 0x00FF00;
+int bleu  = 0x0000FF;
+```
+
+## Conversion serveur
+
+``` c
+unsigned int mlx_get_color_value(void *mlx_ptr, int color);
+```
+
+Convertit la couleur vers le format du serveur si nécessaire.
+
+------------------------------------------------------------------------
+
+# 7. Images (méthode recommandée)
+
+La bonne pratique consiste à :
+
+1.  Créer une image
+2.  Modifier son buffer mémoire
+3.  L'afficher en une seule fois
+
+## Création
+
+``` c
 void *mlx_new_image(void *mlx_ptr, int width, int height);
+```
 
+## Accès aux données
 
-Crée un buffer image côté client.
-
-mlx_get_data_addr
+``` c
 char *mlx_get_data_addr(
     void *img_ptr,
     int *bits_per_pixel,
     int *size_line,
     int *endian
 );
+```
 
-Retour
-Variable	Description
-bits_per_pixel	Profondeur (souvent 32)
-size_line	Octets par ligne
-endian	0 = little, 1 = big
+Renvoie un pointeur vers la mémoire brute.
 
-Retourne pointeur brut vers buffer mémoire.
+Variables remplies :
 
-Accès pixel mémoire
-char *pixel;
+-   bits_per_pixel
+-   size_line (octets par ligne)
+-   endian
 
-pixel = addr + (y * line_len + x * (bpp / 8));
-*(unsigned int *)pixel = color;
+------------------------------------------------------------------------
 
-mlx_put_image_to_window
+# 8. Manipulation mémoire image
+
+Formule d'accès pixel :
+
+``` c
+char *dst = addr + (y * size_line + x * (bits_per_pixel / 8));
+*(unsigned int *)dst = color;
+```
+
+Formule mathématique :
+
+    offset = y * size_line + x * (bits_per_pixel / 8)
+
+## Affichage image
+
+``` c
 int mlx_put_image_to_window(
     void *mlx_ptr,
     void *win_ptr,
@@ -177,244 +234,208 @@ int mlx_put_image_to_window(
     int x,
     int y
 );
+```
 
+## Destruction
 
-Copie le buffer image vers la fenêtre.
-
-mlx_destroy_image
+``` c
 int mlx_destroy_image(void *mlx_ptr, void *img_ptr);
+```
 
+------------------------------------------------------------------------
 
-Libère image.
+# 9. Images XPM
 
-6. Gestion des couleurs
+MiniLibX supporte partiellement XPM.
 
-Format standard :
+## Depuis un fichier
 
-0xRRGGBB
-
-
-Structure mémoire :
-
-| 0 | R | G | B |
-
-mlx_get_color_value
-unsigned int mlx_get_color_value(void *mlx_ptr, int color);
-
-
-Convertit RGB vers format serveur X.
-
-7. Chargement XPM
-mlx_xpm_to_image
-void *mlx_xpm_to_image(
-    void *mlx_ptr,
-    char **xpm_data,
-    int *width,
-    int *height
-);
-
-mlx_xpm_file_to_image
+``` c
 void *mlx_xpm_file_to_image(
     void *mlx_ptr,
     char *filename,
     int *width,
     int *height
 );
+```
 
-Notes
+## Depuis la mémoire
 
-Support transparence
+``` c
+void *mlx_xpm_to_image(
+    void *mlx_ptr,
+    char **xpm_data,
+    int *width,
+    int *height
+);
+```
 
-Parser XPM interne (non Xpm lib standard)
+Support : - Transparence - Format XPM uniquement
 
-Support partiel du format
+------------------------------------------------------------------------
 
-8. Boucle événementielle
-mlx_loop
+# 10. Boucle principale
+
+``` c
 int mlx_loop(void *mlx_ptr);
-
-Fonctionnement interne
-
-Boucle infinie :
-
-while (1)
-{
-    wait_event();
-    dispatch_event();
-}
-
+```
 
 Ne retourne jamais.
 
-9. Hooks d’événements
-mlx_key_hook
+Fonctionnement : - Attend un événement - Appelle le hook associé -
+Répète
+
+------------------------------------------------------------------------
+
+# 11. Hooks standards
+
+## Clavier
+
+``` c
 int mlx_key_hook(void *win_ptr, int (*f)(), void *param);
+```
 
+Prototype callback :
 
-Prototype :
-
+``` c
 int key_hook(int keycode, void *param);
+```
 
-mlx_mouse_hook
+## Souris
+
+``` c
 int mlx_mouse_hook(void *win_ptr, int (*f)(), void *param);
-
+```
 
 Prototype :
 
+``` c
 int mouse_hook(int button, int x, int y, void *param);
+```
 
-mlx_expose_hook
+## Expose
+
+``` c
 int mlx_expose_hook(void *win_ptr, int (*f)(), void *param);
+```
 
+Appelé quand la fenêtre doit être redessinée.
 
-Prototype :
+## Loop Hook
 
-int expose_hook(void *param);
-
-mlx_loop_hook
+``` c
 int mlx_loop_hook(void *mlx_ptr, int (*f)(), void *param);
+```
 
+Exécuté quand aucun événement n'est en attente.
 
-Appelé lorsqu’aucun événement n’est en attente.
+Utilisé pour : - Animation - Raycasting - Moteur de jeu simple
 
-Utilisé pour moteurs temps réel.
+------------------------------------------------------------------------
 
-10. Hook générique X11
-mlx_hook
-int mlx_hook(
-    void *win_ptr,
-    int event,
-    int mask,
-    int (*f)(),
-    void *param
-);
+# 12. Hook générique X11
 
+``` c
+int mlx_hook(void *win_ptr, int event, int mask, int (*f)(), void *param);
+```
 
-Permet d’intercepter tout événement X11.
+Exemple fermeture fenêtre :
 
-Exemple fermeture Linux :
+``` c
+mlx_hook(win, 17, 0, close_function, data);
+```
 
-mlx_hook(win, 17, 0, close, data);
+17 = DestroyNotify
 
-11. Architecture interne MLX
+------------------------------------------------------------------------
 
-Internellement :
+# 13. Endianness
 
-mlx_ptr contient :
+Retour de mlx_get_data_addr :
 
-Display*
+-   0 → little endian
+-   1 → big endian
 
-Screen*
+Important si serveur distant.
 
-Root window
+------------------------------------------------------------------------
 
-Colormap
+# 14. Compilation
 
-Les images sont des XImage
+## Linux
 
-Les fenêtres sont des Window X11
-
-MLX est un wrapper léger.
-
-12. Modèle mémoire image
-
-Mémoire linéaire :
-
-addr
-↓
-[ pixel ][ pixel ][ pixel ] ...
-
-
-Offset calcul :
-
-offset = y * size_line + x * (bpp / 8)
-
-13. Endian
-
-endian retourné par mlx_get_data_addr :
-
-0 → little endian
-
-1 → big endian
-
-Important si :
-
-Machine ≠ serveur X
-
-Profondeur ≠ 32 bits
-
-14. Compilation
-
-Linux :
-
+``` bash
 gcc main.c -lmlx -lXext -lX11 -lm
+```
 
+## Avec dossier local
 
-Avec dossier local :
-
+``` bash
 gcc main.c -Lmlx -lmlx -lXext -lX11
+```
 
-15. Limitations
+------------------------------------------------------------------------
 
-Pas de gestion GPU directe
+# 15. Architecture interne
 
-Pas de primitives géométriques
+MiniLibX encapsule :
 
-Pas de double buffer automatique
+-   Display \*
+-   Window
+-   XImage
+-   Colormap
 
-Pas multi-thread safe
+C'est un wrapper léger autour de Xlib.
 
-Pas gestion FPS
+------------------------------------------------------------------------
 
-Pas support PNG/JPEG natif
+# 16. Bonnes pratiques
 
-16. Tableau complet des fonctions
-Catégorie	Fonction
-Initialisation	mlx_init
-Fenêtre	mlx_new_window
-Fenêtre	mlx_clear_window
-Fenêtre	mlx_destroy_window
-Pixel	mlx_pixel_put
-Texte	mlx_string_put
-Image	mlx_new_image
-Image	mlx_get_data_addr
-Image	mlx_put_image_to_window
-Image	mlx_destroy_image
-Couleur	mlx_get_color_value
-XPM	mlx_xpm_to_image
-XPM	mlx_xpm_file_to_image
-Loop	mlx_loop
-Hook	mlx_key_hook
-Hook	mlx_mouse_hook
-Hook	mlx_expose_hook
-Hook	mlx_loop_hook
-Hook avancé	mlx_hook
-Conclusion
+-   Ne jamais utiliser mlx_pixel_put pour du rendu massif
+-   Toujours utiliser un buffer image
+-   Redessiner entièrement la scène à chaque frame
+-   Libérer images et fenêtres proprement
+-   Centraliser la structure globale (mlx_ptr, win_ptr, images)
 
-MiniLibX est :
+------------------------------------------------------------------------
 
-Un wrapper minimal X11
+# 17. Erreurs fréquentes
 
-Une base pédagogique
+-   Segfault → mauvais offset mémoire
+-   Image noire → oubli mlx_put_image_to_window
+-   Écran figé → oubli mlx_loop
+-   Fuites mémoire → oubli mlx_destroy_image
 
-Suffisante pour :
+------------------------------------------------------------------------
 
-FdF
+# 18. Tableau récapitulatif
 
-so_long
+  Catégorie   Fonction
+  ----------- -------------------------
+  Init        mlx_init
+  Fenêtre     mlx_new_window
+  Fenêtre     mlx_destroy_window
+  Pixel       mlx_pixel_put
+  Texte       mlx_string_put
+  Image       mlx_new_image
+  Image       mlx_get_data_addr
+  Image       mlx_put_image_to_window
+  Image       mlx_destroy_image
+  XPM         mlx_xpm_file_to_image
+  Loop        mlx_loop
+  Hook        mlx_key_hook
+  Hook        mlx_mouse_hook
+  Hook        mlx_expose_hook
+  Hook        mlx_loop_hook
+  Avancé      mlx_hook
 
-fractol
+------------------------------------------------------------------------
 
-cub3D
+# Conclusion
 
-miniRT
+MiniLibX est volontairement minimaliste. Elle impose la compréhension
+: - De la mémoire - Des buffers - De l'architecture événementielle - Du
+rendu logiciel
 
-Elle impose de comprendre :
-
-mémoire
-
-buffer
-
-gestion événements
-
-architecture moteur graphique
+Elle constitue une excellente base pour : - FdF - so_long - fractol -
+cub3D - miniRT
