@@ -6,7 +6,7 @@
 /*   By: panne-ro <panne-ro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/05 19:16:04 by panne-ro          #+#    #+#             */
-/*   Updated: 2026/02/13 14:31:29 by panne-ro         ###   ########.fr       */
+/*   Updated: 2026/02/13 14:37:42 by panne-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,30 +27,30 @@ int	on_keypress(int key, t_mlx *mlx)
 	return (0);
 }
 
-t_player	*print_map(t_mlx *mlx, t_img *imgs, t_player *player, char **map)
+t_player	*print_map(t_game *game)
 {
 	int i;
 	int j = 0;
 	int x;
 	int y = 0;
 
-	if (!map)
+	if (!game->map->mapChar)
 		return;
-	while (map[j])
+	while (game->map->mapChar[j])
 	{
 		x = 0;
 		i = 0;
-		while (map[j][i])
+		while (game->map->mapChar[j][i])
 		{
-			if (map[j][i] == '1')
-				mlx_put_image_to_window(mlx->mlx, mlx->window, imgs->wall, x, y);
-			else if (map[j][i] == '0')
-				mlx_put_image_to_window(mlx->mlx, mlx->window, imgs->space, x, y);
+			if (game->map->mapChar[j][i] == '1')
+				mlx_put_image_to_window(game->mlx->mlx, game->mlx->window, game->img->wall, x, y);
+			else if (game->map->mapChar[j][i] == '0')
+				mlx_put_image_to_window(game->mlx->mlx, game->mlx->window, game->img->space, x, y);
 			else
 			{
-				mlx_put_image_to_window(mlx->mlx, mlx->window, imgs->player, x, y);
-				player->x = x + 32;
-				player->y = y + 32;
+				mlx_put_image_to_window(game->mlx->mlx, game->mlx->window, game->img->player, x, y);
+				game->player->x = x + 32;
+				game->player->y = y + 32;
 			}
 			i++;
 			x += 64;
@@ -88,20 +88,20 @@ t_img	*add_img(t_mlx *mlx, t_img *imgs)
 
 void	init(t_game *game)
 {
-	mlx = malloc(sizeof(t_mlx));
-	imgs = malloc(sizeof(t_img));
-	player = malloc(sizeof(t_player));
-	mlx->mlx = mlx_init();
-	imgs = add_img(mlx, imgs);
-	mlx->window = mlx_new_window(mlx->mlx, x_win, y_win, "ntr manu");
-	player = print_map(mlx, imgs, player, map);
-	mlx_hook(mlx->window, 2, (1L << 0), on_keypress, mlx);
-	mlx_hook(mlx->window, 17, 0, mlx_loop_end,mlx->mlx);
-	mlx_loop(mlx->mlx);
-	destroy_img(mlx, imgs);
-	mlx_destroy_window(mlx->mlx, mlx->window);
-	mlx_destroy_display(mlx->mlx);
-	free(imgs);
-	free(mlx->mlx);
-	free(mlx);
+	game->mlx = malloc(sizeof(t_mlx));
+	game->img = malloc(sizeof(t_img));
+	game->player = malloc(sizeof(t_player));
+	game->mlx->mlx = mlx_init();
+	game->img = add_img(game->mlx, game->img);
+	game->mlx->window = mlx_new_window(game->mlx->mlx, x_win, y_win, "ntr manu");
+	game->player = print_map(game);
+	mlx_hook(game->mlx->window, 2, (1L << 0), on_keypress, game->mlx);
+	mlx_hook(game->mlx->window, 17, 0, mlx_loop_end, game->mlx->mlx);
+	mlx_loop(game->mlx->mlx);
+	destroy_img(game->mlx, game->img);
+	mlx_destroy_window(game->mlx->mlx, game->mlx->window);
+	mlx_destroy_display(game->mlx->mlx);
+	free(game->img);
+	free(game->mlx->mlx);
+	free(game->mlx);
 }

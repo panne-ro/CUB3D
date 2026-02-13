@@ -6,7 +6,7 @@
 /*   By: panne-ro <panne-ro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/03 18:02:13 by mleschev          #+#    #+#             */
-/*   Updated: 2026/02/13 14:30:40 by panne-ro         ###   ########.fr       */
+/*   Updated: 2026/02/13 14:34:02 by panne-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,29 +22,29 @@ void initMapStruct(t_game *game, char *pathToMap)
 	// printf("%s\n", pathToMap)
 	// int tmp = ft_strlen(pathToMap);
 
-	map->filePath = pathToMap;
-	map->fdMap = -1;
-	map->mapChar = NULL;
-	map->readingHead = 0;
+	game->map->filePath = pathToMap;
+	game->map->fdMap = -1;
+	game->map->mapChar = NULL;
+	game->map->readingHead = 0;
 
 	while (i++ < 3)
 	{
-		map->ceilingColor[i] = -1;
-		map->floorColor[i] = -1;
+		game->map->ceilingColor[i] = -1;
+		game->map->floorColor[i] = -1;
 	}
 
-	map->eastTexture = NULL;
-	map->westTexture = NULL;
-	map->northTexture = NULL;
-	map->southTexture = NULL;
+	game->map->eastTexture = NULL;
+	game->map->westTexture = NULL;
+	game->map->northTexture = NULL;
+	game->map->southTexture = NULL;
 
-	map->startMapInReading = 0;
-	map->LineOfEof = 0;
+	game->map->startMapInReading = 0;
+	game->map->LineOfEof = 0;
 
-	map->isValid = false;
-	map->isClosed = false;
+	game->map->isValid = false;
+	game->map->isClosed = false;
 
-	checkmap(map);
+	checkmap(game->map);
 }
 
 
