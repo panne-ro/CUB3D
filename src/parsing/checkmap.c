@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   checkmap.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mleschev <mleschev@student.42.fr>          +#+  +:+       +#+        */
+/*   By: panne-ro <panne-ro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/03 18:02:13 by mleschev          #+#    #+#             */
-/*   Updated: 2026/02/06 17:06:22 by mleschev         ###   ########.fr       */
+/*   Updated: 2026/02/09 13:44:12 by panne-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ int checkContentMaster(t_map *map)
 	parseMap(map, lineRead);
 
 	//printf debug ------------------------------------------------------------------------
-	printf("NO '%s'\nSO '%s'\nWE '%s'\nEA '%s'\nfC0 '%ld'\nfC1 '%ld'\nfC2 '%ld'\nCC0 '%ld'\nCC1 '%ld'\nCC2 '%ld'\nSTARTofMap '%d'\nENDofMap '%d'\n",
+	/*printf("NO '%s'\nSO '%s'\nWE '%s'\nEA '%s'\nfC0 '%ld'\nfC1 '%ld'\nfC2 '%ld'\nCC0 '%ld'\nCC1 '%ld'\nCC2 '%ld'\nSTARTofMap '%d'\nENDofMap '%d'\n",
 	map->northTexture,
 	map->southTexture,
 	map->westTexture,
@@ -122,7 +122,7 @@ int checkContentMaster(t_map *map)
 		printf(" '%s' ", map->mapChar[i]);
 		printf("\n");
 		i++;
-	}
+	}*/
 	// ------------------------------------------------------------------------
 
 	return 0;

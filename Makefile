@@ -1,13 +1,14 @@
 NAME = cub3D
 CC = cc
-FLAGS = -Wall -Wextra -Werror -g3 #-fsanitize=address
+FLAGS = -Wall -Wextra -Werror -g3 -fsanitize=address
 SRC_DIR = ./src
 OBJ_DIR = ./objects
 SRC = 	$(SRC_DIR)/main.c \
 		$(SRC_DIR)/parsing/parsing_arg.c \
 		$(SRC_DIR)/parsing/checkmap.c \
 		$(SRC_DIR)/parsing/checkContent.c \
-		$(SRC_DIR)/parsing/parseMap.c
+		$(SRC_DIR)/parsing/parseMap.c \
+		$(SRC_DIR)/mlx_init.c
 
 OBJS = $(SRC:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
 
@@ -26,8 +27,8 @@ MLX_FLAGS = -L$(MLX_DIR) -lmlx -lXext -lX11 -lm -lz
 
 all: $(NAME)
 
-$(NAME): $(LIBFT_LIB) $(OBJS)
-	@$(CC) $(FLAGS) -o $(NAME) $(OBJS) $(LIBFT_FLAGS)
+$(NAME): $(LIBFT_LIB) $(OBJS) $(MLX)
+	@$(CC) $(FLAGS) -o $(NAME) $(OBJS) $(LIBFT_FLAGS) $(MLX_FLAGS)
 
 $(OBJ_DIR):
 			@mkdir -p $(OBJ_DIR)
@@ -35,13 +36,18 @@ $(OBJ_DIR):
 $(LIBFT_LIB):
 	@$(MAKE) -C $(LIBFT_DIR)
 
+$(MLX):
+	@$(MAKE) -C $(MLX_DIR)
+
 clean:
 			@rm -rf $(OBJ_DIR)
 			@$(MAKE) -C $(LIBFT_DIR) clean
+			@$(MAKE) -C $(MLX_DIR) clean
 
 fclean:	clean
 			@rm -f $(NAME)
 			@rm -f $(LIBFT_LIB)
+			@rm -f $(MLX) 
 
 re: fclean all
 
