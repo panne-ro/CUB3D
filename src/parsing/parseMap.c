@@ -6,7 +6,7 @@
 /*   By: mleschev <mleschev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/05 21:15:12 by mleschev          #+#    #+#             */
-/*   Updated: 2026/02/10 00:08:30 by mleschev         ###   ########.fr       */
+/*   Updated: 2026/02/13 15:47:36 by mleschev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ bool checkMap(t_map *map)
 			if ((lineRead[i] != '1' && lineRead[i] != '0' && lineRead[i] != 'S' && lineRead[i] != 'W' && lineRead[i] != 'E' && lineRead[i] != 'N' && lineRead[i] != ' ' && lineRead[i] != '\n') || (i == 0 && (lineRead[i] == '\n' || lineRead[i] == '\0')))
 			{
 				printf("TEMP: Error map in map file invalid, i:%d, mapread:%d\n", i, map->readingHead); //temporaire
+				map->start_dir = lineRead[i];
 				return true;
 			}
 			if (lineRead[i] == 'S' || lineRead[i] == 'W' || lineRead[i] == 'E' || lineRead[i] == 'N')

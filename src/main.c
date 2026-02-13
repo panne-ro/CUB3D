@@ -3,60 +3,40 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: panne-ro <panne-ro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mleschev <mleschev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/03 17:05:20 by panne-ro          #+#    #+#             */
-/*   Updated: 2026/02/13 14:32:18 by panne-ro         ###   ########.fr       */
+/*   Updated: 2026/02/13 17:39:51 by mleschev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3D.h"
 
-t_game	*init_game(t_game *game)
+void	init_game(t_game **gameAddr, char *pathFile)
 {
-	game->mlx = malloc(sizeof(t_mlx));
-	game->img = malloc(sizeof(t_img));
-	game->map = malloc(sizeof(t_map));
-	game->player = malloc(sizeof(t_player));
-}
+	t_game *current;
 
-void freeMap(t_map *map)
-{
-	int i = 0;
-	// free(map->floorColor);
-	// free(map->ceilingColor);
-	free(map->eastTexture);
-	free(map->westTexture);
-	free(map->northTexture);
-	free(map->southTexture);
+	current = *gameAddr;
+	current->mlx = malloc(sizeof(t_mlx));
+	current->img = malloc(sizeof(t_img));
+	current->map = malloc(sizeof(t_map));
+	current->player = malloc(sizeof(t_player));
 
-	while (map->mapChar[i])
-	{
-		free(map->mapChar[i]);
-		i++;
-	}
-	free(map->mapChar);
-	// free(map->filePath);
-
-	// free(map->fdMap);
-	// free(map->floorColor);
-	// free(map->startMapInReading);
-	// free(map->heightOfMap);
-	// free(map->LineOfEof);
+	initMapStruct(gameAddr, pathFile);
 }
 
 int main(int argc, char **argv)
 {
-	if (checkArg(argc, argv) == 1)
-		return (1);
 	t_game	*game;
+
+	if (checkArg(argc, argv))
+		return (1);
+
 	game = malloc(sizeof(t_game));
-	
-	
-	initMapStruct(game, argv[1]);
+	init_game(&game, argv[1]);
 	init(game);
-	freeMap(game->map);
-	free(game->map);
-	free(game);
+
+	freeGame(&game);
+
 	return (0);
 }

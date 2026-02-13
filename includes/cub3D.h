@@ -38,6 +38,8 @@ typedef struct s_map
 
 	char **mapChar;
 
+	char start_dir;
+
 } t_map;
 
 typedef struct s_vector
@@ -78,11 +80,11 @@ typedef struct s_game
 int		extensionCheck(char *str);
 int		checkArg(int argc, char **argv);
 
-void initMapStruct(t_game *game, char *pathToMapFile);
+void initMapStruct(t_game **gameAddr, char *pathToMapFile);
 int checkContentMaster(t_map *map);
 char *copyContent(char *lineRead, char *tmp, int i);
 
-int checkmap(t_map *map);
+int checkmap(t_game **gameAddr);
 
 // checkcontent.c
 
@@ -99,6 +101,11 @@ void parseMap(t_map *map);
 char *readAndCleanLine(char *lineRead, t_map *map);
 
 //test
-void init(char **map);
+void init(t_game *game);
+
+//  error.c
+
+void freeGame(t_game **game);
+
 
 # endif

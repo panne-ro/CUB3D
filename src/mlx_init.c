@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mlx_init.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: panne-ro <panne-ro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mleschev <mleschev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/05 19:16:04 by panne-ro          #+#    #+#             */
-/*   Updated: 2026/02/13 14:37:42 by panne-ro         ###   ########.fr       */
+/*   Updated: 2026/02/13 17:14:21 by mleschev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@ int	on_keypress(int key, t_mlx *mlx)
 		printf("S");
 	if (key == 97)
 		printf("A");
-	if (key == 100)
-		move_right();
+	// if (key == 100)
+	// 	move_right();
 	return (0);
 }
 
@@ -35,7 +35,7 @@ t_player	*print_map(t_game *game)
 	int y = 0;
 
 	if (!game->map->mapChar)
-		return;
+		return NULL;
 	while (game->map->mapChar[j])
 	{
 		x = 0;
@@ -58,6 +58,7 @@ t_player	*print_map(t_game *game)
 		j++;
 		y += 64;
 	}
+	return game->player;
 }
 
 void	destroy_img(t_mlx *mlx, t_img *imgs)
@@ -88,9 +89,6 @@ t_img	*add_img(t_mlx *mlx, t_img *imgs)
 
 void	init(t_game *game)
 {
-	game->mlx = malloc(sizeof(t_mlx));
-	game->img = malloc(sizeof(t_img));
-	game->player = malloc(sizeof(t_player));
 	game->mlx->mlx = mlx_init();
 	game->img = add_img(game->mlx, game->img);
 	game->mlx->window = mlx_new_window(game->mlx->mlx, x_win, y_win, "ntr manu");
@@ -101,7 +99,4 @@ void	init(t_game *game)
 	destroy_img(game->mlx, game->img);
 	mlx_destroy_window(game->mlx->mlx, game->mlx->window);
 	mlx_destroy_display(game->mlx->mlx);
-	free(game->img);
-	free(game->mlx->mlx);
-	free(game->mlx);
 }
