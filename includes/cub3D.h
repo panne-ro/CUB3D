@@ -10,6 +10,7 @@
 #include <unistd.h>
 #include <stdbool.h>
 #include <fcntl.h>
+#include <math.h>
 
 #include "./libft/libft.h"
 #include "./minilibx-linux/mlx.h"
@@ -40,6 +41,14 @@ typedef struct s_map
 
 } t_map;
 
+typedef struct s_dda
+{
+	t_vector	*map;
+	t_vector	*deltadist;
+	t_vector	*step;
+	t_vector	*sidedist;
+}	t_dda;
+
 typedef struct s_vector
 {
 	float	x;
@@ -48,8 +57,9 @@ typedef struct s_vector
 
 typedef struct s_player
 {
-	float	x;
-	float	y;
+	t_vector	pos;
+	t_vector	dir;
+	t_vector	plane;
 } t_player;
 
 typedef struct s_mlx
@@ -61,10 +71,12 @@ typedef struct s_mlx
 
 typedef struct s_img
 {
-	void	*space;
-	void	*wall;
-	void	*player;
-} t_img;
+    void    *img;
+    char    *addr;
+    int     bpp;
+    int     line_len;
+    int     endian;
+}   t_img;
 
 typedef struct s_game
 {
@@ -72,6 +84,7 @@ typedef struct s_game
 	t_img		*img;
 	t_player	*player;
 	t_mlx		*mlx;
+	t_dda		*dda;
 } t_game;
 
 // parsing:
@@ -99,6 +112,10 @@ void parseMap(t_map *map);
 char *readAndCleanLine(char *lineRead, t_map *map);
 
 //test
-void init(char **map);
+void init(t_game *game);
+
+t_vector	sum_vector(t_vector vector1, t_vector vector2);
+t_vector	*sub_vector(t_vector *vector1, t_vector *vector2);
+t_vector	mul_vector(t_vector vector, int scale);
 
 # endif

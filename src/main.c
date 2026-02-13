@@ -6,7 +6,7 @@
 /*   By: panne-ro <panne-ro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/03 17:05:20 by panne-ro          #+#    #+#             */
-/*   Updated: 2026/02/13 14:32:18 by panne-ro         ###   ########.fr       */
+/*   Updated: 2026/02/13 14:42:00 by panne-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ t_game	*init_game(t_game *game)
 	game->img = malloc(sizeof(t_img));
 	game->map = malloc(sizeof(t_map));
 	game->player = malloc(sizeof(t_player));
+	return (game);
 }
 
 void freeMap(t_map *map)
