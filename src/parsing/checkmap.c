@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   checkmap.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: panne-ro <panne-ro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mleschev <mleschev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/03 18:02:13 by mleschev          #+#    #+#             */
-/*   Updated: 2026/02/13 14:34:02 by panne-ro         ###   ########.fr       */
+/*   Updated: 2026/02/13 17:40:24 by mleschev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,13 @@
 
 
 // take a *t_map, the path for map and init all the value at NULL or -1 and pass into checkmap()
-void initMapStruct(t_game *game, char *pathToMap)
+void initMapStruct(t_game **gameAddr, char *pathToMap)
 {
 	int i;
-	i = 0;
+	t_game *game;
 
-	// printf("%s\n", pathToMap)
-	// int tmp = ft_strlen(pathToMap);
+	game = *gameAddr;
+	i = 0;
 
 	game->map->filePath = pathToMap;
 	game->map->fdMap = -1;
@@ -44,22 +44,25 @@ void initMapStruct(t_game *game, char *pathToMap)
 	game->map->isValid = false;
 	game->map->isClosed = false;
 
-	checkmap(game->map);
+	checkmap(gameAddr);
 }
 
 
 // take a t_map already init with initMapStruct() and check all the infos inside return an error with printf and -1 or 0 if all good
-int checkmap(t_map *map)
+int checkmap(t_game **gameAddr)
 {
-	map->fdMap =  open(map->filePath, O_RDONLY);
+	t_game *game;
 
-	if (map->fdMap < 0)
+	game = *gameAddr;
+	game->map->fdMap = open(game->map->filePath, O_RDONLY);
+	if (game->map->fdMap < 0)
 	{
 		printf("Error can't open map\n");
-		return -1;
+		freeGame(gameAddr);
+		exit (1);
 	}
 
-	checkContentMaster(map);
+	checkContentMaster(game->map);
 
 	return 0;
 }

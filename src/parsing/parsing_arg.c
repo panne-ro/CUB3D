@@ -3,27 +3,27 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_arg.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: panne-ro <panne-ro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mleschev <mleschev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/03 17:34:57 by panne-ro          #+#    #+#             */
-/*   Updated: 2026/02/03 18:22:53 by panne-ro         ###   ########.fr       */
+/*   Updated: 2026/02/13 17:21:50 by mleschev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3D.h"
 
 //Take the number of args and the args to verify the number and the extension
-//Return 0 if they are one arg and the extension is ".cub" else return 1 
+//Return 0 if they are one arg and the extension is ".cub" else return 1
 int		checkArg(int argc, char **argv)
 {
 	if (argc != 2)
 	{
-		printf("Error\nJust map required\n");
-		return (1);		
+		printf("Error\nMap is required\n");
+		return (1);
 	}
-	if (extensionCheck(argv[1]) == 1)
+	if (extensionCheck(argv[1]))
 	{
-		printf("Error\nMap extension is \".cub\"\n");
+		printf("Error\nMap extension is not a \".cub\"\n");
 		return (1);
 	}
 	return (0);
@@ -50,7 +50,7 @@ int		extensionCheck(char *str)
 			j++;
 		}
 		tmp[j] = '\0';
-		if (ft_strncmp(tmp, ".cub", ft_strlen(tmp)) == 0)
+		if (ft_strncmp(tmp, ".cub", ft_strlen(tmp)) == 0 && ft_strncmp(tmp, ".cub", ft_strlen(str)) == 0)
 			return (0);
 	}
 	return (1);

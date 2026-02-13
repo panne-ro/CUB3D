@@ -39,6 +39,8 @@ typedef struct s_map
 
 	char **mapChar;
 
+	char start_dir;
+
 } t_map;
 
 typedef struct s_dda
@@ -91,11 +93,11 @@ typedef struct s_game
 int		extensionCheck(char *str);
 int		checkArg(int argc, char **argv);
 
-void initMapStruct(t_game *game, char *pathToMapFile);
+void initMapStruct(t_game **gameAddr, char *pathToMapFile);
 int checkContentMaster(t_map *map);
 char *copyContent(char *lineRead, char *tmp, int i);
 
-int checkmap(t_map *map);
+int checkmap(t_game **gameAddr);
 
 // checkcontent.c
 
@@ -117,5 +119,9 @@ void init(t_game *game);
 t_vector	sum_vector(t_vector vector1, t_vector vector2);
 t_vector	*sub_vector(t_vector *vector1, t_vector *vector2);
 t_vector	mul_vector(t_vector vector, int scale);
+//  error.c
+
+void freeGame(t_game **game);
+
 
 # endif

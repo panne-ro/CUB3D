@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mlx_init.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: panne-ro <panne-ro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mleschev <mleschev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/05 19:16:04 by panne-ro          #+#    #+#             */
-/*   Updated: 2026/02/13 17:51:29 by panne-ro         ###   ########.fr       */
+/*   Updated: 2026/02/13 18:04:43 by mleschev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,9 +51,6 @@ void	add_img(t_game *game)
 
 void	init(t_game *game)
 {
-	game->mlx = malloc(sizeof(t_mlx));
-	game->img = malloc(sizeof(t_img));
-	game->player = malloc(sizeof(t_player));
 	game->mlx->mlx = mlx_init();
 	add_img(game);
 	game->mlx->window = mlx_new_window(game->mlx->mlx, x_win, y_win, "ntr manu");
@@ -63,7 +60,4 @@ void	init(t_game *game)
 	mlx_loop(game->mlx->mlx);
 	mlx_destroy_window(game->mlx->mlx, game->mlx->window);
 	mlx_destroy_display(game->mlx->mlx);
-	free(game->img);
-	free(game->mlx->mlx);
-	free(game->mlx);
 }
