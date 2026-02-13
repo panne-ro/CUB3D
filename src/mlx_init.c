@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mlx_init.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mleschev <mleschev@student.42.fr>          +#+  +:+       +#+        */
+/*   By: panne-ro <panne-ro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/05 19:16:04 by panne-ro          #+#    #+#             */
-/*   Updated: 2026/02/13 18:04:43 by mleschev         ###   ########.fr       */
+/*   Updated: 2026/02/13 19:06:24 by panne-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void    put_pixel(t_img *img, int x, int y, int color)
 
 void	add_img(t_game *game)
 {
-	game->img->img = mlx_new_image(game->mlx, x_win, y_win);
+	game->img->img = mlx_new_image(game->mlx->mlx, x_win, y_win);
 	game->img->addr = mlx_get_data_addr(
     		game->img->img,
         	&game->img->bpp,
@@ -51,12 +51,18 @@ void	add_img(t_game *game)
 
 void	init(t_game *game)
 {
+	game->dda = malloc(sizeof(t_dda));
+	game->dda->map = malloc(sizeof(t_vector));
+	game->dda->step = malloc(sizeof(t_vector));
+	game->dda->deltadist = malloc(sizeof(t_vector));
+	game->dda->sidedist = malloc(sizeof(t_vector));
 	game->mlx->mlx = mlx_init();
+	init_player(game);
 	add_img(game);
 	game->mlx->window = mlx_new_window(game->mlx->mlx, x_win, y_win, "ntr manu");
-	game->player = print_map(game);
 	mlx_hook(game->mlx->window, 2, (1L << 0), on_keypress, game->mlx);
 	mlx_hook(game->mlx->window, 17, 0, mlx_loop_end, game->mlx->mlx);
+	raycasting(game);
 	mlx_loop(game->mlx->mlx);
 	mlx_destroy_window(game->mlx->mlx, game->mlx->window);
 	mlx_destroy_display(game->mlx->mlx);

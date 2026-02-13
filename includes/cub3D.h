@@ -29,10 +29,11 @@ typedef struct s_map
 	size_t floorColor[3];
 	size_t ceilingColor[3];
 
-	size_t heightOfMap;
+	int heightOfMap;
 	int LineOfEof;
 	int readingHead;
 	int startMapInReading;
+
 
 	bool isClosed;
 	bool isValid;
@@ -43,6 +44,12 @@ typedef struct s_map
 
 } t_map;
 
+typedef struct s_vector
+{
+	float	x;
+	float	y;
+} t_vector;
+
 typedef struct s_dda
 {
 	t_vector	*map;
@@ -51,11 +58,6 @@ typedef struct s_dda
 	t_vector	*sidedist;
 }	t_dda;
 
-typedef struct s_vector
-{
-	float	x;
-	float	y;
-} t_vector;
 
 typedef struct s_player
 {
@@ -122,6 +124,12 @@ t_vector	mul_vector(t_vector vector, int scale);
 //  error.c
 
 void freeGame(t_game **game);
+
+void	raycasting(t_game *game);
+
+void	init_player(t_game *game);
+
+void    put_pixel(t_img *img, int x, int y, int color);
 
 
 # endif

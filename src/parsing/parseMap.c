@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parseMap.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mleschev <mleschev@student.42.fr>          +#+  +:+       +#+        */
+/*   By: panne-ro <panne-ro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/05 21:15:12 by mleschev          #+#    #+#             */
-/*   Updated: 2026/02/13 18:04:51 by mleschev         ###   ########.fr       */
+/*   Updated: 2026/02/13 18:42:21 by panne-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,9 @@ bool checkMap(t_map *map)
 {
 	int i;
 	int test;
-	test = 0;
 	char *lineRead = NULL;
+
+	test = 0;
 
 	lineRead = readAndCleanLine(lineRead, map);
 	while (lineRead)
@@ -78,14 +79,21 @@ void parseMap(t_map *map)
 {
 	int i;
 	int j;
-	j = 0;
+	int x;
+	int y;
 	char *lineRead = NULL;
+	
+	x = 0;
+	y = 0;
+	j = 0;
 
 	//on cherche quand la map commence et la fin du fichier + check erreur sur la map
 	if (checkMap(map))
 		return ;
 	lineRead = putReadingHeadInPlace(map);
 	map->mapChar = malloc(sizeof(char *) * (map->LineOfEof - map->startMapInReading + 2));
+	map->heightOfMap = map->LineOfEof - map->startMapInReading + 1;
+	
 	if (!map->mapChar)
 		printf("TEMP malloc parseMap.c defaut\n");//temp
 
