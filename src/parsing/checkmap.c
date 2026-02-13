@@ -6,7 +6,7 @@
 /*   By: mleschev <mleschev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/03 18:02:13 by mleschev          #+#    #+#             */
-/*   Updated: 2026/02/13 10:56:10 by mleschev         ###   ########.fr       */
+/*   Updated: 2026/02/13 11:20:09 by mleschev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,9 @@ void initMapStruct(t_map *map, char *pathToMap)
 {
 	int i;
 	i = 0;
+
+	// printf("%s\n", pathToMap)
+	// int tmp = ft_strlen(pathToMap);
 
 	map->filePath = pathToMap;
 	map->fdMap = -1;
@@ -96,8 +99,8 @@ int checkContentMaster(t_map *map)
 	checkContentCC(tmp, map);
 	parseMap(map);
 
-	//printf debug ------------------------------------------------------------------------
-	/*printf("NO '%s'\nSO '%s'\nWE '%s'\nEA '%s'\nfC0 '%ld'\nfC1 '%ld'\nfC2 '%ld'\nCC0 '%ld'\nCC1 '%ld'\nCC2 '%ld'\nSTARTofMap '%d'\nENDofMap '%d'\n",
+	// //printf debug ------------------------------------------------------------------------
+	printf("NO '%s'\nSO '%s'\nWE '%s'\nEA '%s'\nfC0 '%ld'\nfC1 '%ld'\nfC2 '%ld'\nCC0 '%ld'\nCC1 '%ld'\nCC2 '%ld'\nSTARTofMap '%d'\nENDofMap '%d'\n",
 	map->northTexture,
 	map->southTexture,
 	map->westTexture,
@@ -120,8 +123,8 @@ int checkContentMaster(t_map *map)
 		printf(" '%s' ", map->mapChar[i]);
 		printf("\n");
 		i++;
-	}*/
-	// ------------------------------------------------------------------------
+	}
+	// // ------------------------------------------------------------------------
 
 	return 0;
 }

@@ -1,6 +1,6 @@
 NAME = cub3D
 CC = cc
-FLAGS = -Wall -Wextra -Werror -g3 -fsanitize=address
+FLAGS = -Wall -Wextra -Werror -g3 
 SRC_DIR = ./src
 OBJ_DIR = ./objects
 SRC = 	$(SRC_DIR)/main.c \
@@ -50,7 +50,7 @@ clean:
 fclean:	clean
 			@rm -f $(NAME)
 			@rm -f $(LIBFT_LIB)
-			@rm -f $(MLX) 
+			@rm -f $(MLX)
 
 re: fclean all
 

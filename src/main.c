@@ -6,7 +6,7 @@
 /*   By: mleschev <mleschev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/03 17:05:20 by panne-ro          #+#    #+#             */
-/*   Updated: 2026/02/13 10:57:59 by mleschev         ###   ########.fr       */
+/*   Updated: 2026/02/13 11:43:00 by mleschev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,12 +39,17 @@ void freeMap(t_map *map)
 
 int main(int argc, char **argv)
 {
-	t_map *map;
+	if (argc != 2)
+		return 1;
 
-	// int fd = open(argv[1], O_RDONLY);
-	// char *mdr = get_next_line(fd);
-	// printf("%s\n", mdr);
-	// free(mdr);
+	t_map *map = NULL;
+
+	map = malloc(sizeof(t_map));
+	initMapStruct(map, argv[1]);
+	init(map->mapChar);
+
+	
+
 	freeMap(map);
 	free(map);
 	return (0);
