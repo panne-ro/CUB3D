@@ -1,5 +1,8 @@
 #ifndef CUB3D_H
-#define CUB3D_H
+# define CUB3D_H
+
+# define x_win 1920
+# define y_win 1010
 
 #include <stdlib.h>
 #include <stdio.h>
@@ -9,7 +12,7 @@
 #include <fcntl.h>
 
 #include "./libft/libft.h"
-// #include "./minilibx-linux/mlx.h"
+#include "./minilibx-linux/mlx.h"
 
 // struct for map with all his data's like gov.site for j
 typedef struct s_map
@@ -41,8 +44,15 @@ typedef struct s_mlx
 {
 	void	*mlx;
 	void	*window;
+	void	*img;
 } t_mlx;
 
+typedef struct s_img
+{
+	void	*space;
+	void	*wall;
+	void	*player;
+} t_img;
 
 // parsing:
 int		extensionCheck(char *str);
@@ -67,5 +77,8 @@ void rgbDispatchInfoFile(char *lineRead, char *tmp, int i, t_map *map, bool forC
 void parseMap(t_map *map, char *lineRead);
 
 char *readAndCleanLine(char *lineRead, t_map *map);
+
+//test
+void init(char **map);
 
 # endif
