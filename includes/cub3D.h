@@ -40,6 +40,18 @@ typedef struct s_map
 
 } t_map;
 
+typedef struct s_vector
+{
+	float	x;
+	float	y;
+} t_vector;
+
+typedef struct s_player
+{
+	float	x;
+	float	y;
+} t_player;
+
 typedef struct s_mlx
 {
 	void	*mlx;
@@ -54,11 +66,19 @@ typedef struct s_img
 	void	*player;
 } t_img;
 
+typedef struct s_game
+{
+	t_map		*map;
+	t_img		*img;
+	t_player	*player;
+	t_mlx		*mlx;
+} t_game;
+
 // parsing:
 int		extensionCheck(char *str);
 int		checkArg(int argc, char **argv);
 
-void initMapStruct(t_map *map, char *pathToMapFile);
+void initMapStruct(t_game *game, char *pathToMapFile);
 int checkContentMaster(t_map *map);
 char *copyContent(char *lineRead, char *tmp, int i);
 

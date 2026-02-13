@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   checkmap.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mleschev <mleschev@student.42.fr>          +#+  +:+       +#+        */
+/*   By: panne-ro <panne-ro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/03 18:02:13 by mleschev          #+#    #+#             */
-/*   Updated: 2026/02/13 11:20:09 by mleschev         ###   ########.fr       */
+/*   Updated: 2026/02/13 14:30:40 by panne-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 
 // take a *t_map, the path for map and init all the value at NULL or -1 and pass into checkmap()
-void initMapStruct(t_map *map, char *pathToMap)
+void initMapStruct(t_game *game, char *pathToMap)
 {
 	int i;
 	i = 0;

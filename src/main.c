@@ -3,14 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mleschev <mleschev@student.42.fr>          +#+  +:+       +#+        */
+/*   By: panne-ro <panne-ro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/03 17:05:20 by panne-ro          #+#    #+#             */
-/*   Updated: 2026/02/13 11:43:00 by mleschev         ###   ########.fr       */
+/*   Updated: 2026/02/13 14:32:18 by panne-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3D.h"
+
+t_game	*init_game(t_game *game)
+{
+	game->mlx = malloc(sizeof(t_mlx));
+	game->img = malloc(sizeof(t_img));
+	game->map = malloc(sizeof(t_map));
+	game->player = malloc(sizeof(t_player));
+}
 
 void freeMap(t_map *map)
 {
@@ -39,18 +47,16 @@ void freeMap(t_map *map)
 
 int main(int argc, char **argv)
 {
-	if (argc != 2)
-		return 1;
-
-	t_map *map = NULL;
-
-	map = malloc(sizeof(t_map));
-	initMapStruct(map, argv[1]);
-	init(map->mapChar);
-
+	if (checkArg(argc, argv) == 1)
+		return (1);
+	t_game	*game;
+	game = malloc(sizeof(t_game));
 	
-
-	freeMap(map);
-	free(map);
+	
+	initMapStruct(game, argv[1]);
+	init(game);
+	freeMap(game->map);
+	free(game->map);
+	free(game);
 	return (0);
 }

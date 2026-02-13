@@ -1,18 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mlx_destroy_display.c                              :+:      :+:    :+:   */
+/*   raycasting.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: panne-ro <panne-ro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/10/03 18:56:35 by mg                #+#    #+#             */
-/*   Updated: 2026/02/13 12:11:31 by panne-ro         ###   ########.fr       */
+/*   Created: 2026/02/13 13:26:03 by panne-ro          #+#    #+#             */
+/*   Updated: 2026/02/13 14:17:49 by panne-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "mlx_int.h"
+#include "../includes/cub3D.h"
 
-int	mlx_destroy_display(t_xvar *xvar)
+void print_vector(t_player *player)
 {
-	XCloseDisplay(xvar->display);
+	t_vector *pixel;
+	t_vector *pixelB;
+
+	pixel->x = player->x * 64;
+	pixel->y  = player->y * 64;
+	pixelb->x = 
 }
