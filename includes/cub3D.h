@@ -43,6 +43,12 @@ typedef struct s_map
 
 } t_map;
 
+typedef struct s_vector
+{
+	float	x;
+	float	y;
+} t_vector;
+
 typedef struct s_dda
 {
 	t_vector	*map;
@@ -51,11 +57,6 @@ typedef struct s_dda
 	t_vector	*sidedist;
 }	t_dda;
 
-typedef struct s_vector
-{
-	float	x;
-	float	y;
-} t_vector;
 
 typedef struct s_player
 {

@@ -6,7 +6,7 @@
 /*   By: mleschev <mleschev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/03 18:02:13 by mleschev          #+#    #+#             */
-/*   Updated: 2026/02/13 17:40:24 by mleschev         ###   ########.fr       */
+/*   Updated: 2026/02/13 18:20:10 by mleschev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void initMapStruct(t_game **gameAddr, char *pathToMap)
 {
 	int i;
 	t_game *game;
-
+	
 	game = *gameAddr;
 	i = 0;
 

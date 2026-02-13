@@ -6,7 +6,7 @@
 /*   By: mleschev <mleschev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/03 17:05:20 by panne-ro          #+#    #+#             */
-/*   Updated: 2026/02/13 18:04:11 by mleschev         ###   ########.fr       */
+/*   Updated: 2026/02/13 19:09:12 by mleschev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,9 @@ int main(int argc, char **argv)
 
 	game = malloc(sizeof(t_game));
 	init_game(&game, argv[1]);
+
 	init(game);
+
 
 	freeGame(&game);
 
