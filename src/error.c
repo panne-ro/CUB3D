@@ -6,7 +6,7 @@
 /*   By: mleschev <mleschev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/13 17:14:48 by mleschev          #+#    #+#             */
-/*   Updated: 2026/02/13 18:26:08 by mleschev         ###   ########.fr       */
+/*   Updated: 2026/02/16 18:57:27 by mleschev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,11 +45,7 @@ void freeGame(t_game **game)
 	if (current->img)
 		free(current->img);
 	if (current->mlx)
-	{
-		// if (current->mlx->mlx)
-		// 	free(current->mlx->mlx);
 		free(current->mlx);
-	}
 	if (current->map)
 		free(current->map);
 	if (current->player)

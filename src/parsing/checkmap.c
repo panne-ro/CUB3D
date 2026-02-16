@@ -6,7 +6,7 @@
 /*   By: mleschev <mleschev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/03 18:02:13 by mleschev          #+#    #+#             */
-/*   Updated: 2026/02/13 18:20:10 by mleschev         ###   ########.fr       */
+/*   Updated: 2026/02/16 18:51:18 by mleschev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void initMapStruct(t_game **gameAddr, char *pathToMap)
 {
 	int i;
 	t_game *game;
-	
+
 	game = *gameAddr;
 	i = 0;
 
@@ -101,33 +101,5 @@ int checkContentMaster(t_map *map)
 	checkContentFC(tmp, map);
 	checkContentCC(tmp, map);
 	parseMap(map);
-
-	// //printf debug ------------------------------------------------------------------------
-	printf("NO '%s'\nSO '%s'\nWE '%s'\nEA '%s'\nfC0 '%ld'\nfC1 '%ld'\nfC2 '%ld'\nCC0 '%ld'\nCC1 '%ld'\nCC2 '%ld'\nSTARTofMap '%d'\nENDofMap '%d'\n",
-	map->northTexture,
-	map->southTexture,
-	map->westTexture,
-	map->eastTexture,
-	map->floorColor[0],
-	map->floorColor[1],
-	map->floorColor[2],
-	map->ceilingColor[0],
-	map->ceilingColor[1],
-	map->ceilingColor[2],
-	map->startMapInReading,
-	map->LineOfEof);
-
-	printf("\n\nmap (%d):\n", map->readingHead);
-	int i = 0;
-	int j = 0;
-	while (map->mapChar[i])
-	{
-		j = 0;
-		printf(" '%s' ", map->mapChar[i]);
-		printf("\n");
-		i++;
-	}
-	// // ------------------------------------------------------------------------
-
 	return 0;
 }

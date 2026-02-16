@@ -6,7 +6,7 @@
 /*   By: mleschev <mleschev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/05 19:16:04 by panne-ro          #+#    #+#             */
-/*   Updated: 2026/02/13 19:26:51 by mleschev         ###   ########.fr       */
+/*   Updated: 2026/02/16 18:25:47 by mleschev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,13 @@
 int close_mlx(void *param)
 {
 	t_game *game = (t_game *)param;
-	mlx_loop_end(game->mlx->mlx);
+	mlx_destroy_image(game->mlx->mlx, game->img->img);
 	mlx_clear_window(game->mlx->mlx, game->mlx->window);
 	mlx_destroy_window(game->mlx->mlx, game->mlx->window);
 	mlx_destroy_display(game->mlx->mlx);
 	free(game->mlx->mlx);
-	return (1);
+	freeGame(&game);
+	exit (0);
 }
 
 int	on_keypress(int key, void *game)

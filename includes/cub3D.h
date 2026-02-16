@@ -26,8 +26,8 @@ typedef struct s_map
 	char *westTexture;
 	char *eastTexture;
 
-	size_t floorColor[3];
-	size_t ceilingColor[3];
+	long int floorColor[3];
+	long int ceilingColor[3];
 
 	size_t heightOfMap;
 	int LineOfEof;
