@@ -6,7 +6,7 @@
 /*   By: mleschev <mleschev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/03 17:05:20 by panne-ro          #+#    #+#             */
-/*   Updated: 2026/02/19 12:05:43 by mleschev         ###   ########.fr       */
+/*   Updated: 2026/02/19 13:59:16 by mleschev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,25 +30,25 @@ void verify_all(t_game **game_address)
 
 	if (game->map->ceilingColor[0] == -1 || game->map->ceilingColor[1] == -1 || game->map->ceilingColor[2] == -1)
 	{
-		printf("Error: color of ceiling");
+		printf("Error: color of ceiling\n");
 		freeGame(game_address);
 		exit (0);
 	}
 	if (game->map->floorColor[0] == -1 || game->map->floorColor[1] == -1 || game->map->floorColor[2] == -1)
 	{
-		printf("Error: color of floor");
+		printf("Error: color of floor\n");
 		freeGame(game_address);
 		exit (0);
 	}
 	if (!game->map->eastTexture || !game->map->northTexture || !game->map->southTexture || !game->map->westTexture) //rajouter voir si les textures sont accessibles
 	{
-		printf("Error: texture missing");
+		printf("Error: texture missing\n");
 		freeGame(game_address);
 		exit (0);
 	}
 	if (verif_map(game->map)) //fonction a rajouter mdrr
 	{
-		printf("Error: map not valid");
+		printf("Error: map not valid\n");
 		freeGame(game_address);
 		exit (0);
 	}
