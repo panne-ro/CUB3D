@@ -1,6 +1,6 @@
 NAME = cub3D
 CC = cc
-FLAGS = -Wall -Wextra -Werror -g3 -g
+FLAGS = -Wall -Wextra -Werror -g3 -g -fsanitize=address
 SRC_DIR = ./src
 OBJ_DIR = ./objects
 SRC = 	$(SRC_DIR)/main.c \
@@ -9,7 +9,10 @@ SRC = 	$(SRC_DIR)/main.c \
 		$(SRC_DIR)/parsing/checkContent.c \
 		$(SRC_DIR)/parsing/parseMap.c \
 		$(SRC_DIR)/mlx_init.c \
-		$(SRC_DIR)/error.c
+		$(SRC_DIR)/error.c \
+		$(SRC_DIR)/raycasting.c \
+		$(SRC_DIR)/init_player.c \
+		$(SRC_DIR)/vector.c
 
 OBJS = $(SRC:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
 
