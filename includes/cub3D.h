@@ -61,8 +61,8 @@ typedef struct s_dda
 
 typedef struct s_player
 {
-	t_vector	pos;
-	t_vector	dir;
+	t_vector	*pos;
+	t_vector	*dir;
 	t_vector	plane;
 } t_player;
 
