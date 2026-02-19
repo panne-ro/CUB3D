@@ -6,7 +6,7 @@
 /*   By: mleschev <mleschev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/05 21:15:12 by mleschev          #+#    #+#             */
-/*   Updated: 2026/02/13 18:04:51 by mleschev         ###   ########.fr       */
+/*   Updated: 2026/02/19 12:10:00 by mleschev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,18 +30,6 @@ bool checkMap(t_map *map)
 		{
 			if (lineRead[i] != ' ' && lineRead[i] != '\n' && lineRead[i] != '\f' && lineRead[i] != '\r' && lineRead[i] != '\t' && lineRead[i] != '\n' && lineRead[i] != '\v')
 				map->startMapInReading = map->readingHead;
-			i++;
-		}
-		while (lineRead[i] && map->startMapInReading > 0)
-		{
-			if ((lineRead[i] != '1' && lineRead[i] != '0' && lineRead[i] != 'S' && lineRead[i] != 'W' && lineRead[i] != 'E' && lineRead[i] != 'N' && lineRead[i] != ' ' && lineRead[i] != '\n') || (i == 0 && (lineRead[i] == '\n' || lineRead[i] == '\0')))
-			{
-				printf("TEMP: Error map in map file invalid, i:%d, mapread:%d\n", i, map->readingHead); //temporaire
-				map->start_dir = lineRead[i];
-				return true;
-			}
-			if (lineRead[i] == 'S' || lineRead[i] == 'W' || lineRead[i] == 'E' || lineRead[i] == 'N')
-				test++;
 			i++;
 		}
 		free(lineRead);

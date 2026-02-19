@@ -116,6 +116,7 @@ char *readAndCleanLine(char *lineRead, t_map *map);
 
 //test
 void init(t_game *game);
+bool verif_map(t_map *map);
 
 t_vector	sum_vector(t_vector vector1, t_vector vector2);
 t_vector	*sub_vector(t_vector *vector1, t_vector *vector2);

@@ -6,7 +6,7 @@
 /*   By: mleschev <mleschev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/03 17:05:20 by panne-ro          #+#    #+#             */
-/*   Updated: 2026/02/16 19:14:57 by mleschev         ###   ########.fr       */
+/*   Updated: 2026/02/19 12:05:43 by mleschev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,6 @@ int main(int argc, char **argv)
 	game = malloc(sizeof(t_game));
 	init_game(&game, argv[1]);
 
-	verify_all(&game);
 
 	// //printf debug ------------------------------------------------------------------------
 	// printf("NO '%s'\nSO '%s'\nWE '%s'\nEA '%s'\nfC0 '%ld'\nfC1 '%ld'\nfC2 '%ld'\nCC0 '%ld'\nCC1 '%ld'\nCC2 '%ld'\nSTARTofMap '%d'\nENDofMap '%d'\n",
@@ -92,6 +91,9 @@ int main(int argc, char **argv)
 	// 	i++;
 	// }
 	// // ------------------------------------------------------------------------
+	verify_all(&game);
+
+
 
 	init(game);
 	return (0);
