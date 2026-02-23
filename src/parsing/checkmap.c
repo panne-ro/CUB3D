@@ -6,7 +6,7 @@
 /*   By: mleschev <mleschev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/03 18:02:13 by mleschev          #+#    #+#             */
-/*   Updated: 2026/02/19 13:57:24 by mleschev         ###   ########.fr       */
+/*   Updated: 2026/02/23 11:14:15 by mleschev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,30 +115,49 @@ bool verif_map(t_map *map)
 	i = 0;
 	nbr_player = 0;
 	if (!map->mapChar)
-		return true;
+	{
+		printf("error1\n");
+		return true;}
 	while (map->mapChar[i])
 	{
 		j = 0;
 		if (ft_strlen(map->mapChar[i]) == 0)
+		{
+			printf("error2\n");
 			return true;
+		}
 		//check si la map a deja commencer et si ele contient plusieurs 'fragment'
 		if (!map_is_start && ft_strlen(map->mapChar[i]))
 			map_is_start = true;
 		if (map_is_start && ft_strlen(map->mapChar[i]) == 1 && map->mapChar[i][0] == '\n')
+		{
+			printf("error3\n");
 			return true;
+		}
 		while (map->mapChar[i][j])
 		{
 			//check si la map contient des valeurs inetrdites
 			if ((map->mapChar[i][j] != '0' && map->mapChar[i][j] != '1') && (map->mapChar[i][j] != 'E' && map->mapChar[i][j] != 'W' && map->mapChar[i][j] != 'N' && map->mapChar[i][j] != 'S'))
+			{
+				printf("error3\n");
 				return true;
+			}
 			//check nombre de player
 			if (map->mapChar[i][j] == 'E' || map->mapChar[i][j] == 'W' || map->mapChar[i][j] == 'N' || map->mapChar[i][j] == 'S')
+			{
+				map->player_x = j;
+				map->player_y = i;
+				map->start_dir = map->mapChar[i][j];
 				nbr_player++;
+			}
 			j++;
 		}
 		i++;
 	}
 	if (nbr_player > 1 || !nbr_player)
+	{
+		printf("error4\n");
 		return true;
+	}
 	return false;
 }

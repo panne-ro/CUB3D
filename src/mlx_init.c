@@ -6,7 +6,7 @@
 /*   By: mleschev <mleschev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/05 19:16:04 by panne-ro          #+#    #+#             */
-/*   Updated: 2026/02/19 14:27:33 by mleschev         ###   ########.fr       */
+/*   Updated: 2026/02/20 15:02:37 by mleschev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ void	init(t_game *game)
 	game->dda->sidedist = malloc(sizeof(t_vector));
 	game->mlx->mlx = mlx_init();
 	init_player(game);
-	printf("x = %f y = %f\n", game->player->dir->x, game->player->dir->x);
+	printf("x = %f y = %f\n", game->player->dir->x, game->player->dir->y);
 	add_img(game);
 	game->mlx->window = mlx_new_window(game->mlx->mlx, x_win, y_win, "ntr manu");
 	raycasting(game);

@@ -38,6 +38,9 @@ typedef struct s_map
 	bool isClosed;
 	bool isValid;
 
+	float player_x;
+	float player_y;
+
 	char **mapChar;
 
 	char start_dir;

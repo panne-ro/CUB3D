@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: panne-ro <panne-ro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mleschev <mleschev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/13 13:26:03 by panne-ro          #+#    #+#             */
-/*   Updated: 2026/02/19 12:29:52 by panne-ro         ###   ########.fr       */
+/*   Updated: 2026/02/23 11:17:54 by mleschev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ void	dda_init(t_game	*game, t_vector *raydir)
 int	dda(t_game *game)
 {
 	int	side;
-	
+
 	while(1)
 	{
 		if (game->dda->sidedist->x < game->dda->sidedist->y)
@@ -96,7 +96,7 @@ int	dda(t_game *game)
 		int line_len = strlen(game->map->mapChar[my]);
 		if (mx < 0 || mx >= line_len)
     	{
-			game->dda->map->x -= game->dda->step->x; 
+			game->dda->map->x -= game->dda->step->x;
 			game->dda->map->y -= game->dda->step->y;
 			return (side);
 		}
@@ -127,6 +127,7 @@ void	raycasting(t_game *game)
 			WallDist = (game->dda->map->x - game->player->pos->x + (1 - game->dda->step->x)/2) / raydir.x;
 		else
     		WallDist = (game->dda->map->y - game->player->pos->y + (1 - game->dda->step->y)/2) / raydir.y;
+		printf("\nALED %f\n", WallDist);
 		line_height = y_win / WallDist;
 		draw_start = -line_height/2 + y_win/2;
 		draw_end = line_height/2 + y_win/2;

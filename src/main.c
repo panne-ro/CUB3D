@@ -6,7 +6,7 @@
 /*   By: mleschev <mleschev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/03 17:05:20 by panne-ro          #+#    #+#             */
-/*   Updated: 2026/02/19 14:24:47 by mleschev         ###   ########.fr       */
+/*   Updated: 2026/02/23 11:09:41 by mleschev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,36 +64,8 @@ int main(int argc, char **argv)
 	game = malloc(sizeof(t_game));
 	init_game(&game, argv[1]);
 
-
-	// //printf debug ------------------------------------------------------------------------
-	// printf("NO '%s'\nSO '%s'\nWE '%s'\nEA '%s'\nfC0 '%ld'\nfC1 '%ld'\nfC2 '%ld'\nCC0 '%ld'\nCC1 '%ld'\nCC2 '%ld'\nSTARTofMap '%d'\nENDofMap '%d'\n",
-	// game->map->northTexture,
-	// game->map->southTexture,
-	// game->map->westTexture,
-	// game->map->eastTexture,
-	// game->map->floorColor[0],
-	// game->map->floorColor[1],
-	// game->map->floorColor[2],
-	// game->map->ceilingColor[0],
-	// game->map->ceilingColor[1],
-	// game->map->ceilingColor[2],
-	// game->map->startMapInReading,
-	// game->map->LineOfEof);
-
-	// printf("\n\nmap (%d):\n", game->map->readingHead);
-	// int i = 0;
-	// int j = 0;
-	// while (game->map->mapChar[i])
-	// {
-	// 	j = 0;
-	// 	printf(" '%s' ", game->map->mapChar[i]);
-	// 	printf("\n");
-	// 	i++;
-	// }
-	// // ------------------------------------------------------------------------
 	verify_all(&game);
-
-
+	printf("EUH: %f", game->map->player_x);
 
 	init(game);
 	return (0);
