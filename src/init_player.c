@@ -6,7 +6,7 @@
 /*   By: panne-ro <panne-ro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/13 15:40:01 by panne-ro          #+#    #+#             */
-/*   Updated: 2026/02/19 12:32:22 by panne-ro         ###   ########.fr       */
+/*   Updated: 2026/02/25 19:08:34 by panne-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 void	init_dir(t_game *game)
 {
-	printf("%c\n", game->map->start_dir);
 	if (game->map->start_dir == 'N')
 	{
 		game->player->dir->x = 0;
@@ -35,7 +34,6 @@ void	init_dir(t_game *game)
 		game->player->dir->x = -1;
 		game->player->dir->y = 0;
 	}
-	printf("x = %f y = %f\n", game->player->dir->x, game->player->dir->x);
 }
 
 void	init_plane(t_game *game)
@@ -48,8 +46,8 @@ void	init_player(t_game *game)
 {
 	game->player->pos = malloc(sizeof(t_vector *));
 	game->player->dir = malloc(sizeof(t_vector *));
-	game->player->pos->x = 9.5;
-	game->player->pos->y = 4.5;
+	game->player->pos->x = 10 * 64 - 32;
+	game->player->pos->y = 7 * 64 - 32;
 	init_dir(game);
 	init_plane(game);
 }

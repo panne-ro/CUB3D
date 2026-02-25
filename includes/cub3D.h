@@ -50,15 +50,6 @@ typedef struct s_vector
 	float	y;
 } t_vector;
 
-typedef struct s_dda
-{
-	t_vector	*map;
-	t_vector	*deltadist;
-	t_vector	*step;
-	t_vector	*sidedist;
-}	t_dda;
-
-
 typedef struct s_player
 {
 	t_vector	*pos;
@@ -75,11 +66,8 @@ typedef struct s_mlx
 
 typedef struct s_img
 {
-    void    *img;
-    char    *addr;
-    int     bpp;
-    int     line_len;
-    int     endian;
+	void	*wall;
+	void	*floor;
 }   t_img;
 
 typedef struct s_game
@@ -88,7 +76,6 @@ typedef struct s_game
 	t_img		*img;
 	t_player	*player;
 	t_mlx		*mlx;
-	t_dda		*dda;
 } t_game;
 
 // parsing:
@@ -131,6 +118,8 @@ void	raycasting(t_game *game);
 void	init_player(t_game *game);
 
 void    put_pixel(t_img *img, int x, int y, int color);
+
+void	print_map(t_game *game);
 
 
 # endif
