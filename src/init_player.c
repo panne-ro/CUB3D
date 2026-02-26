@@ -6,7 +6,7 @@
 /*   By: mleschev <mleschev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/13 15:40:01 by panne-ro          #+#    #+#             */
-/*   Updated: 2026/02/23 11:12:15 by mleschev         ###   ########.fr       */
+/*   Updated: 2026/02/26 10:25:41 by mleschev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 void	init_dir(t_game *game)
 {
-	printf("aled %c\n", game->map->start_dir);//make leaks
 	if (game->map->start_dir == 'N')
 	{
 		game->player->dir->x = 0;
@@ -35,7 +34,6 @@ void	init_dir(t_game *game)
 		game->player->dir->x = -1;
 		game->player->dir->y = 0;
 	}
-	// printf("x = %f y = %f\n", game->player->dir->x, game->player->dir->x);// make leaks
 }
 
 void	init_plane(t_game *game)
@@ -48,6 +46,8 @@ void	init_player(t_game *game)
 {
 	game->player->pos = malloc(sizeof(t_vector *));
 	game->player->dir = malloc(sizeof(t_vector *));
+	game->player->pos->x = 10 * 64 - 32;
+	game->player->pos->y = 7 * 64 - 32;
 	init_dir(game);
 	init_plane(game);
 }

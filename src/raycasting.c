@@ -6,12 +6,17 @@
 /*   By: mleschev <mleschev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/13 13:26:03 by panne-ro          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2026/02/23 11:17:54 by mleschev         ###   ########.fr       */
+=======
+/*   Updated: 2026/02/25 14:50:32 by panne-ro         ###   ########.fr       */
+>>>>>>> Pbranch
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3D.h"
 
+<<<<<<< HEAD
 void	print_sky_and_floor(t_game *game, float draw_start, float draw_end, int x, int side)
 {
 	int y = 0;
@@ -136,3 +141,5 @@ void	raycasting(t_game *game)
 	}
 	mlx_put_image_to_window(game->mlx->mlx, game->mlx->window, game->img->img, 0, 0);
 }
+=======
+>>>>>>> Pbranch

@@ -3,10 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   mlx_init.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mleschev <mleschev@student.42.fr>          +#+  +:+       +#+        */
+/*   By: panne-ro <panne-ro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/05 19:16:04 by panne-ro          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2026/02/20 15:02:37 by mleschev         ###   ########.fr       */
+=======
+/*   Updated: 2026/02/25 19:06:03 by panne-ro         ###   ########.fr       */
+>>>>>>> Pbranch
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +19,8 @@
 int close_mlx(void *param)
 {
 	t_game *game = (t_game *)param;
-	mlx_destroy_image(game->mlx->mlx, game->img->img);
+	mlx_destroy_image(game->mlx->mlx, game->img->floor);
+	mlx_destroy_image(game->mlx->mlx, game->img->wall);
 	mlx_clear_window(game->mlx->mlx, game->mlx->window);
 	mlx_destroy_window(game->mlx->mlx, game->mlx->window);
 	mlx_destroy_display(game->mlx->mlx);
@@ -39,7 +44,7 @@ int	on_keypress(int key, void *game)
 	return (0);
 }
 
-void    put_pixel(t_img *img, int x, int y, int color)
+/*void    put_pixel(t_img *img, int x, int y, int color)
 {
     char    *pixel;
 
@@ -48,32 +53,28 @@ void    put_pixel(t_img *img, int x, int y, int color)
 
     pixel = img->addr + (y * img->line_len + x * (img->bpp / 8));
     *(unsigned int *)pixel = color;
-}
+}*/
 
 void	add_img(t_game *game)
 {
-	game->img->img = mlx_new_image(game->mlx->mlx, x_win, y_win);
-	game->img->addr = mlx_get_data_addr(
-    		game->img->img,
-        	&game->img->bpp,
-        	&game->img->line_len,
-        	&game->img->endian
-		);
+	int x;
+
+	x = 64;
+	game->img->floor = mlx_xpm_file_to_image(game->mlx->mlx, "./space.xpm", &x, &x);
+	game->img->wall = mlx_xpm_file_to_image(game->mlx->mlx, "./wall.xpm", &x, &x);
 }
 
 void	init(t_game *game)
 {
-	game->dda = malloc(sizeof(t_dda));
-	game->dda->map = malloc(sizeof(t_vector));
-	game->dda->step = malloc(sizeof(t_vector));
-	game->dda->deltadist = malloc(sizeof(t_vector));
-	game->dda->sidedist = malloc(sizeof(t_vector));
 	game->mlx->mlx = mlx_init();
 	init_player(game);
+<<<<<<< HEAD
 	printf("x = %f y = %f\n", game->player->dir->x, game->player->dir->y);
+=======
+>>>>>>> Pbranch
 	add_img(game);
 	game->mlx->window = mlx_new_window(game->mlx->mlx, x_win, y_win, "ntr manu");
-	raycasting(game);
+	print_map(game);
 	mlx_hook(game->mlx->window, 2, (1L << 0), on_keypress, game->mlx);
 	mlx_hook(game->mlx->window, 17, 0, mlx_loop_end, game->mlx->mlx);
 	mlx_loop(game->mlx->mlx);

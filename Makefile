@@ -12,7 +12,8 @@ SRC = 	$(SRC_DIR)/main.c \
 		$(SRC_DIR)/error.c \
 		$(SRC_DIR)/raycasting.c \
 		$(SRC_DIR)/init_player.c \
-		$(SRC_DIR)/vector.c
+		$(SRC_DIR)/vector.c \
+		$(SRC_DIR)/mini_map.c
 
 OBJS = $(SRC:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
 
