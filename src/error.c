@@ -6,7 +6,7 @@
 /*   By: mleschev <mleschev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/13 17:14:48 by mleschev          #+#    #+#             */
-/*   Updated: 2026/02/16 18:57:27 by mleschev         ###   ########.fr       */
+/*   Updated: 2026/02/26 10:57:58 by mleschev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,9 @@ void freeMap(t_map *map)
 {
 	int i = 0;
 
+	if (!map)
+		return ;
+	// printf("ALED: %s\n", map->eastTexture);
 	if (map->eastTexture)
 		free(map->eastTexture);
 	if (map->westTexture)
@@ -38,7 +41,6 @@ void freeMap(t_map *map)
 void freeGame(t_game **game)
 {
 	t_game *current;
-
 	current = *game;
 
 	freeMap(current->map);
@@ -48,6 +50,10 @@ void freeGame(t_game **game)
 		free(current->mlx);
 	if (current->map)
 		free(current->map);
+	if (current->player->dir)
+		free(current->player->dir);
+	if (current->player->pos)
+		free(current->player->pos);
 	if (current->player)
 		free(current->player);
 	if (*game)

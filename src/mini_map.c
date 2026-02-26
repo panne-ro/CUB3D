@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mini_map.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: panne-ro <panne-ro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mleschev <mleschev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/25 14:51:06 by panne-ro          #+#    #+#             */
-/*   Updated: 2026/02/25 19:09:19 by panne-ro         ###   ########.fr       */
+/*   Updated: 2026/02/26 17:14:43 by mleschev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	print_map(t_game *game)
 	int	y;
 	int w;
 	int	h;
-	
+
 	x = 0;
 	h = 0;
 	while(game->map->mapChar[x])
@@ -47,5 +47,27 @@ void	print_map(t_game *game)
 			n++;
 		}
 		m++;
+	}
+	int i = 0;
+	while (i < 200)
+	{
+		mlx_pixel_put(game->mlx->mlx, game->mlx->window, game->player->pos->x + game->player->dir->x * i, game->player->pos->y + game->player->dir->y * i, 0xFF0000);
+		i++;
+	}
+	double left_x  = game->player->dir->x - game->player->plane.x;
+	double left_y  = game->player->dir->y - game->player->plane.y;
+	double right_x = game->player->dir->x + game->player->plane.x;
+	double right_y = game->player->dir->y + game->player->plane.y;
+	for (int i = 0; i < 200; i++)
+	{
+		mlx_pixel_put(game->mlx->mlx, game->mlx->window,
+			game->player->pos->x + left_x * i,
+			game->player->pos->y + left_y * i,
+			0x00FF00); // vert
+
+		mlx_pixel_put(game->mlx->mlx, game->mlx->window,
+			game->player->pos->x + right_x * i,
+			game->player->pos->y + right_y * i,
+			0x0000FF); // bleu
 	}
 }

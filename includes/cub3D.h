@@ -2,7 +2,7 @@
 # define CUB3D_H
 
 # define x_win 1920
-# define y_win 1010
+# define y_win 1080
 
 #include <stdlib.h>
 #include <stdio.h>
@@ -11,9 +11,17 @@
 #include <stdbool.h>
 #include <fcntl.h>
 #include <math.h>
+#define PI 3.14159265359
+#define MOVESPEED 15
+#define FOV 1.5
+#define MINIMAP_RESOLUTION 64
 
 #include "./libft/libft.h"
 #include "./minilibx-linux/mlx.h"
+
+// TANG = OPP / ADJ
+// SIN = OPP / HYP
+// COS = ADJ / HYP
 
 // struct for map with all his data's like gov.site for j
 typedef struct s_map
@@ -58,6 +66,7 @@ typedef struct s_player
 	t_vector	*pos;
 	t_vector	*dir;
 	t_vector	plane;
+	double		angle;
 } t_player;
 
 typedef struct s_mlx
@@ -106,7 +115,7 @@ void parseMap(t_map *map);
 char *readAndCleanLine(char *lineRead, t_map *map);
 
 //test
-void init(t_game *game);
+void init(t_game **game);
 bool verif_map(t_map *map);
 
 t_vector	sum_vector(t_vector vector1, t_vector vector2);
@@ -116,13 +125,17 @@ t_vector	mul_vector(t_vector vector, int scale);
 
 void freeGame(t_game **game);
 
-void	raycasting(t_game *game);
+// void	raycasting(t_game *game);
 
 void	init_player(t_game *game);
 
-void    put_pixel(t_img *img, int x, int y, int color);
+// void    put_pixel(t_img *img, int x, int y, int color);
 
 void	print_map(t_game *game);
+
+// moov_player.c
+void	moov_player(t_game *game, char dir);
+void moov_look_dir(t_game *game, char dir);
 
 
 # endif

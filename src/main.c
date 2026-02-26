@@ -6,7 +6,7 @@
 /*   By: mleschev <mleschev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/03 17:05:20 by panne-ro          #+#    #+#             */
-/*   Updated: 2026/02/23 11:09:41 by mleschev         ###   ########.fr       */
+/*   Updated: 2026/02/26 10:48:45 by mleschev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,8 +65,7 @@ int main(int argc, char **argv)
 	init_game(&game, argv[1]);
 
 	verify_all(&game);
-	printf("EUH: %f", game->map->player_x);
 
-	init(game);
+	init(&game);
 	return (0);
 }

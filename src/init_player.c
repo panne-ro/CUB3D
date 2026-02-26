@@ -6,48 +6,33 @@
 /*   By: mleschev <mleschev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/13 15:40:01 by panne-ro          #+#    #+#             */
-/*   Updated: 2026/02/26 10:28:22 by mleschev         ###   ########.fr       */
+/*   Updated: 2026/02/26 18:20:56 by mleschev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3D.h"
 
-void	init_dir(t_game *game)
+void	init_dir_and_plane(t_game *game)
 {
 	if (game->map->start_dir == 'N')
-	{
-		game->player->dir->x = 0;
-		game->player->dir->y = -1;
-	}
+		game->player->angle = -PI / 2;
 	if (game->map->start_dir == 'S')
-	{
-		game->player->dir->x = 0;
-		game->player->dir->y = 1;
-	}
+		game->player->angle = PI / 2;
 	if (game->map->start_dir == 'E')
-	{
-		game->player->dir->x = 1;
-		game->player->dir->y = 0;
-	}
+		game->player->angle = 0;
 	if (game->map->start_dir == 'W')
-	{
-		game->player->dir->x = -1;
-		game->player->dir->y = 0;
-	}
-}
-
-void	init_plane(t_game *game)
-{
-	game->player->plane.x = game->player->dir->x * 0.66;
-	game->player->plane.y = (game->player->dir->y * -1) * 0.66; 
+		game->player->angle = PI;
+	game->player->dir->x = cos(game->player->angle);
+	game->player->dir->y = sin(game->player->angle);
+	game->player->plane.x = game->player->dir->y * FOV;
+	game->player->plane.y = -game->player->dir->x * FOV;
 }
 
 void	init_player(t_game *game)
 {
-	game->player->pos = malloc(sizeof(t_vector *));
-	game->player->dir = malloc(sizeof(t_vector *));
-	game->player->pos->x = 10 * 64 - 32;
-	game->player->pos->y = 7 * 64 - 32;
-	init_dir(game);
-	init_plane(game);
+	game->player->pos = malloc(sizeof(t_vector));
+	game->player->dir = malloc(sizeof(t_vector));
+	game->player->pos->x = 10 * MINIMAP_RESOLUTION - MINIMAP_RESOLUTION / 2;
+	game->player->pos->y = 7 * MINIMAP_RESOLUTION - MINIMAP_RESOLUTION / 2;
+	init_dir_and_plane(game);
 }
