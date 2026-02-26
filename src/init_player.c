@@ -6,7 +6,7 @@
 /*   By: mleschev <mleschev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/13 15:40:01 by panne-ro          #+#    #+#             */
-/*   Updated: 2026/02/26 10:25:41 by mleschev         ###   ########.fr       */
+/*   Updated: 2026/02/26 10:28:22 by mleschev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	init_dir(t_game *game)
 void	init_plane(t_game *game)
 {
 	game->player->plane.x = game->player->dir->x * 0.66;
-	game->player->plane.y = (game->player->dir->y * -1) * 0.66;
+	game->player->plane.y = (game->player->dir->y * -1) * 0.66; 
 }
 
 void	init_player(t_game *game)

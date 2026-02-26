@@ -3,14 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mlx_init.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: panne-ro <panne-ro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mleschev <mleschev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/05 19:16:04 by panne-ro          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2026/02/20 15:02:37 by mleschev         ###   ########.fr       */
-=======
-/*   Updated: 2026/02/25 19:06:03 by panne-ro         ###   ########.fr       */
->>>>>>> Pbranch
+/*   Updated: 2026/02/26 10:29:23 by mleschev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,10 +64,6 @@ void	init(t_game *game)
 {
 	game->mlx->mlx = mlx_init();
 	init_player(game);
-<<<<<<< HEAD
-	printf("x = %f y = %f\n", game->player->dir->x, game->player->dir->y);
-=======
->>>>>>> Pbranch
 	add_img(game);
 	game->mlx->window = mlx_new_window(game->mlx->mlx, x_win, y_win, "ntr manu");
 	print_map(game);
