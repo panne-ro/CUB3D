@@ -6,7 +6,7 @@
 /*   By: mleschev <mleschev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/26 11:01:00 by mleschev          #+#    #+#             */
-/*   Updated: 2026/02/26 19:00:46 by mleschev         ###   ########.fr       */
+/*   Updated: 2026/02/27 11:34:56 by mleschev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,44 +19,34 @@ void refresh_map(t_game *game)
 }
 
 
-// int *max_length_map(char x_or_y, t_game *game)
-// {
-// 	if (x_or_y == 'x')
-// 	{
-// 		game->player->pos->x
-// 	}
-// }
 
-//give a dir letter withe a game pointer return true if the position is a wall else if its ok
-// bool check_if_cant_go(char dir, t_game *game)
-// {
-// 	int dir_x = (int)game->player->pos->x;
-// 	int dir_y = (int)game->player->pos->y;
-// 	int max_dir_x =
-// 	int min_dir_x =
-// 	int max_dir_y =
-// 	int min_dir_y =
+// give a dir letter withe a game pointer return true if the position is a wall else if its ok
+bool check_if_cant_go(char dir, t_game *game)
+{
+	int dir_x = ((int)game->player->pos->x + (int)game->player->dir->x) * MOVESPEED / 32;
+	int dir_y = ((int)game->player->pos->y + (int)game->player->dir->y) * MOVESPEED / 32;
 
-// 	if (dir)
-// 		printf("ALEDDD: %d %d\n", ((dir_y + MOVESPEED ) / MINIMAP_RESOLUTION), dir_x / MINIMAP_RESOLUTION);
-// 	printf("original: %d %d\n", (dir_y / MINIMAP_RESOLUTION), dir_x / MINIMAP_RESOLUTION);
+	if (dir)
+	{
+		printf("DEBUG: x:%d y:%d\n", dir_x, dir_y);
+	}
 
 
-// 	// if (dir == 'w')
-// 	// {
-// 	// 	if (!game->map->mapChar[(int)game->player->pos->y - MOVESPEED / MINIMAP_RESOLUTION][(int)game->player->pos->x / MINIMAP_RESOLUTION])
-// 	// 		return false;
-// 	// }
-// 	// else if (dir == 's')
-// 	// else if (dir == 'd')
-// 	// else if (dir == 'a')
-// 	return true;
-// }
+	// if (dir == 'w')
+	// {
+	// 	if (!game->map->mapChar[(int)game->player->pos->y - MOVESPEED / MINIMAP_RESOLUTION][(int)game->player->pos->x / MINIMAP_RESOLUTION])
+	// 		return false;
+	// }
+	// else if (dir == 's')
+	// else if (dir == 'd')
+	// else if (dir == 'a')
+	return true;
+}
 
 void	moov_player(t_game *game, char dir)
 {
 	// printf("X:%f Y:%f\n", game->player->pos->x, game->player->pos->y);
-	if (dir == 'w' /*&& check_if_cant_go(dir, game)*/)
+	if (dir == 'w' && check_if_cant_go(dir, game))
 	{
 		game->player->pos->x += game->player->dir->x * MOVESPEED;
 		game->player->pos->y += game->player->dir->y * MOVESPEED;

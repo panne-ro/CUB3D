@@ -13,7 +13,7 @@
 #include <math.h>
 #define PI 3.14159265359
 #define MOVESPEED 15
-#define FOV 1.5
+#define FOV 0.6
 #define MINIMAP_RESOLUTION 64
 
 #include "./libft/libft.h"
@@ -135,7 +135,7 @@ void	print_map(t_game *game);
 
 // moov_player.c
 void	moov_player(t_game *game, char dir);
-void moov_look_dir(t_game *game, char dir);
+void	moov_look_dir(t_game *game, char dir);
 
 
 # endif

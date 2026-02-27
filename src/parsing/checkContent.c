@@ -6,7 +6,7 @@
 /*   By: mleschev <mleschev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/04 23:21:25 by mleschev          #+#    #+#             */
-/*   Updated: 2026/02/10 00:11:14 by mleschev         ###   ########.fr       */
+/*   Updated: 2026/02/27 10:44:53 by mleschev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -155,6 +155,7 @@ void checkContentFC(char *tmp, t_map *map)
 				while (lineRead[i] && lineRead[i] == ' ')
 					i++;
 				rgbDispatchInfoFile(lineRead, tmp, i, map, false);
+				free(lineRead);
                 return ;
 			}
 			i++;
@@ -164,7 +165,7 @@ void checkContentFC(char *tmp, t_map *map)
 	}
 	free(lineRead);
 }
-//sub fonction of checkcontentmaster resturn all of rgb in array of t_map for the ceiling
+//sub fonction of checkcontentmaster return all of rgb in array of t_map for the ceiling
 void checkContentCC(char *tmp, t_map *map)
 { //faut faire bellek ya pas les erreurs d'over-nombre pour l'instant (F 0,250,300,54654,484,31,5156,4,51,48,4,3,84,5)
 	int i;
@@ -185,6 +186,7 @@ void checkContentCC(char *tmp, t_map *map)
 				while (lineRead[i] && lineRead[i] == ' ')
 					i++;
 				rgbDispatchInfoFile(lineRead, tmp, i, map, true);
+				free(lineRead);
                 return ;
 			}
 			i++;
@@ -238,6 +240,5 @@ void rgbDispatchInfoFile(char *lineRead, char *tmp, int i, t_map *map, bool forC
         i++;
         nbr++;
     }
-	free(lineRead);
 }
 
