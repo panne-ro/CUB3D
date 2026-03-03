@@ -80,6 +80,7 @@ typedef struct s_img
 {
 	void	*wall;
 	void	*floor;
+	void	*gridsee;
 }   t_img;
 
 typedef struct s_game
@@ -136,6 +137,8 @@ void	print_map(t_game *game);
 // moov_player.c
 void	moov_player(t_game *game, char dir);
 void	moov_look_dir(t_game *game, char dir);
+
+int	dda(t_game *game);
 
 
 # endif

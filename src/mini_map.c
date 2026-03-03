@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mini_map.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mleschev <mleschev@student.42.fr>          +#+  +:+       +#+        */
+/*   By: panne-ro <panne-ro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/25 14:51:06 by panne-ro          #+#    #+#             */
-/*   Updated: 2026/02/26 17:14:43 by mleschev         ###   ########.fr       */
+/*   Updated: 2026/03/03 15:32:41 by panne-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,12 +48,8 @@ void	print_map(t_game *game)
 		}
 		m++;
 	}
-	int i = 0;
-	while (i < 200)
-	{
-		mlx_pixel_put(game->mlx->mlx, game->mlx->window, game->player->pos->x + game->player->dir->x * i, game->player->pos->y + game->player->dir->y * i, 0xFF0000);
-		i++;
-	}
+	dda(game);
+	
 	double left_x  = game->player->dir->x - game->player->plane.x;
 	double left_y  = game->player->dir->y - game->player->plane.y;
 	double right_x = game->player->dir->x + game->player->plane.x;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mlx_init.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mleschev <mleschev@student.42.fr>          +#+  +:+       +#+        */
+/*   By: panne-ro <panne-ro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/05 19:16:04 by panne-ro          #+#    #+#             */
-/*   Updated: 2026/02/26 18:52:38 by mleschev         ###   ########.fr       */
+/*   Updated: 2026/03/03 15:32:34 by panne-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ void	add_img(t_game *game)
 	x = 64;
 	game->img->floor = mlx_xpm_file_to_image(game->mlx->mlx, "./space.xpm", &x, &x);
 	game->img->wall = mlx_xpm_file_to_image(game->mlx->mlx, "./wall.xpm", &x, &x);
+	game->img->gridsee = mlx_xpm_file_to_image(game->mlx->mlx, "./player.xpm", &x, &x);
 }
 
 void	init(t_game **game_addr)
