@@ -6,7 +6,7 @@
 /*   By: panne-ro <panne-ro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/05 19:16:04 by panne-ro          #+#    #+#             */
-/*   Updated: 2026/03/04 16:59:05 by panne-ro         ###   ########.fr       */
+/*   Updated: 2026/03/04 17:08:29 by panne-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,9 @@
 int close_mlx(void *param)
 {
 	t_game *game = (t_game *)param;
-	mlx_destroy_image(game->mlx->mlx, game->img->floor);
-	mlx_destroy_image(game->mlx->mlx, game->img->wall);
+	mlx_destroy_image(game->mlx->mlx, game->img->img);
+	//mlx_destroy_image(game->mlx->mlx, game->img->floor);
+	//mlx_destroy_image(game->mlx->mlx, game->img->wall);
 	mlx_clear_window(game->mlx->mlx, game->mlx->window);
 	mlx_destroy_window(game->mlx->mlx, game->mlx->window);
 	mlx_destroy_display(game->mlx->mlx);

@@ -81,6 +81,7 @@ typedef struct s_img
 	void	*wall;
 	void	*floor;
 	void	*gridsee;
+	void	*img;
 }   t_img;
 
 typedef struct s_game

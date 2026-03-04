@@ -6,7 +6,7 @@
 /*   By: panne-ro <panne-ro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/13 13:26:03 by panne-ro          #+#    #+#             */
-/*   Updated: 2026/03/04 16:57:18 by panne-ro         ###   ########.fr       */
+/*   Updated: 2026/03/04 17:09:34 by panne-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,9 @@ int	dda(t_game *game)
 {
 	double posY = (double)game->player->pos->y / MINIMAP_RESOLUTION;
 	double posX = (double)game->player->pos->x / MINIMAP_RESOLUTION;
-	
-	void *img = mlx_new_image(game->mlx->mlx, x_win, y_win);
+	game->img->img = mlx_new_image(game->mlx->mlx, x_win, y_win);
 	int bpp, size_line, endian;
-	char *data = mlx_get_data_addr(img, &bpp, &size_line, &endian);
-
+	char *data = mlx_get_data_addr(game->img->img, &bpp, &size_line, &endian);
 	for (int col = 0; col < x_win; ++col)
 	{
 		double cameraX = 2.0 * col / (double)x_win - 1.0;
@@ -39,8 +37,8 @@ int	dda(t_game *game)
 			deltaDistY = 1e30;
 		else
 			deltaDistY = fabs(1.0 / dirY);
-	int mapX = (int)floor(posX);
-	int mapY = (int)floor(posY);
+		int mapX = (int)floor(posX);
+		int mapY = (int)floor(posY);
 		int stepX;
 		int stepY;
 		double sideDistX;
@@ -81,14 +79,12 @@ int	dda(t_game *game)
 				mapY += stepY;
 				side = 1;
 			}
-
 			if (mapY < 0 || mapX < 0)
 				break;
 			if (!game->map->mapChar[mapY])
 				break;
 			if (mapX >= (int)ft_strlen(game->map->mapChar[mapY]))
 				break;
-
 			if (game->map->mapChar[mapY][mapX] == '1')
 				hit = 1;
 		}
@@ -102,7 +98,6 @@ int	dda(t_game *game)
 
 			if (perp <= 1e-6)
 				perp = 1e-6;
-
 			int line_height = (int)((double)y_win / perp);
 			int draw_start = -line_height / 2 + y_win / 2;
 			if (draw_start < 0)
@@ -110,11 +105,9 @@ int	dda(t_game *game)
 			int draw_end = line_height / 2 + y_win / 2;
 			if (draw_end >= y_win)
 				draw_end = y_win - 1;
-
 			int ceiling_color = 0x87CEEB;
 			int wall_color = 0x8B4513;
 			int floor_color = 0x228B22;
-
 			for (int y = 0; y < y_win; ++y)
 			{
 				int color;
@@ -142,7 +135,6 @@ int	dda(t_game *game)
 			}
 		}
 	}
-	mlx_put_image_to_window(game->mlx->mlx, game->mlx->window, img, 0, 0);
-	mlx_destroy_image(game->mlx->mlx, img);
+	mlx_put_image_to_window(game->mlx->mlx, game->mlx->window, game->img->img, 0, 0);
 	return (0);
 }
