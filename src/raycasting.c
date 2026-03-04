@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: panne-ro <panne-ro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mleschev <mleschev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/13 13:26:03 by panne-ro          #+#    #+#             */
-/*   Updated: 2026/03/04 17:09:34 by panne-ro         ###   ########.fr       */
+/*   Updated: 2026/03/04 17:45:42 by mleschev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,7 @@ int	dda(t_game *game)
 {
 	double posY = (double)game->player->pos->y / MINIMAP_RESOLUTION;
 	double posX = (double)game->player->pos->x / MINIMAP_RESOLUTION;
-	game->img->img = mlx_new_image(game->mlx->mlx, x_win, y_win);
-	int bpp, size_line, endian;
-	char *data = mlx_get_data_addr(game->img->img, &bpp, &size_line, &endian);
+	char *data = game->img->addr;
 	for (int col = 0; col < x_win; ++col)
 	{
 		double cameraX = 2.0 * col / (double)x_win - 1.0;
@@ -118,14 +116,14 @@ int	dda(t_game *game)
 				else
 					color = floor_color;
 
-				int offset = y * size_line + col * (bpp / 8);
-				if (bpp == 32)
+				int offset = y * game->img->line_len + col * (game->img->bpp / 8);
+				if (game->img->bpp == 32)
 				{
 					*(int *)(data + offset) = color;
 				}
 				else
 				{
-					if (offset + 2 < y_win * size_line && offset >= 0)
+					if (offset + 2 < y_win * game->img->line_len && offset >= 0)
 					{
 						data[offset + 0] = (char)(color & 0xFF);
 						data[offset + 1] = (char)((color >> 8) & 0xFF);

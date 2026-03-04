@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mlx_init.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: panne-ro <panne-ro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mleschev <mleschev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/05 19:16:04 by panne-ro          #+#    #+#             */
-/*   Updated: 2026/03/04 17:13:36 by panne-ro         ###   ########.fr       */
+/*   Updated: 2026/03/04 17:45:58 by mleschev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,22 +82,17 @@ int update(void *game)
 	return (0);
 }
 
-void	add_img(t_game *game)
-{
-	int x;
-
-	x = 64;
-	game->img->floor = mlx_xpm_file_to_image(game->mlx->mlx, "./space.xpm", &x, &x);
-	game->img->wall = mlx_xpm_file_to_image(game->mlx->mlx, "./wall.xpm", &x, &x);
-	game->img->gridsee = mlx_xpm_file_to_image(game->mlx->mlx, "./player.xpm", &x, &x);
-}
-
 void	init(t_game **game_addr)
 {
 	t_game *game = *game_addr;
 	game->mlx->mlx = mlx_init();
 	init_player(game);
-	add_img(game);
+	game->img->img = mlx_new_image(game->mlx->mlx, x_win, y_win);
+	game->img->addr = mlx_get_data_addr(
+		game->img->img,
+		&game->img->bpp,
+		&game->img->line_len,
+		&game->img->endian);
 	game->mlx->window = mlx_new_window(game->mlx->mlx, x_win, y_win, "CUB2D");
 	//print_map(game);
 	dda(game);

@@ -89,11 +89,12 @@ typedef struct s_mlx
 
 typedef struct s_img
 {
-	void	*wall;
-	void	*floor;
-	void	*gridsee;
-	void	*img;
-}   t_img;
+    void    *img;
+    char    *addr;
+    int     bpp;
+    int     line_len;
+    int     endian;
+} t_img;
 
 typedef struct s_game
 {
