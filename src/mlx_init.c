@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mlx_init.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: panne-ro <panne-ro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mleschev <mleschev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/05 19:16:04 by panne-ro          #+#    #+#             */
-/*   Updated: 2026/03/03 15:32:34 by panne-ro         ###   ########.fr       */
+/*   Updated: 2026/03/04 11:50:13 by mleschev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,37 +24,62 @@ int close_mlx(void *param)
 	freeGame(&game);
 	exit (0);
 }
-
-int	on_keypress(int key, void *game)
+int key_release(int key, void *game)
 {
-	printf("KEY pressed: %d\n", key);
-	if (key == 65307)
-		close_mlx(game);
+	t_game *current = (t_game *)game;
 	if (key == 119)
-		moov_player(game, 'w');
+		current->player->flags_moov->w = 0;
 	if (key == 115)
-		moov_player(game, 's');
+		current->player->flags_moov->s = 0;
 	if (key == 97)
-		moov_player(game, 'a');
+		current->player->flags_moov->a = 0;
 	if (key == 100)
-		moov_player(game, 'd');
+		current->player->flags_moov->d = 0;
 	if (key == 65361)
-		moov_look_dir(game, 'g');
+		current->player->flags_moov->look_left = 0;
 	if (key == 65363)
-		moov_look_dir(game, 'd');
+		current->player->flags_moov->look_right = 0;
 	return (0);
 }
 
-/*void    put_pixel(t_img *img, int x, int y, int color)
+int	on_keypress(int key, void *game)
 {
-    char    *pixel;
+	t_game *current = (t_game *)game;
+	if (key == 65307)
+		close_mlx(game);
+	if (key == 119)
+		current->player->flags_moov->w = 1;
+	if (key == 115)
+		current->player->flags_moov->s = 1;
+	if (key == 97)
+		current->player->flags_moov->a = 1;
+	if (key == 100)
+		current->player->flags_moov->d = 1;
+	if (key == 65361)
+		current->player->flags_moov->look_left = 1;
+	if (key == 65363)
+		current->player->flags_moov->look_right = 1;
+	return (0);
+}
 
-    if (x < 0 || x >= x_win || y < 0 || y >= y_win)
-        return;
-
-    pixel = img->addr + (y * img->line_len + x * (img->bpp / 8));
-    *(unsigned int *)pixel = color;
-}*/
+int update(void *game)
+{
+	t_game *current = (t_game *)game;
+	if (current->player->flags_moov->w)
+		moov_player(game, 'w');
+	if (current->player->flags_moov->s)
+		moov_player(game, 's');
+	if (current->player->flags_moov->a)
+		moov_player(game, 'a');
+	if (current->player->flags_moov->d)
+		moov_player(game, 'd');
+	if (current->player->flags_moov->look_left)
+		moov_look_dir(game, 'g');
+	if (current->player->flags_moov->look_right)
+		moov_look_dir(game, 'd');
+	refresh_map(game);
+	return (0);
+}
 
 void	add_img(t_game *game)
 {
@@ -75,6 +100,8 @@ void	init(t_game **game_addr)
 	game->mlx->window = mlx_new_window(game->mlx->mlx, x_win, y_win, "ntr pablo");
 	print_map(game);
 	mlx_hook(game->mlx->window, 2, (1L << 0), on_keypress, game);
+	mlx_hook(game->mlx->window, 3, (1L << 1), key_release, game);
 	mlx_hook(game->mlx->window, 17, 0, close_mlx, game);
+	mlx_loop_hook(game->mlx->mlx, update, game);
 	mlx_loop(game->mlx->mlx);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_player.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: panne-ro <panne-ro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mleschev <mleschev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/13 15:40:01 by panne-ro          #+#    #+#             */
-/*   Updated: 2026/03/03 14:57:47 by panne-ro         ###   ########.fr       */
+/*   Updated: 2026/03/04 11:24:55 by mleschev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,23 @@ void	init_dir_and_plane(t_game *game)
 	game->player->plane.y = -game->player->dir->x * FOV;
 }
 
+void	init_flag_moov(t_game *game)
+{
+	game->player->flags_moov->a = 0;
+	game->player->flags_moov->w = 0;
+	game->player->flags_moov->s = 0;
+	game->player->flags_moov->d = 0;
+	game->player->flags_moov->look_left = 0;
+	game->player->flags_moov->look_right = 0;
+}
+
 void	init_player(t_game *game)
 {
 	game->player->pos = malloc(sizeof(t_vector));
 	game->player->dir = malloc(sizeof(t_vector));
+	game->player->flags_moov = malloc(sizeof(t_moov));
 	game->player->pos->x = 10 * MINIMAP_RESOLUTION - MINIMAP_RESOLUTION / 2;
 	game->player->pos->y = 7 * MINIMAP_RESOLUTION - MINIMAP_RESOLUTION / 2;
+	init_flag_moov(game);
 	init_dir_and_plane(game);
 }

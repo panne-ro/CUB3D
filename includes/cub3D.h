@@ -61,11 +61,22 @@ typedef struct s_vector
 	float	y;
 } t_vector;
 
+typedef struct s_moov
+{
+	int	w;
+	int	s;
+	int	a;
+	int d;
+	int look_right;
+	int look_left;
+} t_moov;
+
 typedef struct s_player
 {
 	t_vector	*pos;
 	t_vector	*dir;
 	t_vector	plane;
+	t_moov		*flags_moov;
 	double		angle;
 } t_player;
 
@@ -139,6 +150,8 @@ void	moov_player(t_game *game, char dir);
 void	moov_look_dir(t_game *game, char dir);
 
 int	dda(t_game *game);
+int key_release(int key, void *game);
+void refresh_map(t_game *game);
 
 
 # endif

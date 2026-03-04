@@ -6,7 +6,7 @@
 /*   By: mleschev <mleschev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/03 17:05:20 by panne-ro          #+#    #+#             */
-/*   Updated: 2026/02/26 10:48:45 by mleschev         ###   ########.fr       */
+/*   Updated: 2026/03/04 11:24:28 by mleschev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ void	init_game(t_game **gameAddr, char *pathFile)
 	current->img = malloc(sizeof(t_img));
 	current->map = malloc(sizeof(t_map));
 	current->player = malloc(sizeof(t_player));
-
 	initMapStruct(gameAddr, pathFile);
 }
 void verify_all(t_game **game_address)

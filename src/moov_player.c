@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   moov_player.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: panne-ro <panne-ro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mleschev <mleschev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/26 11:01:00 by mleschev          #+#    #+#             */
-/*   Updated: 2026/03/03 14:52:01 by panne-ro         ###   ########.fr       */
+/*   Updated: 2026/03/04 11:53:34 by mleschev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ bool check_if_cant_go(char dir, t_game *game)
 void	moov_player(t_game *game, char dir)
 {
 	// printf("X:%f Y:%f\n", game->player->pos->x, game->player->pos->y);
-	if (dir == 'w' && check_if_cant_go(dir, game))
+	if (dir == 'w' /*&& check_if_cant_go(dir, game)*/)
 	{
 		game->player->pos->x += game->player->dir->x * MOVESPEED;
 		game->player->pos->y += game->player->dir->y * MOVESPEED;
@@ -64,7 +64,6 @@ void	moov_player(t_game *game, char dir)
 		game->player->pos->x -= game->player->dir->y * MOVESPEED;
 		game->player->pos->y += game->player->dir->x * MOVESPEED;
 	}
-	refresh_map(game);
 }
 
 void moov_look_dir(t_game *game, char dir)
@@ -77,6 +76,4 @@ void moov_look_dir(t_game *game, char dir)
 	game->player->dir->y = sin(game->player->angle);
 	game->player->plane.x = game->player->dir->y * FOV;
 	game->player->plane.y = -game->player->dir->x * FOV;
-	
-	refresh_map(game);
 }
