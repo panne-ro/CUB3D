@@ -12,7 +12,7 @@
 #include <fcntl.h>
 #include <math.h>
 #define PI 3.14159265359
-#define MOVESPEED 15
+#define MOVESPEED 10
 #define FOV 0.6
 #define MINIMAP_RESOLUTION 64
 
@@ -140,5 +140,6 @@ void	moov_look_dir(t_game *game, char dir);
 
 int	dda(t_game *game);
 
+void	print_world(t_game *game, double perp, int col);
 
 # endif

@@ -6,7 +6,7 @@
 /*   By: panne-ro <panne-ro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/05 19:16:04 by panne-ro          #+#    #+#             */
-/*   Updated: 2026/03/03 15:32:34 by panne-ro         ###   ########.fr       */
+/*   Updated: 2026/03/04 16:59:05 by panne-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,8 +72,9 @@ void	init(t_game **game_addr)
 	game->mlx->mlx = mlx_init();
 	init_player(game);
 	add_img(game);
-	game->mlx->window = mlx_new_window(game->mlx->mlx, x_win, y_win, "ntr pablo");
-	print_map(game);
+	game->mlx->window = mlx_new_window(game->mlx->mlx, x_win, y_win, "CUB2D");
+	//print_map(game);
+	dda(game);
 	mlx_hook(game->mlx->window, 2, (1L << 0), on_keypress, game);
 	mlx_hook(game->mlx->window, 17, 0, close_mlx, game);
 	mlx_loop(game->mlx->mlx);

@@ -6,7 +6,7 @@
 /*   By: panne-ro <panne-ro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/13 15:40:01 by panne-ro          #+#    #+#             */
-/*   Updated: 2026/03/03 14:57:47 by panne-ro         ###   ########.fr       */
+/*   Updated: 2026/03/04 16:57:09 by panne-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,24 +15,25 @@
 void	init_dir_and_plane(t_game *game)
 {
 	if (game->map->start_dir == 'N')
-		game->player->angle = -PI / 2;
-	if (game->map->start_dir == 'S')
 		game->player->angle = PI / 2;
+	if (game->map->start_dir == 'S')
+		game->player->angle = -PI / 2;
 	if (game->map->start_dir == 'E')
 		game->player->angle = 0;
 	if (game->map->start_dir == 'W')
 		game->player->angle = PI;
 	game->player->dir->x = cos(game->player->angle);
 	game->player->dir->y = sin(game->player->angle);
-	game->player->plane.x = game->player->dir->y * FOV;
-	game->player->plane.y = -game->player->dir->x * FOV;
+	game->player->plane.x = -game->player->dir->y * FOV;
+	game->player->plane.y = game->player->dir->x * FOV;
 }
 
 void	init_player(t_game *game)
 {
 	game->player->pos = malloc(sizeof(t_vector));
 	game->player->dir = malloc(sizeof(t_vector));
-	game->player->pos->x = 10 * MINIMAP_RESOLUTION - MINIMAP_RESOLUTION / 2;
-	game->player->pos->y = 7 * MINIMAP_RESOLUTION - MINIMAP_RESOLUTION / 2;
+	game->player->pos->x = game->map->player_x * MINIMAP_RESOLUTION;
+	game->player->pos->y = game->map->player_y * MINIMAP_RESOLUTION;
+	printf("%f, %f\n", game->player->pos->x, game->player->pos->y);
 	init_dir_and_plane(game);
 }
