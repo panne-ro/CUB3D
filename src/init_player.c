@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_player.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mleschev <mleschev@student.42.fr>          +#+  +:+       +#+        */
+/*   By: panne-ro <panne-ro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/13 15:40:01 by panne-ro          #+#    #+#             */
-/*   Updated: 2026/03/04 15:46:29 by mleschev         ###   ########.fr       */
+/*   Updated: 2026/03/04 17:13:26 by panne-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,17 +15,17 @@
 void	init_dir_and_plane(t_game *game)
 {
 	if (game->map->start_dir == 'N')
-		game->player->angle = -PI / 2;
-	if (game->map->start_dir == 'S')
 		game->player->angle = PI / 2;
+	if (game->map->start_dir == 'S')
+		game->player->angle = -PI / 2;
 	if (game->map->start_dir == 'E')
 		game->player->angle = 0;
 	if (game->map->start_dir == 'W')
 		game->player->angle = PI;
 	game->player->dir->x = cos(game->player->angle);
 	game->player->dir->y = sin(game->player->angle);
-	game->player->plane.x = game->player->dir->y * FOV;
-	game->player->plane.y = -game->player->dir->x * FOV;
+	game->player->plane.x = -game->player->dir->y * FOV;
+	game->player->plane.y = game->player->dir->x * FOV;
 }
 
 void	init_flag_moov(t_game *game)
@@ -40,8 +40,8 @@ void	init_flag_moov(t_game *game)
 
 void	init_player(t_game *game)
 {
-	game->player->pos->x = 10 * MINIMAP_RESOLUTION - MINIMAP_RESOLUTION / 2;
-	game->player->pos->y = 7 * MINIMAP_RESOLUTION - MINIMAP_RESOLUTION / 2;
+	game->player->pos->x = game->map->player_x * MINIMAP_RESOLUTION;
+	game->player->pos->y = game->map->player_y * MINIMAP_RESOLUTION;
 	init_flag_moov(game);
 	init_dir_and_plane(game);
 }

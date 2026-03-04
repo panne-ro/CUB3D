@@ -12,7 +12,7 @@
 #include <fcntl.h>
 #include <math.h>
 #define PI 3.14159265359
-#define MOVESPEED 15
+#define MOVESPEED 10
 #define FOV 0.6
 #define MINIMAP_RESOLUTION 64
 
@@ -92,6 +92,7 @@ typedef struct s_img
 	void	*wall;
 	void	*floor;
 	void	*gridsee;
+	void	*img;
 }   t_img;
 
 typedef struct s_game
@@ -156,5 +157,6 @@ int	dda(t_game *game);
 int key_release(int key, void *game);
 void refresh_map(t_game *game);
 
+void	print_world(t_game *game, double perp, int col);
 
 # endif

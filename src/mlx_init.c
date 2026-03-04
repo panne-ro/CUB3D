@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mlx_init.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mleschev <mleschev@student.42.fr>          +#+  +:+       +#+        */
+/*   By: panne-ro <panne-ro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/05 19:16:04 by panne-ro          #+#    #+#             */
-/*   Updated: 2026/03/04 11:50:13 by mleschev         ###   ########.fr       */
+/*   Updated: 2026/03/04 17:13:36 by panne-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,9 @@
 int close_mlx(void *param)
 {
 	t_game *game = (t_game *)param;
-	mlx_destroy_image(game->mlx->mlx, game->img->floor);
-	mlx_destroy_image(game->mlx->mlx, game->img->wall);
+	mlx_destroy_image(game->mlx->mlx, game->img->img);
+	//mlx_destroy_image(game->mlx->mlx, game->img->floor);
+	//mlx_destroy_image(game->mlx->mlx, game->img->wall);
 	mlx_clear_window(game->mlx->mlx, game->mlx->window);
 	mlx_destroy_window(game->mlx->mlx, game->mlx->window);
 	mlx_destroy_display(game->mlx->mlx);
@@ -97,8 +98,9 @@ void	init(t_game **game_addr)
 	game->mlx->mlx = mlx_init();
 	init_player(game);
 	add_img(game);
-	game->mlx->window = mlx_new_window(game->mlx->mlx, x_win, y_win, "ntr pablo");
-	print_map(game);
+	game->mlx->window = mlx_new_window(game->mlx->mlx, x_win, y_win, "CUB2D");
+	//print_map(game);
+	dda(game);
 	mlx_hook(game->mlx->window, 2, (1L << 0), on_keypress, game);
 	mlx_hook(game->mlx->window, 3, (1L << 1), key_release, game);
 	mlx_hook(game->mlx->window, 17, 0, close_mlx, game);
