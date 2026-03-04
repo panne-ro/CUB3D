@@ -6,7 +6,7 @@
 /*   By: mleschev <mleschev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/03 17:05:20 by panne-ro          #+#    #+#             */
-/*   Updated: 2026/03/04 11:24:28 by mleschev         ###   ########.fr       */
+/*   Updated: 2026/03/04 15:46:43 by mleschev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,36 +21,10 @@ void	init_game(t_game **gameAddr, char *pathFile)
 	current->img = malloc(sizeof(t_img));
 	current->map = malloc(sizeof(t_map));
 	current->player = malloc(sizeof(t_player));
+	current->player->pos = malloc(sizeof(t_vector));
+	current->player->dir = malloc(sizeof(t_vector));
+	current->player->flags_moov = malloc(sizeof(t_moov));
 	initMapStruct(gameAddr, pathFile);
-}
-void verify_all(t_game **game_address)
-{
-	t_game *game = *game_address;
-
-	if (game->map->ceilingColor[0] == -1 || game->map->ceilingColor[1] == -1 || game->map->ceilingColor[2] == -1)
-	{
-		printf("Error: color of ceiling\n");
-		freeGame(game_address);
-		exit (0);
-	}
-	if (game->map->floorColor[0] == -1 || game->map->floorColor[1] == -1 || game->map->floorColor[2] == -1)
-	{
-		printf("Error: color of floor\n");
-		freeGame(game_address);
-		exit (0);
-	}
-	if (!game->map->eastTexture || !game->map->northTexture || !game->map->southTexture || !game->map->westTexture) //rajouter voir si les textures sont accessibles
-	{
-		printf("Error: texture missing\n");
-		freeGame(game_address);
-		exit (0);
-	}
-	if (verif_map(game->map)) //fonction a rajouter mdrr
-	{
-		printf("Error: map not valid\n");
-		freeGame(game_address);
-		exit (0);
-	}
 }
 
 int main(int argc, char **argv)

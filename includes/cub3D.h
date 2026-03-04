@@ -134,8 +134,11 @@ t_vector	sum_vector(t_vector vector1, t_vector vector2);
 t_vector	*sub_vector(t_vector *vector1, t_vector *vector2);
 t_vector	mul_vector(t_vector vector, int scale);
 //  error.c
-
+void verify_all(t_game **game_address);
 void freeGame(t_game **game);
+void freeMap(t_map *map);
+bool check_range_color(t_game *game);
+bool check_texture_file(t_game *game);
 
 // void	raycasting(t_game *game);
 

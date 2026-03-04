@@ -6,7 +6,7 @@
 /*   By: mleschev <mleschev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/13 15:40:01 by panne-ro          #+#    #+#             */
-/*   Updated: 2026/03/04 11:24:55 by mleschev         ###   ########.fr       */
+/*   Updated: 2026/03/04 15:46:29 by mleschev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,9 +40,6 @@ void	init_flag_moov(t_game *game)
 
 void	init_player(t_game *game)
 {
-	game->player->pos = malloc(sizeof(t_vector));
-	game->player->dir = malloc(sizeof(t_vector));
-	game->player->flags_moov = malloc(sizeof(t_moov));
 	game->player->pos->x = 10 * MINIMAP_RESOLUTION - MINIMAP_RESOLUTION / 2;
 	game->player->pos->y = 7 * MINIMAP_RESOLUTION - MINIMAP_RESOLUTION / 2;
 	init_flag_moov(game);

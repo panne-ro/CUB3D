@@ -6,7 +6,7 @@
 /*   By: mleschev <mleschev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/03 18:02:13 by mleschev          #+#    #+#             */
-/*   Updated: 2026/02/23 11:14:15 by mleschev         ###   ########.fr       */
+/*   Updated: 2026/03/04 12:12:26 by mleschev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,7 +136,7 @@ bool verif_map(t_map *map)
 		}
 		while (map->mapChar[i][j])
 		{
-			//check si la map contient des valeurs inetrdites
+			//check si la map contient des valeurs inetrdites dans la map_char
 			if ((map->mapChar[i][j] != '0' && map->mapChar[i][j] != '1') && (map->mapChar[i][j] != 'E' && map->mapChar[i][j] != 'W' && map->mapChar[i][j] != 'N' && map->mapChar[i][j] != 'S'))
 			{
 				printf("error3\n");
