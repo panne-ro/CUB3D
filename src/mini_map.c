@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mini_map.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: panne-ro <panne-ro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mleschev <mleschev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/25 14:51:06 by panne-ro          #+#    #+#             */
-/*   Updated: 2026/03/04 15:16:29 by panne-ro         ###   ########.fr       */
+/*   Updated: 2026/03/05 11:14:51 by mleschev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,10 @@ void	print_map(t_game *game)
 		w = 0;
 		while(game->map->mapChar[x][y])
 		{
-			if(game->map->mapChar[x][y] == '0')
-				mlx_put_image_to_window(game->mlx->mlx, game->mlx->window, game->img->floor, w, h);
-			else if (game->map->mapChar[x][y] == '1')
-				mlx_put_image_to_window(game->mlx->mlx, game->mlx->window, game->img->wall, w, h);
+			// if(game->map->mapChar[x][y] == '0')
+			// 	mlx_put_image_to_window(game->mlx->mlx, game->mlx->window, game->img->floor, w, h);
+			// else if (game->map->mapChar[x][y] == '1')
+			// 	mlx_put_image_to_window(game->mlx->mlx, game->mlx->window, game->img->wall, w, h);
 			w += 64;
 			y++;
 		}
@@ -49,7 +49,7 @@ void	print_map(t_game *game)
 		m++;
 	}
 	dda(game);
-	
+
 	double left_x  = game->player->dir->x - game->player->plane.x;
 	double left_y  = game->player->dir->y - game->player->plane.y;
 	double right_x = game->player->dir->x + game->player->plane.x;

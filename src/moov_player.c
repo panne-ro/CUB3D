@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   moov_player.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: panne-ro <panne-ro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mleschev <mleschev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/26 11:01:00 by mleschev          #+#    #+#             */
-/*   Updated: 2026/03/04 17:13:57 by panne-ro         ###   ########.fr       */
+/*   Updated: 2026/03/05 11:16:11 by mleschev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,5 @@ void moov_look_dir(t_game *game, char dir)
 	game->player->dir->y = sin(game->player->angle);
 	game->player->plane.x = -game->player->dir->y * FOV;
 	game->player->plane.y = game->player->dir->x * FOV;
-	
-	refresh_map(game);
+
 }
