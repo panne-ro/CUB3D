@@ -6,7 +6,7 @@
 /*   By: mleschev <mleschev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/25 14:51:06 by panne-ro          #+#    #+#             */
-/*   Updated: 2026/03/05 11:14:51 by mleschev         ###   ########.fr       */
+/*   Updated: 2026/03/10 10:30:59 by mleschev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,6 @@ void	print_map(t_game *game)
 		}
 		m++;
 	}
-	dda(game);
 
 	double left_x  = game->player->dir->x - game->player->plane.x;
 	double left_y  = game->player->dir->y - game->player->plane.y;

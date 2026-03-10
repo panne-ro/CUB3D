@@ -6,7 +6,7 @@
 /*   By: panne-ro <panne-ro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/03 18:02:13 by mleschev          #+#    #+#             */
-/*   Updated: 2026/03/10 13:37:34 by panne-ro         ###   ########.fr       */
+/*   Updated: 2026/03/10 13:47:35 by panne-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,6 +130,12 @@ bool verif_map(t_map *map)
 			printf("error2\n");
 			return true;
 		}
+		flood_fill(map, 0, 0);
+		if (!map->isClosed)
+		{
+			printf("error5\n");
+			return true;
+		}
 		//check si la map a deja commencer et si ele contient plusieurs 'fragment'
 		if (!map_is_start && ft_strlen(map->mapChar[i]))
 			map_is_start = true;
@@ -141,7 +147,7 @@ bool verif_map(t_map *map)
 		while (map->mapChar[i][j])
 		{
 			//check si la map contient des valeurs inetrdites dans la map_char
-			if ((map->mapChar[i][j] != '0' && map->mapChar[i][j] != '1') && (map->mapChar[i][j] != 'E' && map->mapChar[i][j] != 'W' && map->mapChar[i][j] != 'N' && map->mapChar[i][j] != 'S'))
+			if ((map->mapChar[i][j] != '0' && map->mapChar[i][j] != '1') && map->mapChar[i][j] != ' ' && (map->mapChar[i][j] != 'E' && map->mapChar[i][j] != 'W' && map->mapChar[i][j] != 'N' && map->mapChar[i][j] != 'S'))
 			{
 				printf("error3\n");
 				return true;
@@ -164,4 +170,48 @@ bool verif_map(t_map *map)
 		return true;
 	}
 	return false;
+}
+
+void flood_fill(t_map *map, int x, int y)
+{
+	if (y < 0 || x < 0)
+	{
+		map->isClosed = false;
+		printf("stop flood at %d %d\n", map->player_x, map->player_y);
+		return;
+	}
+
+	if (!map->mapChar[y])
+	{
+		map->isClosed = false;
+		return;
+	}
+
+	if (x >= (int)ft_strlen(map->mapChar[y]))
+	{
+		map->isClosed = false;
+		return;
+	}
+
+	if (map->mapChar[y][x] == ' ')
+	{
+		map->isClosed = false;
+		return;
+	}
+
+	if (map->mapChar[y][x] == '1' || map->mapChar[y][x] == 'F')
+		return;
+
+	if (map->mapChar[y][x] == 'N'
+		|| map->mapChar[y][x] == 'S'
+		|| map->mapChar[y][x] == 'E'
+		|| map->mapChar[y][x] == 'W')
+		map->mapChar[y][x] = '0';
+
+	map->mapChar[y][x] = 'F';
+
+	flood_fill(map, x + 1, y);
+	flood_fill(map, x - 1, y);
+	flood_fill(map, x, y + 1);
+	flood_fill(map, x, y - 1);
 }

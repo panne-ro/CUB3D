@@ -6,7 +6,7 @@
 /*   By: mleschev <mleschev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/26 11:01:00 by mleschev          #+#    #+#             */
-/*   Updated: 2026/03/05 11:16:11 by mleschev         ###   ########.fr       */
+/*   Updated: 2026/03/10 10:25:45 by mleschev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void refresh_map(t_game *game)
 {
 	//mlx_clear_window(game->mlx->mlx, game->mlx->window);
 	dda(game);
-	//print_map(game);
+	print_map(game);
 }
 
 // give a dir letter withe a game pointer return falsw if the position is a wall and true if its ok
