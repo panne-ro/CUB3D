@@ -94,6 +94,8 @@ typedef struct s_img
     int     bpp;
     int     line_len;
     int     endian;
+	void	*wall;
+	void	*floor;
 } t_img;
 
 typedef struct s_game
@@ -159,5 +161,8 @@ int key_release(int key, void *game);
 void refresh_map(t_game *game);
 
 void	print_world(t_game *game, double perp, int col);
+
+// checkmap.c
+void flood_fill(t_map *map, int x, int y);
 
 # endif
