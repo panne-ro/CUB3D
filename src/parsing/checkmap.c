@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   checkmap.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mleschev <mleschev@student.42.fr>          +#+  +:+       +#+        */
+/*   By: panne-ro <panne-ro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/03 18:02:13 by mleschev          #+#    #+#             */
-/*   Updated: 2026/03/04 12:12:26 by mleschev         ###   ########.fr       */
+/*   Updated: 2026/03/10 13:37:34 by panne-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,39 +67,43 @@ int checkmap(t_game **gameAddr)
 	return 0;
 }
 
-// function for recall get_next_line into lineRead and change the \n to \0
-char *readAndCleanLine(char *lineRead, t_map *map)
+// function for recall get_next_line into line_read and change the \n to \0
+char *readAndCleanLine(char *line_read, t_map *map)
 {
 	int i;
 
 	i = 0;
-	lineRead = get_next_line(map->fdMap);
-	if (!lineRead)
-		return lineRead;
+	line_read = get_next_line(map->fdMap);
+	if (!line_read)
+		return line_read;
 	map->readingHead++;
-	while (lineRead[i])
+	while (line_read[i])
 	{
-		if (lineRead[i] == '\n')
+		if (line_read[i] == '\n')
 		{
-			lineRead[i] = 0;
+			line_read[i] = 0;
 			break ;
 		}
 		i++;
 	}
-	return (lineRead);
+	return (line_read);
 }
 
 // baise ta mere c'est ecrit dans le nom
 int checkContentMaster(t_map *map)
 {
+	char	*line_read;
 	char tmp[1000];
+	int i;
 
-	map->northTexture = checkContentNO(map, tmp);
-	map->southTexture = checkContentSO(map, tmp);
-	map->westTexture = checkContentWE(map, tmp);
-	map->eastTexture = checkContentEA(map, tmp);
-	checkContentFC(tmp, map);
-	checkContentCC(tmp, map);
+	line_read = NULL;
+	i = -1;
+	map->northTexture = check_content_no(map, tmp, i);
+	map->southTexture = check_content_so(map, tmp, i);
+	map->westTexture = check_content_we(map, tmp, i);
+	map->eastTexture = check_content_ea(map, tmp, i);
+	check_content_fc(tmp, map, i, line_read);
+	check_content_cc(tmp, map, i, line_read);
 	parseMap(map);
 	return 0;
 }

@@ -6,11 +6,19 @@
 /*   By: panne-ro <panne-ro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/13 15:40:01 by panne-ro          #+#    #+#             */
-/*   Updated: 2026/03/04 17:13:26 by panne-ro         ###   ########.fr       */
+/*   Updated: 2026/03/10 11:57:37 by panne-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3D.h"
+
+void	init_var(t_game *game)
+{
+	game->dda->col = 0;
+	game->dda->posY = (double)game->player->pos->y / MINIMAP_RESOLUTION;
+	game->dda->posX = (double)game->player->pos->x / MINIMAP_RESOLUTION;
+	game->dda->data = game->img->addr;
+}
 
 void	init_dir_and_plane(t_game *game)
 {

@@ -45,6 +45,7 @@ typedef struct s_map
 
 	bool isClosed;
 	bool isValid;
+	bool	boolean;
 
 	float player_x;
 	float player_y;
@@ -96,37 +97,58 @@ typedef struct s_img
     int     endian;
 } t_img;
 
+typedef struct s_dda
+{
+	double	posY;
+	double	posX;
+	int		hit;
+	int		side;
+	double	sideDistX;
+	double	sideDistY;
+	int		mapX;
+	int		mapY;
+	int		stepX;
+	int		stepY;
+	double	deltaDistX;
+	double	deltaDistY;
+	double	cameraX;
+	double	dirX;
+	double	dirY;
+	int		col;
+	char	*data;
+} t_dda;
+
 typedef struct s_game
 {
 	t_map		*map;
 	t_img		*img;
 	t_player	*player;
 	t_mlx		*mlx;
+	t_dda		*dda;
 } t_game;
 
 // parsing:
-int		extensionCheck(char *str);
-int		checkArg(int argc, char **argv);
+int		extension_check(char *str);
+int		check_arg(int argc, char **argv);
 
 void initMapStruct(t_game **gameAddr, char *pathToMapFile);
 int checkContentMaster(t_map *map);
-char *copyContent(char *lineRead, char *tmp, int i);
+char *copy_content(char *line_read, char *tmp, int i);
 
 int checkmap(t_game **gameAddr);
 
 // checkcontent.c
 
-char *checkContentNO(t_map *map, char *tmp);
-char *checkContentSO(t_map *map, char *tmp);
-char *checkContentWE(t_map *map, char *tmp);
-char *checkContentEA(t_map *map, char *tmp);
-
-void checkContentFC(char *tmp, t_map *map);
-void checkContentCC(char *tmp, t_map *map);
-void rgbDispatchInfoFile(char *lineRead, char *tmp, int i, t_map *map, bool forCeiling);
+char *check_content_no(t_map *map, char *tmp, int i);
+char *check_content_so(t_map *map, char *tmp, int i);
+char *check_content_we(t_map *map, char *tmp, int i);
+char *check_content_ea(t_map *map, char *tmp, int i);
+void check_content_fc(char *tmp, t_map *map, int i, char *line_read);
+void check_content_cc(char *tmp, t_map *map, int i, char *line_read);
+void rgb_dispatch_info_file(char *line_read, char *tmp, int i, t_map *map);
 void parseMap(t_map *map);
 
-char *readAndCleanLine(char *lineRead, t_map *map);
+char *readAndCleanLine(char *line_read, t_map *map);
 
 //test
 void init(t_game **game);
@@ -157,7 +179,6 @@ void	moov_look_dir(t_game *game, char dir);
 int	dda(t_game *game);
 int key_release(int key, void *game);
 void refresh_map(t_game *game);
-
-void	print_world(t_game *game, double perp, int col);
+void	init_var(t_game *game);
 
 # endif

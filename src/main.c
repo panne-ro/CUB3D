@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mleschev <mleschev@student.42.fr>          +#+  +:+       +#+        */
+/*   By: panne-ro <panne-ro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/03 17:05:20 by panne-ro          #+#    #+#             */
-/*   Updated: 2026/03/04 17:36:13 by mleschev         ###   ########.fr       */
+/*   Updated: 2026/03/10 12:04:56 by panne-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ void	init_game(t_game **gameAddr, char *pathFile)
 	current->mlx = malloc(sizeof(t_mlx));
 	current->img = malloc(sizeof(t_img));
 	current->map = malloc(sizeof(t_map));
+	current->dda = malloc(sizeof(t_dda));
 	current->player = malloc(sizeof(t_player));
 	current->player->pos = malloc(sizeof(t_vector));
 	current->player->dir = malloc(sizeof(t_vector));
@@ -31,7 +32,7 @@ int main(int argc, char **argv)
 {
 	t_game	*game;
 
-	if (checkArg(argc, argv))
+	if (check_arg(argc, argv))
 		return (1);
 
 	game = malloc(sizeof(t_game));

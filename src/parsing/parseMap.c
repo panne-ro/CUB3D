@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parseMap.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mleschev <mleschev@student.42.fr>          +#+  +:+       +#+        */
+/*   By: panne-ro <panne-ro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/05 21:15:12 by mleschev          #+#    #+#             */
-/*   Updated: 2026/02/27 10:45:48 by mleschev         ###   ########.fr       */
+/*   Updated: 2026/03/10 12:29:26 by panne-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,22 +19,22 @@ bool checkMap(t_map *map)
 {
 	int i;
 	int test;
-	char *lineRead = NULL;
+	char *line_read = NULL;
 
 	test = 0;
 
-	lineRead = readAndCleanLine(lineRead, map);
-	while (lineRead)
+	line_read = readAndCleanLine(line_read, map);
+	while (line_read)
 	{
 		i = 0;
-		while (lineRead[i] && map->startMapInReading == 0)
+		while (line_read[i] && map->startMapInReading == 0)
 		{
-			if (lineRead[i] != ' ' && lineRead[i] != '\n' && lineRead[i] != '\f' && lineRead[i] != '\r' && lineRead[i] != '\t' && lineRead[i] != '\n' && lineRead[i] != '\v')
+			if (line_read[i] != ' ' && line_read[i] != '\n' && line_read[i] != '\f' && line_read[i] != '\r' && line_read[i] != '\t' && line_read[i] != '\n' && line_read[i] != '\v')
 				map->startMapInReading = map->readingHead;
 			i++;
 		}
-		free(lineRead);
-		lineRead = readAndCleanLine(lineRead, map);
+		free(line_read);
+		line_read = readAndCleanLine(line_read, map);
 	}
 	if (test > 1)
 		return true;
@@ -44,22 +44,22 @@ bool checkMap(t_map *map)
 
 char *putReadingHeadInPlace(t_map *map)
 {
-	char *lineRead = NULL;
+	char *line_read = NULL;
 
 	map->LineOfEof = map->readingHead;
 	close(map->fdMap);
 	map->fdMap = open(map->filePath, O_RDONLY);
 	map->readingHead = 0;
 
-	lineRead = readAndCleanLine(lineRead, map);
+	line_read = readAndCleanLine(line_read, map);
 
 	//on se remet a la bonne positions dans le fichier
-	while (lineRead && map->readingHead < map->startMapInReading)
+	while (line_read && map->readingHead < map->startMapInReading)
 	{
-		free(lineRead);
-		lineRead = readAndCleanLine(lineRead, map);
+		free(line_read);
+		line_read = readAndCleanLine(line_read, map);
 	}
-	return (lineRead);
+	return (line_read);
 }
 
 // sub_function for parse map only in map file return in map->
@@ -69,7 +69,7 @@ void parseMap(t_map *map)
 	int j;
 	int x;
 	int y;
-	char *lineRead = NULL;
+	char *line_read = NULL;
 
 	x = 0;
 	y = 0;
@@ -78,7 +78,7 @@ void parseMap(t_map *map)
 	//on cherche quand la map commence et la fin du fichier + check erreur sur la map
 	if (checkMap(map))
 		return ;
-	lineRead = putReadingHeadInPlace(map);
+	line_read = putReadingHeadInPlace(map);
 	map->mapChar = malloc(sizeof(char *) * (map->LineOfEof - map->startMapInReading + 2));
 	map->heightOfMap = map->LineOfEof - map->startMapInReading + 1;
 
@@ -86,23 +86,23 @@ void parseMap(t_map *map)
 		printf("TEMP malloc parseMap.c defaut\n");//temp
 
 	//on imprime la map dans map.mapChar
-	while (lineRead)
+	while (line_read)
 	{
 		i = 0;
-		while (lineRead[i])
+		while (line_read[i])
 			i++;
 		map->mapChar[j] = malloc(sizeof(char) * (i + 2));
 		i = 0;
-		while (lineRead[i])
+		while (line_read[i])
 		{
-			map->mapChar[j][i] = lineRead[i];
+			map->mapChar[j][i] = line_read[i];
 			i++;
 		}
 		map->mapChar[j][i] = '\0';
-		free(lineRead);
-		lineRead = readAndCleanLine(lineRead, map);
+		free(line_read);
+		line_read = readAndCleanLine(line_read, map);
 		j++;
 	}
 	map->mapChar[j] = NULL;
-	free(lineRead);
+	free(line_read);
 }
