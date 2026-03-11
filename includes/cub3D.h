@@ -50,6 +50,7 @@ typedef struct s_map
 	float player_y;
 
 	char **mapChar;
+	char **copy_map;
 
 	char start_dir;
 
