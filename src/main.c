@@ -6,7 +6,7 @@
 /*   By: panne-ro <panne-ro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/03 17:05:20 by panne-ro          #+#    #+#             */
-/*   Updated: 2026/03/10 12:04:56 by panne-ro         ###   ########.fr       */
+/*   Updated: 2026/03/16 10:20:27 by panne-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ void	init_game(t_game **gameAddr, char *pathFile)
 	current->player->pos = malloc(sizeof(t_vector));
 	current->player->dir = malloc(sizeof(t_vector));
 	current->player->flags_moov = malloc(sizeof(t_moov));
+	current->map->copy_map = NULL;
 	initMapStruct(gameAddr, pathFile);
 }
 
