@@ -6,7 +6,7 @@
 /*   By: panne-ro <panne-ro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/03 17:05:20 by panne-ro          #+#    #+#             */
-/*   Updated: 2026/03/16 10:20:27 by panne-ro         ###   ########.fr       */
+/*   Updated: 2026/03/16 16:49:38 by panne-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	init_game(t_game **gameAddr, char *pathFile)
 {
-	t_game *current;
+	t_game	*current;
 
 	current = *gameAddr;
 	current->mlx = malloc(sizeof(t_mlx));
@@ -26,21 +26,18 @@ void	init_game(t_game **gameAddr, char *pathFile)
 	current->player->dir = malloc(sizeof(t_vector));
 	current->player->flags_moov = malloc(sizeof(t_moov));
 	current->map->copy_map = NULL;
-	initMapStruct(gameAddr, pathFile);
+	init_map_struct(gameAddr, pathFile);
 }
 
-int main(int argc, char **argv)
+int	main(int argc, char **argv)
 {
 	t_game	*game;
 
 	if (check_arg(argc, argv))
 		return (1);
-
 	game = malloc(sizeof(t_game));
 	init_game(&game, argv[1]);
-
 	verify_all(&game);
-
 	init(&game);
 	return (0);
 }

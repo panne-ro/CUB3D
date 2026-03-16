@@ -6,19 +6,19 @@
 /*   By: panne-ro <panne-ro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/10 13:24:38 by panne-ro          #+#    #+#             */
-/*   Updated: 2026/03/10 13:40:57 by panne-ro         ###   ########.fr       */
+/*   Updated: 2026/03/16 16:16:08 by panne-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3D.h"
 
-//sub fonction of checkcontentmaster 
+//sub fonction of check_content_master 
 //return all of rgb in array of t_map for the ceiling
 //faut faire bellek ya pas les erreurs d'over-nombre pour l'instant 
 //(F 0,250,300,54654,484,31,5156,4,51,48,4,3,84,5)
 void	check_content_cc(char *tmp, t_map *map, int i, char *line_read)
 {
-	line_read = readAndCleanLine(line_read, map);
+	line_read = read_and_clean_line(line_read, map);
 	while (line_read)
 	{
 		i = -1;
@@ -38,7 +38,7 @@ void	check_content_cc(char *tmp, t_map *map, int i, char *line_read)
 			}
 		}
 		free(line_read);
-		line_read = readAndCleanLine(line_read, map);
+		line_read = read_and_clean_line(line_read, map);
 	}
 	free(line_read);
 }
@@ -85,6 +85,7 @@ void	rgb_dispatch_info_file(char *line_read, char *tmp, int i, t_map *map)
 			map->ceilingColor[nbr] = ft_atoi(tmp);
 		else
 			map->floorColor[nbr] = ft_atoi(tmp);
+		printf("%li, %li\n", map->ceilingColor[nbr], map->floorColor[nbr]);
 		i++;
 		nbr++;
 	}

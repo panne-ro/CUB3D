@@ -52,21 +52,21 @@ int	expose_win2(void *p)
   mlx_put_image_to_window(mlx,win2,im2,0,0);
 }
 
-int	key_win1(int key,void *p)
+int	keY_WIN1(int key,void *p)
 {
   printf("Key in Win1 : %d\n",key);
   if (key==0xFF1B)
     exit(0);
 }
 
-int	key_win2(int key,void *p)
+int	keY_WIN2(int key,void *p)
 {
   printf("Key in Win2 : %d\n",key);
   if (key==0xFF1B)
     exit(0);
 }
 
-int	key_win3(int key,void *p)
+int	keY_WIN3(int key,void *p)
 {
   printf("Key in Win3 : %d\n",key);
   if (key==0xFF1B)
@@ -207,11 +207,11 @@ int	main()
   win3 = mlx_new_window(mlx,WIN1_SX,WIN1_SY,"Title3");
   mlx_expose_hook(win1,expose_win1,0);
   mlx_mouse_hook(win1,mouse_win1,0);
-  mlx_key_hook(win1,key_win1,0);
+  mlx_key_hook(win1,keY_WIN1,0);
   mlx_expose_hook(win2,expose_win2,0);
   mlx_mouse_hook(win2,mouse_win2,0);
-  mlx_key_hook(win2,key_win2,0);
-  mlx_key_hook(win3,key_win3,0);
+  mlx_key_hook(win2,keY_WIN2,0);
+  mlx_key_hook(win3,keY_WIN3,0);
 
   mlx_hook(win3, MotionNotify, PointerMotionMask, mouse_win3, 0);
 

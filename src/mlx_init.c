@@ -3,31 +3,34 @@
 /*                                                        :::      ::::::::   */
 /*   mlx_init.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mleschev <mleschev@student.42.fr>          +#+  +:+       +#+        */
+/*   By: panne-ro <panne-ro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/05 19:16:04 by panne-ro          #+#    #+#             */
-/*   Updated: 2026/03/04 17:45:58 by mleschev         ###   ########.fr       */
+/*   Updated: 2026/03/16 16:56:38 by panne-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3D.h"
 
-int close_mlx(void *param)
+int	close_mlx(void *param)
 {
-	t_game *game = (t_game *)param;
+	t_game	*game;
+
+	game = (t_game *)param;
 	mlx_destroy_image(game->mlx->mlx, game->img->img);
-	//mlx_destroy_image(game->mlx->mlx, game->img->floor);
-	//mlx_destroy_image(game->mlx->mlx, game->img->wall);
 	mlx_clear_window(game->mlx->mlx, game->mlx->window);
 	mlx_destroy_window(game->mlx->mlx, game->mlx->window);
 	mlx_destroy_display(game->mlx->mlx);
 	free(game->mlx->mlx);
-	freeGame(&game);
+	free_game(&game);
 	exit (0);
 }
-int key_release(int key, void *game)
+
+int	key_release(int key, void *game)
 {
-	t_game *current = (t_game *)game;
+	t_game	*current;
+
+	current = (t_game *)game;
 	if (key == 119)
 		current->player->flags_moov->w = 0;
 	if (key == 115)
@@ -45,7 +48,9 @@ int key_release(int key, void *game)
 
 int	on_keypress(int key, void *game)
 {
-	t_game *current = (t_game *)game;
+	t_game	*current;
+
+	current = (t_game *)game;
 	if (key == 65307)
 		close_mlx(game);
 	if (key == 119)
@@ -63,9 +68,11 @@ int	on_keypress(int key, void *game)
 	return (0);
 }
 
-int update(void *game)
+int	update(void *game)
 {
-	t_game *current = (t_game *)game;
+	t_game	*current;
+
+	current = (t_game *)game;
 	if (current->player->flags_moov->w)
 		moov_player(game, 'w');
 	if (current->player->flags_moov->s)
@@ -84,17 +91,19 @@ int update(void *game)
 
 void	init(t_game **game_addr)
 {
-	t_game *game = *game_addr;
+	t_game	*game;
+
+	game = *game_addr;
 	game->mlx->mlx = mlx_init();
 	init_player(game);
-	game->img->img = mlx_new_image(game->mlx->mlx, x_win, y_win);
+	game->img->img = mlx_new_image(game->mlx->mlx, X_WIN, Y_WIN);
 	game->img->addr = mlx_get_data_addr(
-		game->img->img,
-		&game->img->bpp,
-		&game->img->line_len,
-		&game->img->endian);
-	game->mlx->window = mlx_new_window(game->mlx->mlx, x_win, y_win, "CUB2D");
-	//print_map(game);
+			game->img->img,
+			&game->img->bpp,
+			&game->img->line_len,
+			&game->img->endian);
+	printf("%li\n", game->map->ceilingColor[0]);
+	game->mlx->window = mlx_new_window(game->mlx->mlx, X_WIN, Y_WIN, "CUB2D");
 	dda(game);
 	mlx_hook(game->mlx->window, 2, (1L << 0), on_keypress, game);
 	mlx_hook(game->mlx->window, 3, (1L << 1), key_release, game);

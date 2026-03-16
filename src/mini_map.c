@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   mini_map.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mleschev <mleschev@student.42.fr>          +#+  +:+       +#+        */
+/*   By: panne-ro <panne-ro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/25 14:51:06 by panne-ro          #+#    #+#             */
-/*   Updated: 2026/03/10 10:30:59 by mleschev         ###   ########.fr       */
+/*   Updated: 2026/03/16 16:46:10 by panne-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3D.h"
 
-void	print_map(t_game *game)
+/*void	print_map(t_game *game)
 {
 	int	x;
 	int	y;
@@ -28,9 +28,11 @@ void	print_map(t_game *game)
 		while(game->map->mapChar[x][y])
 		{
 			// if(game->map->mapChar[x][y] == '0')
-			// 	mlx_put_image_to_window(game->mlx->mlx, game->mlx->window, game->img->floor, w, h);
+			// 	mlx_put_image_to_window(game->mlx->mlx, game->mlx->window,
+			game->img->floor, w, h);
 			// else if (game->map->mapChar[x][y] == '1')
-			// 	mlx_put_image_to_window(game->mlx->mlx, game->mlx->window, game->img->wall, w, h);
+			// 	mlx_put_image_to_window(game->mlx->mlx, game->mlx->window,
+			game->img->wall, w, h);
 			w += 64;
 			y++;
 		}
@@ -43,7 +45,8 @@ void	print_map(t_game *game)
 		int n = -6;
 		while (n <= 5)
 		{
-			mlx_pixel_put(game->mlx->mlx, game->mlx->window, game->player->pos->x + n, game->player->pos->y + m, 250);
+			mlx_pixel_put(game->mlx->mlx, game->mlx->window,
+			game->player->pos->x + n, game->player->pos->y + m, 250);
 			n++;
 		}
 		m++;
@@ -65,4 +68,4 @@ void	print_map(t_game *game)
 			game->player->pos->y + right_y * i,
 			0x0000FF); // bleu
 	}
-}
+}*/

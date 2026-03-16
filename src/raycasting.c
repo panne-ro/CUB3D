@@ -6,7 +6,7 @@
 /*   By: panne-ro <panne-ro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/13 13:26:03 by panne-ro          #+#    #+#             */
-/*   Updated: 2026/03/10 11:58:37 by panne-ro         ###   ########.fr       */
+/*   Updated: 2026/03/16 16:54:52 by panne-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,11 @@
 
 void	maj_var(t_game *game)
 {
-	game->dda->cameraX = 2.0 * game->dda->col / (double)x_win - 1.0;
-	game->dda->dirX = game->player->dir->x + game->player->plane.x * game->dda->cameraX;
-	game->dda->dirY = game->player->dir->y + game->player->plane.y * game->dda->cameraX;
+	game->dda->cameraX = 2.0 * game->dda->col / (double)X_WIN - 1.0;
+	game->dda->dirX = game->player->dir->x + game->player->plane.x
+		* game->dda->cameraX;
+	game->dda->dirY = game->player->dir->y + game->player->plane.y
+		* game->dda->cameraX;
 	if (game->dda->dirX == 0.0)
 		game->dda->deltaDistX = 1e30;
 	else
@@ -34,22 +36,26 @@ void	calc_dir(t_game *game, double dirX, double dirY)
 	if (dirX < 0)
 	{
 		game->dda->stepX = -1;
-		game->dda->sideDistX = (game->dda->posX - game->dda->mapX) * game->dda->deltaDistX;
+		game->dda->sideDistX = (game->dda->posX - game->dda->mapX)
+			* game->dda->deltaDistX;
 	}
 	else
 	{
 		game->dda->stepX = 1;
-		game->dda->sideDistX = (game->dda->mapX + 1.0 - game->dda->posX) * game->dda->deltaDistX;
+		game->dda->sideDistX = (game->dda->mapX + 1.0 - game->dda->posX)
+			* game->dda->deltaDistX;
 	}
 	if (dirY < 0)
 	{
 		game->dda->stepY = -1;
-		game->dda->sideDistY = (game->dda->posY - game->dda->mapY) * game->dda->deltaDistY;
+		game->dda->sideDistY = (game->dda->posY - game->dda->mapY)
+			* game->dda->deltaDistY;
 	}
 	else
 	{
 		game->dda->stepY = 1;
-		game->dda->sideDistY = (game->dda->mapY + 1.0 - game->dda->posY) * game->dda->deltaDistY;
+		game->dda->sideDistY = (game->dda->mapY + 1.0 - game->dda->posY)
+			* game->dda->deltaDistY;
 	}
 }
 
@@ -70,49 +76,42 @@ void	calc_side(t_game *game)
 			game->dda->side = 1;
 		}
 		if (game->dda->mapY < 0 || game->dda->mapX < 0)
-			break;
+			break ;
 		if (!game->map->mapChar[game->dda->mapY])
-			break;
-		if (game->dda->mapX >= (int)ft_strlen(game->map->mapChar[game->dda->mapY]))
-			break;
+			break ;
+		if (game->dda->mapX >= (int)
+			ft_strlen(game->map->mapChar[game->dda->mapY]))
+			break ;
 		if (game->map->mapChar[game->dda->mapY][game->dda->mapX] == '1')
 			game->dda->hit = 1;
 	}
 }
 
-void	print_world(t_game *game, double perp, char *data)
+void	print_world(t_game *game, double perp, int x)
 {
-	int line_height = (int)((double)y_win / perp);
-	int draw_start = -line_height / 2 + y_win / 2;
+	int	y;
+	int	line_height;
+	int	draw_start;
+	int	draw_end;
+
+	line_height = (int)((double)Y_WIN / perp);
+	draw_end = line_height / 2 + Y_WIN / 2;
+	draw_start = -line_height / 2 + Y_WIN / 2;
 	if (draw_start < 0)
 		draw_start = 0;
-	int draw_end = line_height / 2 + y_win / 2;
-	if (draw_end >= y_win)
-		draw_end = y_win - 1;
-	int ceiling_color = 0x87CEEB;
-	int wall_color = 0x8B4513;
-	int floor_color = 0x228B22;
-	for (int y = 0; y < y_win; ++y)
+	if (draw_end >= Y_WIN)
+		draw_end = Y_WIN - 1;
+	add_colors(game);
+	y = 0;
+	while (y <= Y_WIN)
 	{
-		int color;
 		if (y < draw_start)
-			color = ceiling_color;
+			my_mlx_pixel_put(game, x, y, game->img->ceiling_color);
 		else if (y <= draw_end)
-			color = wall_color;
+			my_mlx_pixel_put(game, x, y, game->img->wall_color);
 		else
-			color = floor_color;
-		int offset = y * game->img->line_len + game->dda->col * (game->img->bpp / 8);
-		if (game->img->bpp == 32)
-			*(int *)(data + offset) = color;
-		else
-		{
-			if (offset + 2 < y_win * game->img->line_len && offset >= 0)
-			{
-					data[offset + 0] = (char)(color & 0xFF);
-					data[offset + 1] = (char)((color >> 8) & 0xFF);
-					data[offset + 2] = (char)((color >> 16) & 0xFF);
-			}
-		}
+			my_mlx_pixel_put(game, x, y, game->img->floor_color);
+		y++;
 	}
 }
 
@@ -121,7 +120,7 @@ int	dda(t_game *game)
 	double	perp;
 
 	init_var(game);
-	while (game->dda->col < x_win)
+	while (game->dda->col < X_WIN)
 	{
 		maj_var(game);
 		calc_dir(game, game->dda->dirX, game->dda->dirY);
@@ -136,10 +135,11 @@ int	dda(t_game *game)
 				perp = game->dda->sideDistY - game->dda->deltaDistY;
 			if (perp <= 1e-6)
 				perp = 1e-6;
-			print_world(game, perp, game->dda->data);
+			print_world(game, perp, game->dda->col);
 		}
 		game->dda->col++;
 	}
-	mlx_put_image_to_window(game->mlx->mlx, game->mlx->window, game->img->img, 0, 0);
+	mlx_put_image_to_window(game->mlx->mlx, game->mlx->window,
+		game->img->img, 0, 0);
 	return (0);
 }

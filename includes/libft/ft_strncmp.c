@@ -6,13 +6,13 @@
 /*   By: panne-ro <panne-ro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 18:52:37 by mleschev          #+#    #+#             */
-/*   Updated: 2026/02/03 18:04:05 by panne-ro         ###   ########.fr       */
+/*   Updated: 2026/03/16 17:02:58 by panne-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int		ft_strncmp(const char *s1, const char *s2, size_t n)
+int	ft_strncmp(const char *s1, const char *s2, size_t n)
 {
 	size_t	i;
 

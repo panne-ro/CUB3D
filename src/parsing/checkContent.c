@@ -6,7 +6,7 @@
 /*   By: panne-ro <panne-ro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/04 23:21:25 by mleschev          #+#    #+#             */
-/*   Updated: 2026/03/10 13:39:38 by panne-ro         ###   ########.fr       */
+/*   Updated: 2026/03/16 16:16:08 by panne-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ char	*check_content_no(t_map *map, char *tmp, int i)
 	char	*line_read;
 
 	line_read = NULL;
-	line_read = readAndCleanLine(line_read, map);
+	line_read = read_and_clean_line(line_read, map);
 	while (line_read)
 	{
 		i = -1;
@@ -37,7 +37,7 @@ char	*check_content_no(t_map *map, char *tmp, int i)
 			}
 		}
 		free(line_read);
-		line_read = readAndCleanLine(line_read, map);
+		line_read = read_and_clean_line(line_read, map);
 	}
 	free(line_read);
 	return (NULL);
@@ -50,7 +50,7 @@ char	*check_content_so(t_map *map, char *tmp, int i)
 	char	*line_read;
 
 	line_read = NULL;
-	line_read = readAndCleanLine(line_read, map);
+	line_read = read_and_clean_line(line_read, map);
 	while (line_read)
 	{
 		i = -1;
@@ -68,7 +68,7 @@ char	*check_content_so(t_map *map, char *tmp, int i)
 			}
 		}
 		free(line_read);
-		line_read = readAndCleanLine(line_read, map);
+		line_read = read_and_clean_line(line_read, map);
 	}
 	free(line_read);
 	return (NULL);
@@ -81,7 +81,7 @@ char	*check_content_we(t_map *map, char *tmp, int i)
 	char	*line_read;
 
 	line_read = NULL;
-	line_read = readAndCleanLine(line_read, map);
+	line_read = read_and_clean_line(line_read, map);
 	while (line_read)
 	{
 		i = -1;
@@ -99,7 +99,7 @@ char	*check_content_we(t_map *map, char *tmp, int i)
 			}
 		}
 		free(line_read);
-		line_read = readAndCleanLine(line_read, map);
+		line_read = read_and_clean_line(line_read, map);
 	}
 	free(line_read);
 	return (NULL);
@@ -112,7 +112,7 @@ char	*check_content_ea(t_map *map, char *tmp, int i)
 	char	*line_read;
 
 	line_read = NULL;
-	line_read = readAndCleanLine(line_read, map);
+	line_read = read_and_clean_line(line_read, map);
 	while (line_read)
 	{
 		i = -1;
@@ -130,19 +130,19 @@ char	*check_content_ea(t_map *map, char *tmp, int i)
 			}
 		}
 		free(line_read);
-		line_read = readAndCleanLine(line_read, map);
+		line_read = read_and_clean_line(line_read, map);
 	}
 	free(line_read);
 	return (NULL);
 }
 
-//sub fonction of checkcontentmaster 
+//sub fonction of check_content_master 
 //resturn all of rgb in array of t_map for the floor
 //faut faire bellek ya pas les erreurs d'over-nombre pour l'instant 
 //(F 0,250,300,54654,484,31,5156,4,51,48,4,3,84,5)
 void	check_content_fc(char *tmp, t_map *map, int i, char *line_read)
 {
-	line_read = readAndCleanLine(line_read, map);
+	line_read = read_and_clean_line(line_read, map);
 	while (line_read)
 	{
 		i = -1;
@@ -162,7 +162,7 @@ void	check_content_fc(char *tmp, t_map *map, int i, char *line_read)
 			}
 		}
 		free(line_read);
-		line_read = readAndCleanLine(line_read, map);
+		line_read = read_and_clean_line(line_read, map);
 	}
 	free(line_read);
 }
