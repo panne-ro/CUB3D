@@ -6,7 +6,7 @@
 /*   By: mleschev <mleschev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/26 11:01:00 by mleschev          #+#    #+#             */
-/*   Updated: 2026/03/17 20:07:38 by mleschev         ###   ########.fr       */
+/*   Updated: 2026/03/18 00:00:56 by mleschev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,9 @@
 
 void	refresh_map(t_game *game)
 {
+	game->current_time = get_time();
+	game->delta_time = (game->current_time - game->last_time) / 50.0;
+	game->last_time = game->current_time;
 	dda(game);
 }
 
@@ -40,33 +43,21 @@ bool	check_if_cant_go(char dir, t_game *game)
 void	moov_player(t_game *game, char dir)
 {
 	if (dir == 'w' && check_if_cant_go(dir, game))
-	{
-		game->player->pos->x += game->player->dir->x * MOVESPEED;
-		game->player->pos->y += game->player->dir->y * MOVESPEED;
-	}
+		sub_moov_w(game);
 	else if (dir == 's' && check_if_cant_go(dir, game))
-	{
-		game->player->pos->x -= game->player->dir->x * MOVESPEED;
-		game->player->pos->y -= game->player->dir->y * MOVESPEED;
-	}
+		sub_moov_s(game);
 	else if (dir == 'a' && check_if_cant_go(dir, game))
-	{
-		game->player->pos->x += game->player->dir->y * MOVESPEED;
-		game->player->pos->y -= game->player->dir->x * MOVESPEED;
-	}
+		sub_moov_a(game);
 	else if (dir == 'd' && check_if_cant_go(dir, game))
-	{
-		game->player->pos->x -= game->player->dir->y * MOVESPEED;
-		game->player->pos->y += game->player->dir->x * MOVESPEED;
-	}
+		sub_moov_d(game);
 }
 
 void	moov_look_dir(t_game *game, char dir)
 {
 	if (dir == 'g')
-		game->player->angle -= 0.1;
+		game->player->angle -= 0.1 * game->delta_time;
 	else if (dir == 'd')
-		game->player->angle += 0.1;
+		game->player->angle += 0.1 * game->delta_time;
 	game->player->angle = fmod(game->player->angle, 2 * PI);
 	if (game->player->angle < 0)
 		game->player->angle += 2 * PI;

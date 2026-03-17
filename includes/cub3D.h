@@ -6,7 +6,7 @@
 /*   By: mleschev <mleschev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/16 16:52:52 by panne-ro          #+#    #+#             */
-/*   Updated: 2026/03/17 21:19:56 by mleschev         ###   ########.fr       */
+/*   Updated: 2026/03/18 00:08:13 by mleschev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 # include <unistd.h>
 # include <stdbool.h>
 # include <fcntl.h>
+# include <sys/time.h>
 # include <math.h>
 # define PI 3.14159265359
 # define MOVESPEED 10
@@ -130,13 +131,31 @@ typedef struct s_dda
 	char	*data;
 }	t_dda;
 
+typedef struct s_tex
+{
+	void	*img;
+	char	*addr;
+	int		bpp;
+	int		line_len;
+	int		endian;
+	int		width;
+	int		height;
+}	t_tex;
+
 typedef struct s_game
 {
+	long		last_time;
+	long		current_time;
+	double		delta_time;
 	t_map		*map;
 	t_img		*img;
 	t_player	*player;
 	t_mlx		*mlx;
 	t_dda		*dda;
+	t_tex		*tex_no;
+	t_tex		*tex_so;
+	t_tex		*tex_we;
+	t_tex		*tex_ea;
 }	t_game;
 
 // parsing:
@@ -211,6 +230,19 @@ bool	check_if_cant_go_d(t_game *game, int dir_x, int dir_y);
 // check_map_utils.c
 bool	sub_loop_verif_map(t_map *map, int *i, int *j, int *nbr_player);
 bool	sub_loop_master_in_verif_map(t_map *map, int *i, int *j, int *nbr_player);
+
+long	get_time(void);
+
+// sub_moov_dir.c
+void	sub_moov_w(t_game *game);
+void	sub_moov_a(t_game *game);
+void	sub_moov_d(t_game *game);
+void	sub_moov_s(t_game *game);
+
+// load_texture.c
+void	init_all_texture(t_game **game_addr);
+t_tex	*load_texture(void *mlx, char *path);
+void	put_texture_on_wall(t_game *game, double perp, int line_height, int y, int x, int draw_start);
 
 
 # endif

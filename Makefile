@@ -19,7 +19,9 @@ SRC = 	$(SRC_DIR)/main.c \
 		$(SRC_DIR)/parsing/check_content_utils.c\
 		$(SRC_DIR)/raycasting_utils.c \
 		$(SRC_DIR)/moov_player_dir.c \
-		$(SRC_DIR)/free_game.c
+		$(SRC_DIR)/free_game.c \
+		$(SRC_DIR)/sub_moov_dir.c \
+		$(SRC_DIR)/load_texture.c
 
 OBJS = $(SRC:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
 

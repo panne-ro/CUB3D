@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: panne-ro <panne-ro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mleschev <mleschev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/13 13:26:03 by panne-ro          #+#    #+#             */
-/*   Updated: 2026/03/16 16:54:52 by panne-ro         ###   ########.fr       */
+/*   Updated: 2026/03/18 00:10:06 by mleschev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,7 @@ void	print_world(t_game *game, double perp, int x)
 		if (y < draw_start)
 			my_mlx_pixel_put(game, x, y, game->img->ceiling_color);
 		else if (y <= draw_end)
-			my_mlx_pixel_put(game, x, y, game->img->wall_color);
+			put_texture_on_wall(game, perp, line_height, y, x, draw_start);
 		else
 			my_mlx_pixel_put(game, x, y, game->img->floor_color);
 		y++;

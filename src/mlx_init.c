@@ -6,7 +6,7 @@
 /*   By: mleschev <mleschev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/05 19:16:04 by panne-ro          #+#    #+#             */
-/*   Updated: 2026/03/17 20:12:31 by mleschev         ###   ########.fr       */
+/*   Updated: 2026/03/18 00:06:04 by mleschev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,9 +104,11 @@ void	init(t_game **game_addr)
 			&game->img->endian);
 	printf("%li\n", game->map->ceilingColor[0]);
 	game->mlx->window = mlx_new_window(game->mlx->mlx, X_WIN, Y_WIN, "CUB2D");
+	init_all_texture(game_addr);
 	dda(game);
 	mlx_hook(game->mlx->window, 2, (1L << 0), on_keypress, game);
 	mlx_hook(game->mlx->window, 3, (1L << 1), key_release, game);
 	mlx_hook(game->mlx->window, 17, 0, close_mlx, game);
 	mlx_loop_hook(game->mlx->mlx, update, game);
+	mlx_loop(game->mlx->mlx);
 }
