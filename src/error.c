@@ -3,63 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: panne-ro <panne-ro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mleschev <mleschev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/13 17:14:48 by mleschev          #+#    #+#             */
-/*   Updated: 2026/03/16 16:28:15 by panne-ro         ###   ########.fr       */
+/*   Updated: 2026/03/17 21:20:21 by mleschev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3D.h"
-
-void	free_map(t_map *map)
-{
-	int	i;
-
-	i = 0;
-	if (!map)
-		return ;
-	if (map->eastTexture)
-		free(map->eastTexture);
-	if (map->westTexture)
-		free(map->westTexture);
-	if (map->northTexture)
-		free(map->northTexture);
-	if (map->southTexture)
-		free(map->southTexture);
-	if (!map->mapChar)
-		return ;
-	while (map->mapChar[i])
-	{
-		free(map->mapChar[i]);
-		i++;
-	}
-	free(map->mapChar);
-}
-
-void	free_game(t_game **game)
-{
-	t_game	*current;
-
-	current = *game;
-	free_map(current->map);
-	if (current->img)
-		free(current->img);
-	if (current->mlx)
-		free(current->mlx);
-	if (current->map)
-		free(current->map);
-	if (current->player && current->player->dir)
-		free(current->player->dir);
-	if (current->player->pos)
-		free(current->player->pos);
-	if (current->player->flags_moov)
-		free(current->player->flags_moov);
-	if (current->player)
-		free(current->player);
-	if (*game)
-		free(*game);
-}
 
 bool	check_texture_file(t_game *game)
 {
@@ -98,7 +49,16 @@ bool	check_range_color(t_game *game)
 		return (true);
 	if (game->map->ceilingColor[2] < 0 || game->map->ceilingColor[2] > 255)
 		return (true);
+	if (game->map->valid_nbr_color == false)
+		return (true);
 	return (false);
+}
+
+void	close_all(t_game **game_address, char *msg)
+{
+	printf("Error: %s\n", msg);
+	free_game(game_address);
+	exit (0);
 }
 
 void	verify_all(t_game **game_address)
@@ -108,41 +68,18 @@ void	verify_all(t_game **game_address)
 	game = *game_address;
 	if (game->map->ceilingColor[0] == -1 || game->map->ceilingColor[1] == -1
 		|| game->map->ceilingColor[2] == -1)
-	{
-		printf("Error: color of ceiling is missing\n");
-		free_game(game_address);
-		exit (0);
-	}
+		close_all(game_address, "color of ceiling is missing");
 	if (game->map->floorColor[0] == -1 || game->map->floorColor[1] == -1
 		|| game->map->floorColor[2] == -1)
-	{
-		printf("Error: color of floor is missing\n");
-		free_game(game_address);
-		exit (0);
-	}
+		close_all(game_address, "color of floor is missing");
 	if (check_range_color(game))
-	{
-		printf("Error: color of floor or ceiling is not in range\n");
-		free_game(game_address);
-		exit (0);
-	}
+		close_all(game_address,
+			"color of ceiling or floor have invalidate format");
 	if (!game->map->eastTexture || !game->map->northTexture
 		|| !game->map->southTexture || !game->map->westTexture)
-	{
-		printf("Error: texture missing in %s\n", game->map->filePath);
-		free_game(game_address);
-		exit (0);
-	}
+		close_all(game_address, "some texture is missing");
 	if (check_texture_file(game))
-	{
-		printf("Error: texture file not valid\n");
-		free_game(game_address);
-		exit (0);
-	}
-	if (verif_map(game->map))
-	{
-		printf("Error: map not valid\n");
-		free_game(game_address);
-		exit (0);
-	}
+		close_all(game_address, "file texture is invalidate");
+	if (verif_map(game->map, 0, 0))
+		close_all(game_address, "map format is not valid");
 }

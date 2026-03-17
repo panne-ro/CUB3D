@@ -5,9 +5,10 @@ SRC_DIR = ./src
 OBJ_DIR = ./objects
 SRC = 	$(SRC_DIR)/main.c \
 		$(SRC_DIR)/parsing/parsing_arg.c \
-		$(SRC_DIR)/parsing/checkmap.c \
-		$(SRC_DIR)/parsing/checkContent.c \
-		$(SRC_DIR)/parsing/parseMap.c \
+		$(SRC_DIR)/parsing/check_map.c \
+		$(SRC_DIR)/parsing/check_map_utils.c \
+		$(SRC_DIR)/parsing/check_content.c \
+		$(SRC_DIR)/parsing/parse_map.c \
 		$(SRC_DIR)/mlx_init.c \
 		$(SRC_DIR)/error.c \
 		$(SRC_DIR)/raycasting.c \
@@ -16,7 +17,9 @@ SRC = 	$(SRC_DIR)/main.c \
 		$(SRC_DIR)/mini_map.c \
 		$(SRC_DIR)/moov_player.c\
 		$(SRC_DIR)/parsing/check_content_utils.c\
-		$(SRC_DIR)/raycasting_utils.c
+		$(SRC_DIR)/raycasting_utils.c \
+		$(SRC_DIR)/moov_player_dir.c \
+		$(SRC_DIR)/free_game.c
 
 OBJS = $(SRC:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
 

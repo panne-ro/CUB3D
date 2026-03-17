@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   check_content_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: panne-ro <panne-ro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mleschev <mleschev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/10 13:24:38 by panne-ro          #+#    #+#             */
-/*   Updated: 2026/03/16 16:16:08 by panne-ro         ###   ########.fr       */
+/*   Updated: 2026/03/17 20:41:41 by mleschev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3D.h"
 
-//sub fonction of check_content_master 
+//sub fonction of check_content_master
 //return all of rgb in array of t_map for the ceiling
-//faut faire bellek ya pas les erreurs d'over-nombre pour l'instant 
+//faut faire bellek ya pas les erreurs d'over-nombre pour l'instant
 //(F 0,250,300,54654,484,31,5156,4,51,48,4,3,84,5)
 void	check_content_cc(char *tmp, t_map *map, int i, char *line_read)
 {
@@ -64,29 +64,38 @@ char	*copy_content(char *line_read, char *tmp, int i)
 	return (result);
 }
 
+void	dispatch_color_at_good_place(t_map *map, char *tmp, int nbr)
+{
+	if (map->boolean)
+		map->ceilingColor[nbr] = ft_atoi(tmp);
+	else
+		map->floorColor[nbr] = ft_atoi(tmp);
+}
+
 // sub fonction for dispatch rgb (floor or ceiling) into t_map data
-void	rgb_dispatch_info_file(char *line_read, char *tmp, int i, t_map *map)
+int	rgb_dispatch_info_file(char *line_read, char *tmp, int i, t_map *map)
 {
 	int	j;
 	int	nbr;
 
 	nbr = 0;
-	while (line_read[i] && nbr < 3)
+	while (line_read[i])
 	{
 		j = 0;
 		while (line_read[i] && line_read[i] != ',')
 		{
 			tmp[j] = line_read[i];
+			if (!ft_isdigit(tmp[j]))
+				return (-2);
 			j++;
 			i++;
 		}
 		tmp[j] = 0;
-		if (map->boolean)
-			map->ceilingColor[nbr] = ft_atoi(tmp);
-		else
-			map->floorColor[nbr] = ft_atoi(tmp);
-		printf("%li, %li\n", map->ceilingColor[nbr], map->floorColor[nbr]);
+		dispatch_color_at_good_place(map, tmp, nbr);
 		i++;
 		nbr++;
+		if (nbr > 3 || j > 3)
+			return (-2);
 	}
+	return (0);
 }

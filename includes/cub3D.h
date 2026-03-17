@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: panne-ro <panne-ro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mleschev <mleschev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/16 16:52:52 by panne-ro          #+#    #+#             */
-/*   Updated: 2026/03/16 17:01:59 by panne-ro         ###   ########.fr       */
+/*   Updated: 2026/03/17 21:19:56 by mleschev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,13 +27,10 @@
 # define MOVESPEED 10
 # define FOV 0.6
 # define MINIMAP_RESOLUTION 64
+# define FPS 60
 
 # include "./libft/libft.h"
 # include "./minilibx-linux/mlx.h"
-
-// TANG = OPP / ADJ
-// SIN = OPP / HYP
-// COS = ADJ / HYP
 
 // struct for map with all his data's like gov.site for j
 typedef struct s_map
@@ -57,6 +54,7 @@ typedef struct s_map
 	bool		isClosed;
 	bool		isValid;
 	bool		boolean;
+	bool		valid_nbr_color;
 
 	float		player_x;
 	float		player_y;
@@ -159,14 +157,15 @@ char *check_content_we(t_map *map, char *tmp, int i);
 char *check_content_ea(t_map *map, char *tmp, int i);
 void check_content_fc(char *tmp, t_map *map, int i, char *line_read);
 void check_content_cc(char *tmp, t_map *map, int i, char *line_read);
-void rgb_dispatch_info_file(char *line_read, char *tmp, int i, t_map *map);
+int rgb_dispatch_info_file(char *line_read, char *tmp, int i, t_map *map);
 void parse_map(t_map *map);
 
 char *read_and_clean_line(char *line_read, t_map *map);
 
 //test
 void init(t_game **game);
-bool verif_map(t_map *map);
+bool	verif_map(t_map *map, int i, int nbr_player);
+
 
 t_vector	sum_vector(t_vector vector1, t_vector vector2);
 t_vector	*sub_vector(t_vector *vector1, t_vector *vector2);
@@ -202,5 +201,16 @@ void	my_mlx_pixel_put(t_game *game, int x, int y, int color);
 int		int_ceiling_to_rgb(t_game *game);
 int		int_floor_to_rgb(t_game *game);
 void	add_colors(t_game *game);
+
+// moov_player_dir.c
+bool	check_if_cant_go_w(t_game *game, int dir_x, int dir_y);
+bool	check_if_cant_go_s(t_game *game, int dir_x, int dir_y);
+bool	check_if_cant_go_a(t_game *game, int dir_x, int dir_y);
+bool	check_if_cant_go_d(t_game *game, int dir_x, int dir_y);
+
+// check_map_utils.c
+bool	sub_loop_verif_map(t_map *map, int *i, int *j, int *nbr_player);
+bool	sub_loop_master_in_verif_map(t_map *map, int *i, int *j, int *nbr_player);
+
 
 # endif

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parseMap.c                                         :+:      :+:    :+:   */
+/*   parse_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: panne-ro <panne-ro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mleschev <mleschev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/05 21:15:12 by mleschev          #+#    #+#             */
-/*   Updated: 2026/03/16 16:15:18 by panne-ro         ###   ########.fr       */
+/*   Updated: 2026/03/17 21:53:00 by mleschev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,27 +62,12 @@ char	*put_reading_head_in_place(t_map *map)
 	return (line_read);
 }
 
-// sub_function for parse map only in map file return in map->
-void	parse_map(t_map *map)
+void	sub_parse_map(char *line_read, t_map *map, int i, int j)
 {
-	int		i;
-	int		j;
-	int		x;
-	int		y;
-	char	*line_read;
-
-	x = 0;
-	y = 0;
-	j = 0;
-	line_read = NULL;
-	if (check_map(map))
-		return ;
 	line_read = put_reading_head_in_place(map);
 	map->mapChar = malloc(sizeof(char *)
 			* (map->LineOfEof - map->startMapInReading + 2));
 	map->heightOfMap = map->LineOfEof - map->startMapInReading + 1;
-	if (!map->mapChar)
-		printf("TEMP malloc parseMap.c defaut\n");
 	while (line_read)
 	{
 		i = 0;
@@ -102,4 +87,15 @@ void	parse_map(t_map *map)
 	}
 	map->mapChar[j] = NULL;
 	free(line_read);
+}
+
+// sub_function for parse map only in map file return in map->
+void	parse_map(t_map *map)
+{
+	char	*line_read;
+
+	line_read = NULL;
+	if (check_map(map))
+		return ;
+	sub_parse_map(line_read, map, 0, 0);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mlx_init.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: panne-ro <panne-ro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mleschev <mleschev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/05 19:16:04 by panne-ro          #+#    #+#             */
-/*   Updated: 2026/03/16 16:56:38 by panne-ro         ###   ########.fr       */
+/*   Updated: 2026/03/17 20:12:31 by mleschev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,5 +109,4 @@ void	init(t_game **game_addr)
 	mlx_hook(game->mlx->window, 3, (1L << 1), key_release, game);
 	mlx_hook(game->mlx->window, 17, 0, close_mlx, game);
 	mlx_loop_hook(game->mlx->mlx, update, game);
-	mlx_loop(game->mlx->mlx);
 }
