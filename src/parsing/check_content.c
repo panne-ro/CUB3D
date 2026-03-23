@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   checkContent.c                                     :+:      :+:    :+:   */
+/*   check_content.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: panne-ro <panne-ro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mleschev <mleschev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/04 23:21:25 by mleschev          #+#    #+#             */
-/*   Updated: 2026/03/16 16:16:08 by panne-ro         ###   ########.fr       */
+/*   Updated: 2026/03/17 20:52:13 by mleschev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3D.h"
 
-// a sub_functions for find NO in files and 
+// a sub_functions for find NO in files and
 // returns texture of north (NO ./holakalainorth.texture)
 char	*check_content_no(t_map *map, char *tmp, int i)
 {
@@ -43,7 +43,7 @@ char	*check_content_no(t_map *map, char *tmp, int i)
 	return (NULL);
 }
 
-// a sub_functions for find SO in files and returns 
+// a sub_functions for find SO in files and returns
 // texture of south (NO ./ilovepdfsouth.texture)
 char	*check_content_so(t_map *map, char *tmp, int i)
 {
@@ -74,7 +74,7 @@ char	*check_content_so(t_map *map, char *tmp, int i)
 	return (NULL);
 }
 
-// a sub_functions for find WE in files and returns 
+// a sub_functions for find WE in files and returns
 // texture of west (WE ./westside.2pac.bigi...texture)
 char	*check_content_we(t_map *map, char *tmp, int i)
 {
@@ -105,7 +105,7 @@ char	*check_content_we(t_map *map, char *tmp, int i)
 	return (NULL);
 }
 
-// a sub_functions for find EA in files and returns 
+// a sub_functions for find EA in files and returns
 // texture of east (EA ./bigchybreeastcost.texture)
 char	*check_content_ea(t_map *map, char *tmp, int i)
 {
@@ -136,9 +136,9 @@ char	*check_content_ea(t_map *map, char *tmp, int i)
 	return (NULL);
 }
 
-//sub fonction of check_content_master 
+//sub fonction of check_content_master
 //resturn all of rgb in array of t_map for the floor
-//faut faire bellek ya pas les erreurs d'over-nombre pour l'instant 
+//faut faire bellek ya pas les erreurs d'over-nombre pour l'instant
 //(F 0,250,300,54654,484,31,5156,4,51,48,4,3,84,5)
 void	check_content_fc(char *tmp, t_map *map, int i, char *line_read)
 {
@@ -156,7 +156,8 @@ void	check_content_fc(char *tmp, t_map *map, int i, char *line_read)
 				while (line_read[i] && line_read[i] == ' ')
 					i++;
 				map->boolean = false;
-				rgb_dispatch_info_file(line_read, tmp, i, map);
+				if (rgb_dispatch_info_file(line_read, tmp, i, map) == -2)
+					map->valid_nbr_color = false;
 				free(line_read);
 				return ;
 			}

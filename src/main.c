@@ -6,11 +6,19 @@
 /*   By: panne-ro <panne-ro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/03 17:05:20 by panne-ro          #+#    #+#             */
-/*   Updated: 2026/03/17 17:52:38 by panne-ro         ###   ########.fr       */
+/*   Updated: 2026/03/23 11:00:08 by panne-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3D.h"
+
+long	get_time(void)
+{
+	struct timeval	time;
+
+	gettimeofday(&time, NULL);
+	return (time.tv_sec * 1000 + time.tv_usec / 1000);
+}
 
 void	init_game(t_game **gameAddr, char *pathFile)
 {
@@ -39,5 +47,6 @@ int	main(int argc, char **argv)
 	init_game(&game, argv[1]);
 	verify_all(&game);
 	init(&game);
+	mlx_loop(game->mlx->mlx);
 	return (0);
 }

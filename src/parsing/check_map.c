@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   checkmap.c                                         :+:      :+:    :+:   */
+/*   check_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: panne-ro <panne-ro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mleschev <mleschev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/03 18:02:13 by mleschev          #+#    #+#             */
-/*   Updated: 2026/03/16 16:25:01 by panne-ro         ###   ########.fr       */
+/*   Updated: 2026/03/17 21:18:32 by mleschev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ void	init_map_struct(t_game **gameAddr, char *pathToMap)
 	game->map->southTexture = NULL;
 	game->map->startMapInReading = 0;
 	game->map->LineOfEof = 0;
+	game->map->valid_nbr_color = true;
 	game->map->isValid = false;
 	game->map->isClosed = false;
 	checkmap(gameAddr);
@@ -80,28 +81,6 @@ int	checkmap(t_game **gameAddr)
 	return (0);
 }
 
-// function for recall get_next_line into line_read and change the \n to \0
-char	*read_and_clean_line(char *line_read, t_map *map)
-{
-	int	i;
-
-	i = 0;
-	line_read = get_next_line(map->fdMap);
-	if (!line_read)
-		return (line_read);
-	map->readingHead++;
-	while (line_read[i])
-	{
-		if (line_read[i] == '\n')
-		{
-			line_read[i] = 0;
-			break ;
-		}
-		i++;
-	}
-	return (line_read);
-}
-
 // baise ta mere c'est ecrit dans le nom
 int	check_content_master(t_map *map)
 {
@@ -122,112 +101,20 @@ int	check_content_master(t_map *map)
 }
 
 //final check of mapChar for t_map *map
-bool	verif_map(t_map *map)
+bool	verif_map(t_map *map, int i, int nbr_player)
 {
-	int		i;
 	int		j;
-	int		nbr_player;
-	bool	map_is_start;
 
-	map_is_start = false;
-	i = 0;
-	nbr_player = 0;
 	if (!map->mapChar)
-	{
-		printf("error1\n");
 		return (true);
-	}
-	while (map->mapChar[i])
-	{
-		j = 0;
-		if (ft_strlen(map->mapChar[i]) == 0)
-		{
-			printf("error2\n");
-			return (true);
-		}
-		map->isClosed = true;
-		if (!map_is_start && ft_strlen(map->mapChar[i]))
-			map_is_start = true;
-		if (map_is_start && ft_strlen(map->mapChar[i]) == 1
-			&& map->mapChar[i][0] == '\n')
-		{
-			printf("error3.1\n");
-			return (true);
-		}
-		while (map->mapChar[i][j])
-		{
-			if ((map->mapChar[i][j] != '0' && map->mapChar[i][j] != '1')
-				&& map->mapChar[i][j] != ' ' && (map->mapChar[i][j] != 'E'
-				&& map->mapChar[i][j] != 'W' && map->mapChar[i][j] != 'N'
-				&& map->mapChar[i][j] != 'S'))
-			{
-				printf("error3.2\n");
-				return (true);
-			}
-			if (map->mapChar[i][j] == 'E' || map->mapChar[i][j] == 'W'
-				|| map->mapChar[i][j] == 'N' || map->mapChar[i][j] == 'S')
-			{
-				map->player_x = j;
-				map->player_y = i;
-				map->start_dir = map->mapChar[i][j];
-				nbr_player++;
-			}
-			j++;
-		}
-		i++;
-	}
+	if (sub_loop_master_in_verif_map(map, &i, &j, &nbr_player) == true)
+		return (true);
 	if (nbr_player > 1 || !nbr_player)
-	{
-		printf("error4\n");
 		return (true);
-	}
 	if (!map->copy_map)
 		map->copy_map = copy_map(map->mapChar);
 	flood_fill(map, map->player_x, map->player_y);
 	if (!map->isClosed)
-	{
-		printf("error floodfill\n");
 		return (true);
-	}
 	return (false);
-}
-
-void	flood_fill(t_map *map, int x, int y)
-{
-	if (y < 0 || x < 0)
-	{
-		map->isClosed = false;
-		printf("stop flood at %d %d\n", x, y);
-		return ;
-	}
-	if (!map->copy_map[y])
-	{
-		map->isClosed = false;
-		printf("stop flood at %d %d\n", x, y);
-		return ;
-	}
-	if (x >= (int)ft_strlen(map->copy_map[y]))
-	{
-		map->isClosed = false;
-		printf("stop flood at %d %d\n", x, y);
-		return ;
-	}
-	if (map->copy_map[y][x] == ' ')
-	{
-		map->isClosed = false;
-		printf("stop flood at %d %d\n", x, y);
-		return ;
-	}
-	if (map->copy_map[y][x] == '1' || map->copy_map[y][x] == 'F')
-		return ;
-	if (map->copy_map[y][x] == 'N'
-		|| map->copy_map[y][x] == 'S'
-		|| map->copy_map[y][x] == 'E'
-		|| map->copy_map[y][x] == 'W')
-		map->copy_map[y][x] = '0';
-	map->copy_map[y][x] = 'F';
-	flood_fill(map, x + 1, y);
-	flood_fill(map, x - 1, y);
-	flood_fill(map, x, y + 1);
-	flood_fill(map, x, y - 1);
 }

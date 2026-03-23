@@ -6,7 +6,7 @@
 /*   By: panne-ro <panne-ro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/13 13:26:03 by panne-ro          #+#    #+#             */
-/*   Updated: 2026/03/17 17:53:12 by panne-ro         ###   ########.fr       */
+/*   Updated: 2026/03/23 11:00:40 by panne-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,7 @@ void	print_world(t_game *game, double perp, int x)
 		if (y < draw_start)
 			my_mlx_pixel_put(game, x, y, game->img->ceiling_color);
 		else if (y <= draw_end)
-			my_mlx_pixel_put(game, x, y, game->img->wall_color);
+			put_texture_on_wall(game, perp, line_height, y, x, draw_start);
 		else
 			my_mlx_pixel_put(game, x, y, game->img->floor_color);
 		y++;

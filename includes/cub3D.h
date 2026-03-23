@@ -6,7 +6,7 @@
 /*   By: panne-ro <panne-ro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/16 16:52:52 by panne-ro          #+#    #+#             */
-/*   Updated: 2026/03/17 14:48:57 by panne-ro         ###   ########.fr       */
+/*   Updated: 2026/03/23 10:59:57 by panne-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,18 +22,16 @@
 # include <unistd.h>
 # include <stdbool.h>
 # include <fcntl.h>
+# include <sys/time.h>
 # include <math.h>
 # define PI 3.14159265359
 # define MOVESPEED 1
 # define FOV 0.6
 # define MINIMAP_RESOLUTION 64
+# define FPS 60
 
 # include "./libft/libft.h"
 # include "./minilibx-linux/mlx.h"
-
-// TANG = OPP / ADJ
-// SIN = OPP / HYP
-// COS = ADJ / HYP
 
 // struct for map with all his data's like gov.site for j
 typedef struct s_map
@@ -57,6 +55,7 @@ typedef struct s_map
 	bool		isClosed;
 	bool		isValid;
 	bool		boolean;
+	bool		valid_nbr_color;
 
 	float		player_x;
 	float		player_y;
@@ -132,13 +131,31 @@ typedef struct s_dda
 	char	*data;
 }	t_dda;
 
+typedef struct s_tex
+{
+	void	*img;
+	char	*addr;
+	int		bpp;
+	int		line_len;
+	int		endian;
+	int		width;
+	int		height;
+}	t_tex;
+
 typedef struct s_game
 {
+	long		last_time;
+	long		current_time;
+	double		delta_time;
 	t_map		*map;
 	t_img		*img;
 	t_player	*player;
 	t_mlx		*mlx;
 	t_dda		*dda;
+	t_tex		*tex_no;
+	t_tex		*tex_so;
+	t_tex		*tex_we;
+	t_tex		*tex_ea;
 }	t_game;
 
 // parsing:
@@ -159,14 +176,15 @@ char *check_content_we(t_map *map, char *tmp, int i);
 char *check_content_ea(t_map *map, char *tmp, int i);
 void check_content_fc(char *tmp, t_map *map, int i, char *line_read);
 void check_content_cc(char *tmp, t_map *map, int i, char *line_read);
-void rgb_dispatch_info_file(char *line_read, char *tmp, int i, t_map *map);
+int rgb_dispatch_info_file(char *line_read, char *tmp, int i, t_map *map);
 void parse_map(t_map *map);
 
 char *read_and_clean_line(char *line_read, t_map *map);
 
 //test
 void init(t_game **game);
-bool verif_map(t_map *map);
+bool	verif_map(t_map *map, int i, int nbr_player);
+
 
 t_vector	sum_vector(t_vector vector1, t_vector vector2);
 t_vector	*sub_vector(t_vector *vector1, t_vector *vector2);
@@ -196,11 +214,39 @@ void refresh_map(t_game *game);
 void	init_var(t_game *game);
 
 // checkmap.c
-void flood_fill(t_map *map, int x, int y);
+void flood_fill(t_map *map, int x, i		if (game->dda->side == 0)
+			wall_x = game->dda->posY + perp * game->dda->dirY;
+		else
+			wall_x = game->dda->posX + perp * game->dda->dirX;
+		wall_x -= floor(wall_x);nt y);
 
 void	my_mlx_pixel_put(t_game *game, int x, int y, int color);
 int		int_ceiling_to_rgb(t_game *game);
 int		int_floor_to_rgb(t_game *game);
 void	add_colors(t_game *game);
+
+// moov_player_dir.c
+bool	check_if_cant_go_w(t_game *game, int dir_x, int dir_y);
+bool	check_if_cant_go_s(t_game *game, int dir_x, int dir_y);
+bool	check_if_cant_go_a(t_game *game, int dir_x, int dir_y);
+bool	check_if_cant_go_d(t_game *game, int dir_x, int dir_y);
+
+// check_map_utils.c
+bool	sub_loop_verif_map(t_map *map, int *i, int *j, int *nbr_player);
+bool	sub_loop_master_in_verif_map(t_map *map, int *i, int *j, int *nbr_player);
+
+long	get_time(void);
+
+// sub_moov_dir.c
+void	sub_moov_w(t_game *game);
+void	sub_moov_a(t_game *game);
+void	sub_moov_d(t_game *game);
+void	sub_moov_s(t_game *game);
+
+// load_texture.c
+void	init_all_texture(t_game **game_addr);
+t_tex	*load_texture(void *mlx, char *path);
+void	put_texture_on_wall(t_game *game, double perp, int line_height, int y, int x, int draw_start);
+
 
 # endif
