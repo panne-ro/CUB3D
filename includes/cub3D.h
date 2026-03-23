@@ -6,7 +6,7 @@
 /*   By: panne-ro <panne-ro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/16 16:52:52 by panne-ro          #+#    #+#             */
-/*   Updated: 2026/03/23 10:59:57 by panne-ro         ###   ########.fr       */
+/*   Updated: 2026/03/23 11:03:09 by panne-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
 # include <sys/time.h>
 # include <math.h>
 # define PI 3.14159265359
-# define MOVESPEED 1
+# define MOVESPEED 10
 # define FOV 0.6
 # define MINIMAP_RESOLUTION 64
 # define FPS 60
@@ -214,11 +214,7 @@ void refresh_map(t_game *game);
 void	init_var(t_game *game);
 
 // checkmap.c
-void flood_fill(t_map *map, int x, i		if (game->dda->side == 0)
-			wall_x = game->dda->posY + perp * game->dda->dirY;
-		else
-			wall_x = game->dda->posX + perp * game->dda->dirX;
-		wall_x -= floor(wall_x);nt y);
+void flood_fill(t_map *map, int x, int y);
 
 void	my_mlx_pixel_put(t_game *game, int x, int y, int color);
 int		int_ceiling_to_rgb(t_game *game);
