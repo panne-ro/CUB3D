@@ -6,7 +6,7 @@
 /*   By: panne-ro <panne-ro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/26 11:01:00 by mleschev          #+#    #+#             */
-/*   Updated: 2026/03/16 16:49:02 by panne-ro         ###   ########.fr       */
+/*   Updated: 2026/03/17 14:48:50 by panne-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,9 +85,9 @@ void	moov_player(t_game *game, char dir)
 void	moov_look_dir(t_game *game, char dir)
 {
 	if (dir == 'g')
-		game->player->angle -= 0.1;
+		game->player->angle -= 0.01;
 	else if (dir == 'd')
-		game->player->angle += 0.1;
+		game->player->angle += 0.01;
 	game->player->angle = fmod(game->player->angle, 2 * PI);
 	if (game->player->angle < 0)
 		game->player->angle += 2 * PI;

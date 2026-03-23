@@ -6,7 +6,7 @@
 /*   By: panne-ro <panne-ro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/16 16:52:52 by panne-ro          #+#    #+#             */
-/*   Updated: 2026/03/16 17:01:59 by panne-ro         ###   ########.fr       */
+/*   Updated: 2026/03/17 14:48:57 by panne-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
 # include <fcntl.h>
 # include <math.h>
 # define PI 3.14159265359
-# define MOVESPEED 10
+# define MOVESPEED 1
 # define FOV 0.6
 # define MINIMAP_RESOLUTION 64
 
