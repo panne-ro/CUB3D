@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   load_texture.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: panne-ro <panne-ro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mleschev <mleschev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/18 00:05:29 by mleschev          #+#    #+#             */
-/*   Updated: 2026/03/23 10:37:56 by panne-ro         ###   ########.fr       */
+/*   Updated: 2026/03/23 11:44:14 by mleschev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,10 @@ t_tex	*load_texture(void *mlx, char *path)
 	tex->img = mlx_xpm_file_to_image(mlx, path,
 			&tex->width, &tex->height);
 	if (!tex->img)
+	{
+		free(tex);
 		return (NULL);
+	}
 	tex->addr = mlx_get_data_addr(tex->img,
 			&tex->bpp, &tex->line_len, &tex->endian);
 	return (tex);
