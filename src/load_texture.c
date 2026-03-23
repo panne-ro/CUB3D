@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   load_texture.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mleschev <mleschev@student.42.fr>          +#+  +:+       +#+        */
+/*   By: panne-ro <panne-ro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/18 00:05:29 by mleschev          #+#    #+#             */
-/*   Updated: 2026/03/18 00:15:16 by mleschev         ###   ########.fr       */
+/*   Updated: 2026/03/23 10:37:56 by panne-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@ t_tex	*load_texture(void *mlx, char *path)
 	tex = malloc(sizeof(t_tex));
 	if (!tex)
 		return (NULL);
+	tex->width = 64;
+	tex->height = 64;
 	tex->img = mlx_xpm_file_to_image(mlx, path,
 			&tex->width, &tex->height);
 	if (!tex->img)
@@ -55,21 +57,20 @@ void	put_texture_on_wall(t_game *game, double perp, int line_height,
 	int		color;
 
 	if (game->dda->side == 0)
-		wall_x = game->player->pos->y + perp * game->dda->dirY;
+		wall_x = game->dda->posY + perp * game->dda->dirY;
 	else
-		wall_x = game->player->pos->x + perp * game->dda->dirX;
+		wall_x = game->dda->posX + perp * game->dda->dirX;
 	wall_x -= floor(wall_x);
 	if (game->dda->side == 0 && game->dda->dirX > 0)
-		tex = game->tex_we;
-	else if (game->dda->side == 0 && game->dda->dirX < 0)
 		tex = game->tex_ea;
+	else if (game->dda->side == 0 && game->dda->dirX < 0)
+		tex = game->tex_we;
 	else if (game->dda->side == 1 && game->dda->dirY > 0)
-		tex = game->tex_no;
-	else
 		tex = game->tex_so;
+	else
+		tex = game->tex_no;
 	tex_x = (int)(wall_x * tex->width);
-	if ((game->dda->side == 0 && game->dda->dirX > 0)
-		|| (game->dda->side == 1 && game->dda->dirY < 0))
+	if ((game->dda->side == 0 && game->dda->dirX > 0) || (game->dda->side == 1 && game->dda->dirY < 0))
 		tex_x = tex->width - tex_x - 1;
 	tex_y = (int)(((double)(y - draw_start) *tex->height) / line_height);
 	color = *(unsigned int *)(tex->addr + (tex_y * tex->line_len + tex_x * (tex->bpp / 8)));
