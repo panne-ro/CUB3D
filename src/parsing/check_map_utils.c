@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_map_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mleschev <mleschev@student.42.fr>          +#+  +:+       +#+        */
+/*   By: panne-ro <panne-ro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/17 21:06:50 by mleschev          #+#    #+#             */
-/*   Updated: 2026/03/17 21:24:22 by mleschev         ###   ########.fr       */
+/*   Updated: 2026/03/23 19:16:44 by panne-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,22 +102,21 @@ int	check_flood_fill(t_map *map, int x, int y)
 		map->isClosed = false;
 		return (1);
 	}
+	printf("%i\n", map->isClosed);
 	return (0);
 }
 
-void	flood_fill(t_map *map, int x, int y)
+void    flood_fill(int x, int y, t_map *map)
 {
-	check_flood_fill(map, x, y);
-	if (map->copy_map[y][x] == '1' || map->copy_map[y][x] == 'F')
+	if (check_flood_fill(map, x, y) != 0)
 		return ;
-	if (map->copy_map[y][x] == 'N'
-		|| map->copy_map[y][x] == 'S'
-		|| map->copy_map[y][x] == 'E'
-		|| map->copy_map[y][x] == 'W')
-		map->copy_map[y][x] = '0';
-	map->copy_map[y][x] = 'F';
-	flood_fill(map, x + 1, y);
-	flood_fill(map, x - 1, y);
-	flood_fill(map, x, y + 1);
-	flood_fill(map, x, y - 1);
+    if (y < 0 || x < 0 || !map->copy_map[y][x] || !map->copy_map[y][x])
+        return ;
+    if (map->copy_map[y][x] == '1' || map->copy_map[y][x] == 'X')
+        return ;
+    map->copy_map[y][x] = 'X';
+    flood_fill(x + 1, y, map);
+    flood_fill(x - 1, y, map);
+    flood_fill(x, y + 1, map);
+    flood_fill(x, y - 1, map);
 }

@@ -6,7 +6,7 @@
 /*   By: panne-ro <panne-ro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/16 16:52:52 by panne-ro          #+#    #+#             */
-/*   Updated: 2026/03/23 12:01:54 by panne-ro         ###   ########.fr       */
+/*   Updated: 2026/03/23 15:53:39 by panne-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -214,7 +214,6 @@ void refresh_map(t_game *game);
 void	init_var(t_game *game);
 
 // checkmap.c
-void flood_fill(t_map *map, int x, int y);
 
 void	my_mlx_pixel_put(t_game *game, int x, int y, int color);
 int		int_ceiling_to_rgb(t_game *game);
@@ -243,6 +242,7 @@ void	sub_moov_s(t_game *game);
 void	init_all_texture(t_game **game_addr);
 t_tex	*load_texture(void *mlx, char *path);
 void	put_texture_on_wall(t_game *game, double perp, int line_height, int y, int x);
+void    flood_fill(int x, int y, t_map *map);
 
 
 # endif
