@@ -6,7 +6,7 @@
 /*   By: panne-ro <panne-ro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/18 00:05:29 by mleschev          #+#    #+#             */
-/*   Updated: 2026/03/23 10:37:56 by panne-ro         ###   ########.fr       */
+/*   Updated: 2026/03/23 12:01:45 by panne-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,9 +46,8 @@ t_tex	*load_texture(void *mlx, char *path)
 	return (tex);
 }
 
-// full chatgpt g rien compris + pas eu la fois whalla + ca marche pas g le mort
 void	put_texture_on_wall(t_game *game, double perp, int line_height,
-	int y, int x, int draw_start)
+	int y, int x)
 {
 	double	wall_x;
 	t_tex	*tex;
@@ -70,9 +69,13 @@ void	put_texture_on_wall(t_game *game, double perp, int line_height,
 	else
 		tex = game->tex_no;
 	tex_x = (int)(wall_x * tex->width);
-	if ((game->dda->side == 0 && game->dda->dirX > 0) || (game->dda->side == 1 && game->dda->dirY < 0))
+	if ((game->dda->side == 0 && game->dda->dirX < 0)
+		|| (game->dda->side == 1 && game->dda->dirY > 0))
 		tex_x = tex->width - tex_x - 1;
-	tex_y = (int)(((double)(y - draw_start) *tex->height) / line_height);
+	int d = (y * 256) - (Y_WIN * 128) + (line_height * 128);
+	tex_y = (d * tex->height) / line_height / 256;
+	if (tex_y < 0) tex_y = 0;
+	if (tex_y >= tex->height) tex_y = tex->height - 1;
 	color = *(unsigned int *)(tex->addr + (tex_y * tex->line_len + tex_x * (tex->bpp / 8)));
 	my_mlx_pixel_put(game, x, y, color);
 }

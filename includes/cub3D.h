@@ -6,7 +6,7 @@
 /*   By: panne-ro <panne-ro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/16 16:52:52 by panne-ro          #+#    #+#             */
-/*   Updated: 2026/03/23 11:03:09 by panne-ro         ###   ########.fr       */
+/*   Updated: 2026/03/23 12:01:54 by panne-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -242,7 +242,7 @@ void	sub_moov_s(t_game *game);
 // load_texture.c
 void	init_all_texture(t_game **game_addr);
 t_tex	*load_texture(void *mlx, char *path);
-void	put_texture_on_wall(t_game *game, double perp, int line_height, int y, int x, int draw_start);
+void	put_texture_on_wall(t_game *game, double perp, int line_height, int y, int x);
 
 
 # endif
