@@ -6,13 +6,12 @@
 /*   By: mleschev <mleschev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/03 18:02:13 by mleschev          #+#    #+#             */
-/*   Updated: 2026/03/17 21:18:32 by mleschev         ###   ########.fr       */
+/*   Updated: 2026/03/23 11:56:05 by mleschev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3D.h"
 
-// flemme de le coder jsp si ca marche inch
 char	**copy_map(char **map)
 {
 	int		i;
@@ -26,7 +25,6 @@ char	**copy_map(char **map)
 	while (map[i])
 	{
 		copy[i] = ft_strdup(map[i]);
-		printf("%s\n", copy[i]);
 		i++;
 	}
 	copy[i] = NULL;

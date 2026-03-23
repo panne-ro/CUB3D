@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: panne-ro <panne-ro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mleschev <mleschev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/03 17:05:20 by panne-ro          #+#    #+#             */
-/*   Updated: 2026/03/23 11:00:08 by panne-ro         ###   ########.fr       */
+/*   Updated: 2026/03/23 12:54:55 by mleschev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,10 @@ void	init_game(t_game **gameAddr, char *pathFile)
 	current->player->pos = malloc(sizeof(t_vector));
 	current->player->dir = malloc(sizeof(t_vector));
 	current->player->flags_moov = malloc(sizeof(t_moov));
+	current->tex_ea = NULL;
+	current->tex_no = NULL;
+	current->tex_so = NULL;
+	current->tex_we = NULL;
 	current->map->copy_map = NULL;
 	init_map_struct(gameAddr, pathFile);
 }

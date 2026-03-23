@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mlx_init.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: panne-ro <panne-ro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mleschev <mleschev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/05 19:16:04 by panne-ro          #+#    #+#             */
-/*   Updated: 2026/03/23 11:05:46 by panne-ro         ###   ########.fr       */
+/*   Updated: 2026/03/23 12:12:48 by mleschev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,18 @@ int	close_mlx(void *param)
 
 	game = (t_game *)param;
 	mlx_destroy_image(game->mlx->mlx, game->img->img);
+	if (game->tex_ea->img)
+		mlx_destroy_image(game->mlx->mlx, game->tex_ea->img);
+	if (game->tex_no->img)
+		mlx_destroy_image(game->mlx->mlx, game->tex_no->img);
+	if (game->tex_so->img)
+		mlx_destroy_image(game->mlx->mlx, game->tex_so->img);
+	if (game->tex_we->img)
+		mlx_destroy_image(game->mlx->mlx, game->tex_we->img);
 	mlx_clear_window(game->mlx->mlx, game->mlx->window);
 	mlx_destroy_window(game->mlx->mlx, game->mlx->window);
 	mlx_destroy_display(game->mlx->mlx);
+	free_game(&game);
 	exit (0);
 }
 
@@ -100,7 +109,6 @@ void	init(t_game **game_addr)
 			&game->img->bpp,
 			&game->img->line_len,
 			&game->img->endian);
-	printf("%li\n", game->map->ceilingColor[0]);
 	game->mlx->window = mlx_new_window(game->mlx->mlx, X_WIN, Y_WIN, "CUB2D");
 	init_all_texture(game_addr);
 	dda(game);
