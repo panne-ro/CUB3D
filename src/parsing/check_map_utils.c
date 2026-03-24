@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_map_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: panne-ro <panne-ro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vboxuser <vboxuser@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/17 21:06:50 by mleschev          #+#    #+#             */
-/*   Updated: 2026/03/23 19:16:44 by panne-ro         ###   ########.fr       */
+/*   Updated: 2026/03/24 09:31:59 by vboxuser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,9 @@ int	check_flood_fill(t_map *map, int x, int y)
 
 void    flood_fill(int x, int y, t_map *map)
 {
-	if (check_flood_fill(map, x, y) != 0)
+	if (check_flood_fill(map, x, y))
+		return ;
+	if (map->copy_map[y][x] == '1' || map->copy_map[y][x] == 'F')
 		return ;
     if (y < 0 || x < 0 || !map->copy_map[y][x] || !map->copy_map[y][x])
         return ;
