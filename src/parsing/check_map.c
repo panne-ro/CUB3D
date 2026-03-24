@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: panne-ro <panne-ro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vboxuser <vboxuser@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/03 18:02:13 by mleschev          #+#    #+#             */
-/*   Updated: 2026/03/23 19:16:09 by panne-ro         ###   ########.fr       */
+/*   Updated: 2026/03/24 09:58:26 by vboxuser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,8 +102,8 @@ int	check_content_master(t_map *map)
 bool	verif_map(t_map *map, int i, int nbr_player)
 {
 	int		j;
-	int y = map->player_y;
-	int x = map->player_x;
+	int y;
+	int x;
 
 	if (!map->mapChar)
 		return (true);
@@ -113,6 +113,8 @@ bool	verif_map(t_map *map, int i, int nbr_player)
 		return (true);
 	if (!map->copy_map)
 		map->copy_map = copy_map(map->mapChar);
+	x = map->player_x;
+	y = map->player_y;
 	flood_fill(x, y, map);
 	if (map->isClosed == false)
 		return (true);

@@ -6,7 +6,7 @@
 /*   By: vboxuser <vboxuser@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/17 21:06:50 by mleschev          #+#    #+#             */
-/*   Updated: 2026/03/24 09:31:59 by vboxuser         ###   ########.fr       */
+/*   Updated: 2026/03/24 09:59:34 by vboxuser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,23 +102,18 @@ int	check_flood_fill(t_map *map, int x, int y)
 		map->isClosed = false;
 		return (1);
 	}
-	printf("%i\n", map->isClosed);
 	return (0);
 }
 
-void    flood_fill(int x, int y, t_map *map)
+void flood_fill(int x, int y, t_map *map)
 {
 	if (check_flood_fill(map, x, y))
-		return ;
-	if (map->copy_map[y][x] == '1' || map->copy_map[y][x] == 'F')
-		return ;
-    if (y < 0 || x < 0 || !map->copy_map[y][x] || !map->copy_map[y][x])
-        return ;
-    if (map->copy_map[y][x] == '1' || map->copy_map[y][x] == 'X')
-        return ;
-    map->copy_map[y][x] = 'X';
-    flood_fill(x + 1, y, map);
-    flood_fill(x - 1, y, map);
-    flood_fill(x, y + 1, map);
-    flood_fill(x, y - 1, map);
+		return;
+	if (map->copy_map[y][x] == '1' || map->copy_map[y][x] == 'X')
+		return;
+	map->copy_map[y][x] = 'X';
+	flood_fill(x + 1, y, map);
+	flood_fill(x - 1, y, map);
+	flood_fill(x, y + 1, map);
+	flood_fill(x, y - 1, map);
 }
