@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vboxuser <vboxuser@student.42.fr>          +#+  +:+       +#+        */
+/*   By: panne-ro <panne-ro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/03 18:02:13 by mleschev          #+#    #+#             */
-/*   Updated: 2026/03/24 09:58:26 by vboxuser         ###   ########.fr       */
+/*   Updated: 2026/03/24 18:37:50 by panne-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,6 +110,8 @@ bool	verif_map(t_map *map, int i, int nbr_player)
 	if (sub_loop_master_in_verif_map(map, &i, &j, &nbr_player) == true)
 		return (true);
 	if (nbr_player > 1 || !nbr_player)
+		return (true);
+	if (ext_is_all_wall(map) == 0)
 		return (true);
 	if (!map->copy_map)
 		map->copy_map = copy_map(map->mapChar);

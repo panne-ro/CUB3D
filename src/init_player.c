@@ -6,7 +6,7 @@
 /*   By: panne-ro <panne-ro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/13 15:40:01 by panne-ro          #+#    #+#             */
-/*   Updated: 2026/03/10 11:57:37 by panne-ro         ###   ########.fr       */
+/*   Updated: 2026/03/24 13:39:03 by panne-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,9 @@ void	init_var(t_game *game)
 void	init_dir_and_plane(t_game *game)
 {
 	if (game->map->start_dir == 'N')
-		game->player->angle = PI / 2;
-	if (game->map->start_dir == 'S')
 		game->player->angle = -PI / 2;
+	if (game->map->start_dir == 'S')
+		game->player->angle = PI / 2;
 	if (game->map->start_dir == 'E')
 		game->player->angle = 0;
 	if (game->map->start_dir == 'W')

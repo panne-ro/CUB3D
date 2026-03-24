@@ -6,7 +6,7 @@
 /*   By: panne-ro <panne-ro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/16 16:52:52 by panne-ro          #+#    #+#             */
-/*   Updated: 2026/03/23 15:53:39 by panne-ro         ###   ########.fr       */
+/*   Updated: 2026/03/24 11:37:49 by panne-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -161,6 +161,7 @@ typedef struct s_game
 // parsing:
 int		extension_check(char *str);
 int		check_arg(int argc, char **argv);
+int		ext_is_all_wall(t_map *map);
 
 void init_map_struct(t_game **gameAddr, char *pathToMapFile);
 int check_content_master(t_map *map);

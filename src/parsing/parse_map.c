@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mleschev <mleschev@student.42.fr>          +#+  +:+       +#+        */
+/*   By: panne-ro <panne-ro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/05 21:15:12 by mleschev          #+#    #+#             */
-/*   Updated: 2026/03/17 21:53:00 by mleschev         ###   ########.fr       */
+/*   Updated: 2026/03/24 18:44:28 by panne-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,55 @@ void	sub_parse_map(char *line_read, t_map *map, int i, int j)
 	}
 	map->mapChar[j] = NULL;
 	free(line_read);
+}
+
+int	ext_is_all_wall(t_map *map)
+{
+	int	y;
+	int	x;
+
+	
+	x = 0;
+	y = 0;
+	while (map->mapChar[0][x])
+	{
+		if (map->mapChar[0][x] == '0')
+			return (0);
+		x++;
+	}
+	while(map->mapChar[y + 1])
+		y++;
+	x = 0;
+	while(map->mapChar[y][x])
+	{
+		if (map->mapChar[y][x] == '0')
+			return (0);
+		x++;
+	}
+
+	y = 0;
+	while (map->mapChar[y])
+	{
+		x = 0;
+		if (map->mapChar[y][0] == '0')
+			return (0);
+		while (map->mapChar[y][x])
+		{
+			while(map->mapChar[y][x] == '0')
+				x++;
+			x++;
+			if (map->mapChar[y][x] == '0' && (map->mapChar[y][x + 1] == ' ' || map->mapChar[y][x - 1] == ' ' || map->mapChar[y - 1][x] == ' ' || map->mapChar[y + 1][x] == ' '))
+			{
+				//printf("%i, %i\n", x, y);
+				return (0);
+			}	
+		}
+		if (map->mapChar[y][ft_strlen(map->mapChar[y]) - 1] == '0')
+			return (0);
+		y++;
+	}
+	x = 0;
+	return (1);
 }
 
 // sub_function for parse map only in map file return in map->
