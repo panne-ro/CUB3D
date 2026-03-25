@@ -1,13 +1,13 @@
 NO Cr.xpm
 
 
-SO ./texture/south.xpm
+SO Cr.xpm
 
 
-WE ./texture/west.xpm
+WE Cr.xpm
 
 
-EA ./texture/east.xpm
+EA Cr.xpm
 
 
 F 220,100,0

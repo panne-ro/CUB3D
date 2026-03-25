@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: panne-ro <panne-ro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vboxuser <vboxuser@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/03 17:05:20 by panne-ro          #+#    #+#             */
-/*   Updated: 2026/03/23 13:08:14 by panne-ro         ###   ########.fr       */
+/*   Updated: 2026/03/25 01:36:45 by vboxuser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,14 +25,17 @@ void	init_game(t_game **gameAddr, char *pathFile)
 	t_game	*current;
 
 	current = *gameAddr;
-	current->mlx = malloc(sizeof(t_mlx));
-	current->img = malloc(sizeof(t_img));
-	current->map = malloc(sizeof(t_map));
-	current->dda = malloc(sizeof(t_dda));
-	current->player = malloc(sizeof(t_player));
-	current->player->pos = malloc(sizeof(t_vector));
-	current->player->dir = malloc(sizeof(t_vector));
-	current->player->flags_moov = malloc(sizeof(t_moov));
+	current->mlx = calloc(1, sizeof(t_mlx));
+	current->mlx->img = NULL;
+	current->mlx->mlx = NULL;
+	current->mlx->window = NULL;
+	current->img = calloc(1, sizeof(t_img));
+	current->map = calloc(1, sizeof(t_map));
+	current->dda = calloc(1, sizeof(t_dda));
+	current->player = calloc(1, sizeof(t_player));
+	current->player->pos = calloc(1, sizeof(t_vector));
+	current->player->dir = calloc(1, sizeof(t_vector));
+	current->player->flags_moov = calloc(1, sizeof(t_moov));
 	current->tex_ea = NULL;
 	current->tex_no = NULL;
 	current->tex_so = NULL;
@@ -51,7 +54,7 @@ int	main(int argc, char **argv)
 	init_game(&game, argv[1]);
 	verify_all(&game);
 	init(&game);
-	mlx_loop(game->mlx->mlx);
 
 	return (0);
 }
+

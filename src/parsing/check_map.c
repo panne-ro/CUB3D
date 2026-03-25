@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: panne-ro <panne-ro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vboxuser <vboxuser@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/03 18:02:13 by mleschev          #+#    #+#             */
-/*   Updated: 2026/03/24 18:37:50 by panne-ro         ###   ########.fr       */
+/*   Updated: 2026/03/25 02:27:32 by vboxuser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,10 +44,11 @@ void	init_map_struct(t_game **gameAddr, char *pathToMap)
 	game->map->fdMap = -1;
 	game->map->mapChar = NULL;
 	game->map->readingHead = 0;
-	while (i++ < 3)
+	while (i < 3)
 	{
 		game->map->ceilingColor[i] = -1;
 		game->map->floorColor[i] = -1;
+		i++;
 	}
 	game->map->eastTexture = NULL;
 	game->map->westTexture = NULL;
@@ -70,16 +71,11 @@ int	checkmap(t_game **gameAddr)
 	game = *gameAddr;
 	game->map->fdMap = open(game->map->filePath, O_RDONLY);
 	if (game->map->fdMap < 0)
-	{
-		printf("Error can't open map\n");
-		free_game(gameAddr);
-		exit (1);
-	}
+		close_all(gameAddr, "can't open map");
 	check_content_master(game->map);
 	return (0);
 }
 
-// baise ta mere c'est ecrit dans le nom
 int	check_content_master(t_map *map)
 {
 	char	*line_read;

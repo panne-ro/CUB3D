@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: panne-ro <panne-ro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vboxuser <vboxuser@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/16 16:52:52 by panne-ro          #+#    #+#             */
-/*   Updated: 2026/03/24 11:37:49 by panne-ro         ###   ########.fr       */
+/*   Updated: 2026/03/25 00:06:13 by vboxuser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -196,6 +196,7 @@ void free_game(t_game **game);
 void free_map(t_map *map);
 bool check_range_color(t_game *game);
 bool check_texture_file(t_game *game);
+void	close_all(t_game **game_address, char *msg);
 
 // void	raycasting(t_game *game);
 

@@ -6,7 +6,7 @@
 /*   By: vboxuser <vboxuser@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/17 20:08:25 by mleschev          #+#    #+#             */
-/*   Updated: 2026/03/24 09:59:43 by vboxuser         ###   ########.fr       */
+/*   Updated: 2026/03/25 01:34:56 by vboxuser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ void	free_map(t_map *map)
 	i = 0;
 	if (!map)
 		return ;
+	if (map->fdMap >= 0)
+		close(map->fdMap);
 	if (map->eastTexture)
 		free(map->eastTexture);
 	if (map->westTexture)

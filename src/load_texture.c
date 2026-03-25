@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   load_texture.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: panne-ro <panne-ro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vboxuser <vboxuser@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/18 00:05:29 by mleschev          #+#    #+#             */
-/*   Updated: 2026/03/24 13:38:45 by panne-ro         ###   ########.fr       */
+/*   Updated: 2026/03/25 01:35:54 by vboxuser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,15 +17,12 @@ void	init_all_texture(t_game **game_addr)
 	t_game	*game;
 
 	game = *game_addr;
-	game->tex_so = load_texture(game->mlx->mlx, game->map->northTexture);
-	game->tex_no = load_texture(game->mlx->mlx, game->map->southTexture);
-	game->tex_ea = load_texture(game->mlx->mlx, game->map->westTexture);
-	game->tex_we = load_texture(game->mlx->mlx, game->map->eastTexture);
+	game->tex_no = load_texture(game->mlx->mlx, game->map->northTexture);
+	game->tex_so = load_texture(game->mlx->mlx, game->map->southTexture);
+	game->tex_we = load_texture(game->mlx->mlx, game->map->westTexture);
+	game->tex_ea = load_texture(game->mlx->mlx, game->map->eastTexture);
 	if (!game->tex_no || !game->tex_so || !game->tex_we || !game->tex_ea)
-	{
-		printf("Error: texture load failed\n");
-		exit(1);
-	}
+		close_all(game_addr,"texture load failed");
 }
 
 t_tex	*load_texture(void *mlx, char *path)

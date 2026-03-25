@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: panne-ro <panne-ro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vboxuser <vboxuser@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/13 13:26:03 by panne-ro          #+#    #+#             */
-/*   Updated: 2026/03/23 12:44:12 by panne-ro         ###   ########.fr       */
+/*   Updated: 2026/03/25 01:17:41 by vboxuser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@ void	print_world(t_game *game, double perp, int x)
 		draw_end = Y_WIN - 1;
 	add_colors(game);
 	y = 0;
-	while (y <= Y_WIN)
+	while (y < Y_WIN)
 	{
 		if (y < draw_start)
 			my_mlx_pixel_put(game, x, y, game->img->ceiling_color);

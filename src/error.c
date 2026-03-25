@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mleschev <mleschev@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vboxuser <vboxuser@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/13 17:14:48 by mleschev          #+#    #+#             */
-/*   Updated: 2026/03/17 21:20:21 by mleschev         ###   ########.fr       */
+/*   Updated: 2026/03/25 01:43:55 by vboxuser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ bool	check_range_color(t_game *game)
 
 void	close_all(t_game **game_address, char *msg)
 {
-	printf("Error: %s\n", msg);
+	printf("DEBUG Error: %s\n", msg);
 	free_game(game_address);
 	exit (0);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: panne-ro <panne-ro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vboxuser <vboxuser@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/05 21:15:12 by mleschev          #+#    #+#             */
-/*   Updated: 2026/03/24 18:44:28 by panne-ro         ###   ########.fr       */
+/*   Updated: 2026/03/25 02:23:55 by vboxuser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,12 +44,25 @@ bool	check_map(t_map *map)
 	return (false);
 }
 
+void	flush_gnl(int fd)
+{
+	char	*tmp;
+
+	tmp = get_next_line(fd);
+	while (tmp)
+	{
+		free(tmp);
+		tmp = get_next_line(fd);
+	}
+}
+
 char	*put_reading_head_in_place(t_map *map)
 {
 	char	*line_read;
 
 	line_read = NULL;
 	map->LineOfEof = map->readingHead;
+	flush_gnl(map->fdMap);
 	close(map->fdMap);
 	map->fdMap = open(map->filePath, O_RDONLY);
 	map->readingHead = 0;
@@ -94,7 +107,6 @@ int	ext_is_all_wall(t_map *map)
 	int	y;
 	int	x;
 
-	
 	x = 0;
 	y = 0;
 	while (map->mapChar[0][x])
@@ -103,16 +115,15 @@ int	ext_is_all_wall(t_map *map)
 			return (0);
 		x++;
 	}
-	while(map->mapChar[y + 1])
+	while (map->mapChar[y + 1])
 		y++;
 	x = 0;
-	while(map->mapChar[y][x])
+	while (map->mapChar[y][x])
 	{
 		if (map->mapChar[y][x] == '0')
 			return (0);
 		x++;
 	}
-
 	y = 0;
 	while (map->mapChar[y])
 	{
@@ -121,20 +132,24 @@ int	ext_is_all_wall(t_map *map)
 			return (0);
 		while (map->mapChar[y][x])
 		{
-			while(map->mapChar[y][x] == '0')
-				x++;
-			x++;
-			if (map->mapChar[y][x] == '0' && (map->mapChar[y][x + 1] == ' ' || map->mapChar[y][x - 1] == ' ' || map->mapChar[y - 1][x] == ' ' || map->mapChar[y + 1][x] == ' '))
+			if (map->mapChar[y][x] == '0')
 			{
-				//printf("%i, %i\n", x, y);
-				return (0);
-			}	
+				if (x == 0 || !map->mapChar[y][x + 1])
+					return (0);
+				if (y == 0 || !map->mapChar[y + 1])
+					return (0);
+				if (map->mapChar[y][x + 1] == ' '
+					|| map->mapChar[y][x - 1] == ' '
+					|| map->mapChar[y - 1][x] == ' '
+					|| map->mapChar[y + 1][x] == ' ')
+					return (0);
+			}
+			x++;
 		}
 		if (map->mapChar[y][ft_strlen(map->mapChar[y]) - 1] == '0')
 			return (0);
 		y++;
 	}
-	x = 0;
 	return (1);
 }
 
