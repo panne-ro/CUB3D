@@ -6,7 +6,7 @@
 /*   By: vboxuser <vboxuser@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/04 23:21:25 by mleschev          #+#    #+#             */
-/*   Updated: 2026/03/25 02:27:24 by vboxuser         ###   ########.fr       */
+/*   Updated: 2026/03/25 12:14:53 by vboxuser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ char	*check_content_no(t_map *map, char *tmp, int i)
 
 	line_read = NULL;
 	line_read = read_and_clean_line(line_read, map);
+	printf("DEBUG north:%s\n", line_read);
 	while (line_read)
 	{
 		i = -1;
@@ -136,6 +137,24 @@ char	*check_content_ea(t_map *map, char *tmp, int i)
 	return (NULL);
 }
 
+bool check_color_format(char *line)
+{
+	int i;
+	int	j;
+
+	j = 0;
+	i = 0;
+	while (line[i])
+	{
+		if (line[i] == ',')
+			j++;
+		i++;
+	}
+	if (j > 2)
+		return true;
+	return false;
+}
+
 //sub fonction of check_content_master
 //resturn all of rgb in array of t_map for the floor
 //faut faire bellek ya pas les erreurs d'over-nombre pour l'instant
@@ -143,6 +162,8 @@ char	*check_content_ea(t_map *map, char *tmp, int i)
 void	check_content_fc(char *tmp, t_map *map, int i, char *line_read)
 {
 	line_read = read_and_clean_line(line_read, map);
+	if (check_color_format(line_read))
+		return ;
 	while (line_read)
 	{
 		i = -1;

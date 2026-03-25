@@ -6,7 +6,7 @@
 /*   By: vboxuser <vboxuser@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/10 13:24:38 by panne-ro          #+#    #+#             */
-/*   Updated: 2026/03/25 02:27:13 by vboxuser         ###   ########.fr       */
+/*   Updated: 2026/03/25 11:40:01 by vboxuser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@
 void	check_content_cc(char *tmp, t_map *map, int i, char *line_read)
 {
 	line_read = read_and_clean_line(line_read, map);
+	if (check_color_format(line_read))
+		return ;
 	while (line_read)
 	{
 		i = -1;

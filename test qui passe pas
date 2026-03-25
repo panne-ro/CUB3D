@@ -1,32 +1,283 @@
 
 invalid :
 
+valgrind -s ./cub3D test_maps/invalid_color_extra_comma.cub
+	==20262== Memcheck, a memory error detector
+	==20262== Copyright (C) 2002-2022, and GNU GPL'd, by Julian Seward et al.
+	==20262== Using Valgrind-3.22.0 and LibVEX; rerun with -h for copyright info
+	==20262== Command: ./cub3D test_maps/invalid_color_extra_comma.cub
+	==20262== 
+	DEBUG north:NO Cr.xpm
+	DEBUG Error: color of floor is missing
+	==20262== 
+	==20262== HEAP SUMMARY:
+	==20262==     in use at exit: 14 bytes in 1 blocks
+	==20262==   total heap usage: 1,340 allocs, 1,339 frees, 9,346 bytes allocated
+	==20262== 
+	==20262== LEAK SUMMARY:
+	==20262==    definitely lost: 14 bytes in 1 blocks
+	==20262==    indirectly lost: 0 bytes in 0 blocks
+	==20262==      possibly lost: 0 bytes in 0 blocks
+	==20262==    still reachable: 0 bytes in 0 blocks
+	==20262==         suppressed: 0 bytes in 0 blocks
+	==20262== Rerun with --leak-check=full to see details of leaked memory
+	==20262== 
+	==20262== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
 
-valgrind -s ./cub3D test_maps/invalid_duplicate_north.cub open alors quil devrait pas
+valgrind -s ./cub3D test_maps/invalid_missing_floor_color.cub
+	==20964== Memcheck, a memory error detector
+	==20964== Copyright (C) 2002-2022, and GNU GPL'd, by Julian Seward et al.
+	==20964== Using Valgrind-3.22.0 and LibVEX; rerun with -h for copyright info
+	==20964== Command: ./cub3D test_maps/invalid_missing_floor_color.cub
+	==20964== 
+	DEBUG north:NO Cr.xpm
+	==20964== Invalid read of size 1
+	==20964==    at 0x11128B: check_color_format (check_content.c:147)
+	==20964==    by 0x1135B7: check_content_cc (check_content_utils.c:22)
+	==20964==    by 0x1104C4: check_content_master (check_map.c:144)
+	==20964==    by 0x110126: checkmap (check_map.c:80)
+	==20964==    by 0x110081: init_map_struct (check_map.c:65)
+	==20964==    by 0x10FBF2: init_game (main.c:44)
+	==20964==    by 0x10FC5F: main (main.c:54)
+	==20964==  Address 0x0 is not stack'd, malloc'd or (recently) free'd
+	==20964== 
+	==20964== 
+	==20964== Process terminating with default action of signal 11 (SIGSEGV)
+	==20964==  Access not within mapped region at address 0x0
+	==20964==    at 0x11128B: check_color_format (check_content.c:147)
+	==20964==    by 0x1135B7: check_content_cc (check_content_utils.c:22)
+	==20964==    by 0x1104C4: check_content_master (check_map.c:144)
+	==20964==    by 0x110126: checkmap (check_map.c:80)
+	==20964==    by 0x110081: init_map_struct (check_map.c:65)
+	==20964==    by 0x10FBF2: init_game (main.c:44)
+	==20964==    by 0x10FC5F: main (main.c:54)
+	==20964==  If you believe this happened as a result of a stack
+	==20964==  overflow in your program's main thread (unlikely but
+	==20964==  possible), you can try to increase the size of the
+	==20964==  main thread stack using the --main-stacksize= flag.
+	==20964==  The main thread stack size used in this run was 8388608.
+	==20964== 
+	==20964== HEAP SUMMARY:
+	==20964==     in use at exit: 1,681 bytes in 17 blocks
+	==20964==   total heap usage: 1,062 allocs, 1,045 frees, 7,452 bytes allocated
+	==20964== 
+	==20964== LEAK SUMMARY:
+	==20964==    definitely lost: 0 bytes in 0 blocks
+	==20964==    indirectly lost: 0 bytes in 0 blocks
+	==20964==      possibly lost: 0 bytes in 0 blocks
+	==20964==    still reachable: 1,681 bytes in 17 blocks
+	==20964==         suppressed: 0 bytes in 0 blocks
+	==20964== Rerun with --leak-check=full to see details of leaked memory
+	==20964== 
+	==20964== ERROR SUMMARY: 1 errors from 1 contexts (suppressed: 0 from 0)
+	==20964== 
+	==20964== 1 errors in context 1 of 1:
+	==20964== Invalid read of size 1
+	==20964==    at 0x11128B: check_color_format (check_content.c:147)
+	==20964==    by 0x1135B7: check_content_cc (check_content_utils.c:22)
+	==20964==    by 0x1104C4: check_content_master (check_map.c:144)
+	==20964==    by 0x110126: checkmap (check_map.c:80)
+	==20964==    by 0x110081: init_map_struct (check_map.c:65)
+	==20964==    by 0x10FBF2: init_game (main.c:44)
+	==20964==    by 0x10FC5F: main (main.c:54)
+	==20964==  Address 0x0 is not stack'd, malloc'd or (recently) free'd
+	==20964== 
+	==20964== ERROR SUMMARY: 1 errors from 1 contexts (suppressed: 0 from 0)
+	[1]    20964 segmentation fault (core dumped)  valgrind -s ./cub3D test_maps/invalid_missing_floor_color.cub
 
-valgrind -s ./cub3D test_maps/valid_complex_layout.cub leaks
-valgrind -s ./cub3D test_maps/valid_corner_player.cub  leaks
- valgrind -s ./cub3D test_maps/valid_extra_spaces.cub  leaks
-valgrind -s ./cub3D test_maps/valid_irregular_shape.cub leaks
-valgrind -s ./cub3D test_maps/valid_large_map.cub  leaks
-valgrind -s ./cub3D test_maps/valid_l_shaped.cub leaks
-valgrind -s ./cub3D test_maps/valid_max_rgb.cub leaks
-valgrind -s ./cub3D test_maps/valid_maze_like.cub leaks
-valgrind -s ./cub3D test_maps/valid_minimal.cub  leaks
- valgrind -s ./cub3D test_maps/valid_multiple_empty_lines.cub leaks
- valgrind -s ./cub3D test_maps/valid_only_walls_and_player.cub leaks
-  valgrind -s ./cub3D test_maps/valid_player_east.cub leaks
-valgrind -s ./cub3D test_maps/valid_player_north.cub leaks
- valgrind -s ./cub3D test_maps/valid_player_south.cub leaks
-valgrind -s ./cub3D test_maps/valid_player_west.cub leaks
- valgrind -s ./cub3D test_maps/valid_random_order.cub pas open -> Error: color of ceiling is missing -normal-
-valgrind -s ./cub3D test_maps/valid_rectangular.cub leaks
-valgrind -s ./cub3D test_maps/valid_space_outside_wall.cub leaks
-valgrind -s ./cub3D test_maps/valid_spaces_in_map.cub  pas open + leaks -> Error: map format is not valid
-valgrind -s ./cub3D test_maps/valid_square.cub leaks
-valgrind -s ./cub3D test_maps/valid_tiny.cub leaks
- valgrind -s ./cub3D test_maps/valid_uneven_lines.cub leaks
- valgrind -s ./cub3D test_maps/valid_with_spaces.cub leaks
+valgrind -s ./cub3D test_maps/invalid_missing_north_texture.cub
+	==21080== Memcheck, a memory error detector
+	==21080== Copyright (C) 2002-2022, and GNU GPL'd, by Julian Seward et al.
+	==21080== Using Valgrind-3.22.0 and LibVEX; rerun with -h for copyright info
+	==21080== Command: ./cub3D test_maps/invalid_missing_north_texture.cub
+	==21080== 
+	DEBUG north:SO wall.xpm
+	==21080== Invalid read of size 1
+	==21080==    at 0x11128B: check_color_format (check_content.c:147)
+	==21080==    by 0x1112E3: check_content_fc (check_content.c:165)
+	==21080==    by 0x1104A1: check_content_master (check_map.c:143)
+	==21080==    by 0x110126: checkmap (check_map.c:80)
+	==21080==    by 0x110081: init_map_struct (check_map.c:65)
+	==21080==    by 0x10FBF2: init_game (main.c:44)
+	==21080==    by 0x10FC5F: main (main.c:54)
+	==21080==  Address 0x0 is not stack'd, malloc'd or (recently) free'd
+	==21080== 
+	==21080== 
+	==21080== Process terminating with default action of signal 11 (SIGSEGV)
+	==21080==  Access not within mapped region at address 0x0
+	==21080==    at 0x11128B: check_color_format (check_content.c:147)
+	==21080==    by 0x1112E3: check_content_fc (check_content.c:165)
+	==21080==    by 0x1104A1: check_content_master (check_map.c:143)
+	==21080==    by 0x110126: checkmap (check_map.c:80)
+	==21080==    by 0x110081: init_map_struct (check_map.c:65)
+	==21080==    by 0x10FBF2: init_game (main.c:44)
+	==21080==    by 0x10FC5F: main (main.c:54)
+	==21080==  If you believe this happened as a result of a stack
+	==21080==  overflow in your program's main thread (unlikely but
+	==21080==  possible), you can try to increase the size of the
+	==21080==  main thread stack using the --main-stacksize= flag.
+	==21080==  The main thread stack size used in this run was 8388608.
+	==21080== 
+	==21080== HEAP SUMMARY:
+	==21080==     in use at exit: 1,648 bytes in 13 blocks
+	==21080==   total heap usage: 1,091 allocs, 1,078 frees, 7,762 bytes allocated
+	==21080== 
+	==21080== LEAK SUMMARY:
+	==21080==    definitely lost: 0 bytes in 0 blocks
+	==21080==    indirectly lost: 0 bytes in 0 blocks
+	==21080==      possibly lost: 0 bytes in 0 blocks
+	==21080==    still reachable: 1,648 bytes in 13 blocks
+	==21080==         suppressed: 0 bytes in 0 blocks
+	==21080== Rerun with --leak-check=full to see details of leaked memory
+	==21080== 
+	==21080== ERROR SUMMARY: 1 errors from 1 contexts (suppressed: 0 from 0)
+	==21080== 
+	==21080== 1 errors in context 1 of 1:
+	==21080== Invalid read of size 1
+	==21080==    at 0x11128B: check_color_format (check_content.c:147)
+	==21080==    by 0x1112E3: check_content_fc (check_content.c:165)
+	==21080==    by 0x1104A1: check_content_master (check_map.c:143)
+	==21080==    by 0x110126: checkmap (check_map.c:80)
+	==21080==    by 0x110081: init_map_struct (check_map.c:65)
+	==21080==    by 0x10FBF2: init_game (main.c:44)
+	==21080==    by 0x10FC5F: main (main.c:54)
+	==21080==  Address 0x0 is not stack'd, malloc'd or (recently) free'd
+	==21080== 
+	==21080== ERROR SUMMARY: 1 errors from 1 contexts (suppressed: 0 from 0)
+	[1]    21080 segmentation fault (core dumped)  valgrind -s ./cub3D test_maps/invalid_missing_north_texture.cub
+
+valgrind -s ./cub3D test_maps/invalid_missing_south_texture.cub
+	==21187== Memcheck, a memory error detector
+	==21187== Copyright (C) 2002-2022, and GNU GPL'd, by Julian Seward et al.
+	==21187== Using Valgrind-3.22.0 and LibVEX; rerun with -h for copyright info
+	==21187== Command: ./cub3D test_maps/invalid_missing_south_texture.cub
+	==21187== 
+	DEBUG north:NO wall.xpm
+	==21187== Invalid read of size 1
+	==21187==    at 0x11128B: check_color_format (check_content.c:147)
+	==21187==    by 0x1112E3: check_content_fc (check_content.c:165)
+	==21187==    by 0x1104A1: check_content_master (check_map.c:143)
+	==21187==    by 0x110126: checkmap (check_map.c:80)
+	==21187==    by 0x110081: init_map_struct (check_map.c:65)
+	==21187==    by 0x10FBF2: init_game (main.c:44)
+	==21187==    by 0x10FC5F: main (main.c:54)
+	==21187==  Address 0x0 is not stack'd, malloc'd or (recently) free'd
+	==21187== 
+	==21187== 
+	==21187== Process terminating with default action of signal 11 (SIGSEGV)
+	==21187==  Access not within mapped region at address 0x0
+	==21187==    at 0x11128B: check_color_format (check_content.c:147)
+	==21187==    by 0x1112E3: check_content_fc (check_content.c:165)
+	==21187==    by 0x1104A1: check_content_master (check_map.c:143)
+	==21187==    by 0x110126: checkmap (check_map.c:80)
+	==21187==    by 0x110081: init_map_struct (check_map.c:65)
+	==21187==    by 0x10FBF2: init_game (main.c:44)
+	==21187==    by 0x10FC5F: main (main.c:54)
+	==21187==  If you believe this happened as a result of a stack
+	==21187==  overflow in your program's main thread (unlikely but
+	==21187==  possible), you can try to increase the size of the
+	==21187==  main thread stack using the --main-stacksize= flag.
+	==21187==  The main thread stack size used in this run was 8388608.
+	==21187== 
+	==21187== HEAP SUMMARY:
+	==21187==     in use at exit: 1,657 bytes in 14 blocks
+	==21187==   total heap usage: 1,089 allocs, 1,075 frees, 7,766 bytes allocated
+	==21187== 
+	==21187== LEAK SUMMARY:
+	==21187==    definitely lost: 0 bytes in 0 blocks
+	==21187==    indirectly lost: 0 bytes in 0 blocks
+	==21187==      possibly lost: 0 bytes in 0 blocks
+	==21187==    still reachable: 1,657 bytes in 14 blocks
+	==21187==         suppressed: 0 bytes in 0 blocks
+	==21187== Rerun with --leak-check=full to see details of leaked memory
+	==21187== 
+	==21187== ERROR SUMMARY: 1 errors from 1 contexts (suppressed: 0 from 0)
+	==21187== 
+	==21187== 1 errors in context 1 of 1:
+	==21187== Invalid read of size 1
+	==21187==    at 0x11128B: check_color_format (check_content.c:147)
+	==21187==    by 0x1112E3: check_content_fc (check_content.c:165)
+	==21187==    by 0x1104A1: check_content_master (check_map.c:143)
+	==21187==    by 0x110126: checkmap (check_map.c:80)
+	==21187==    by 0x110081: init_map_struct (check_map.c:65)
+	==21187==    by 0x10FBF2: init_game (main.c:44)
+	==21187==    by 0x10FC5F: main (main.c:54)
+	==21187==  Address 0x0 is not stack'd, malloc'd or (recently) free'd
+	==21187== 
+	==21187== ERROR SUMMARY: 1 errors from 1 contexts (suppressed: 0 from 0)
+	[1]    21187 segmentation fault (core dumped)  valgrind -s ./cub3D test_maps/invalid_missing_south_texture.cub
+
+valgrind -s ./cub3D test_maps/invalid_only_map.cub
+	==21471== Memcheck, a memory error detector
+	==21471== Copyright (C) 2002-2022, and GNU GPL'd, by Julian Seward et al.
+	==21471== Using Valgrind-3.22.0 and LibVEX; rerun with -h for copyright info
+	==21471== Command: ./cub3D test_maps/invalid_only_map.cub
+	==21471== 
+	DEBUG north:111111
+	==21471== Invalid read of size 1
+	==21471==    at 0x11128B: check_color_format (check_content.c:147)
+	==21471==    by 0x1112E3: check_content_fc (check_content.c:165)
+	==21471==    by 0x1104A1: check_content_master (check_map.c:143)
+	==21471==    by 0x110126: checkmap (check_map.c:80)
+	==21471==    by 0x110081: init_map_struct (check_map.c:65)
+	==21471==    by 0x10FBF2: init_game (main.c:44)
+	==21471==    by 0x10FC5F: main (main.c:54)
+	==21471==  Address 0x0 is not stack'd, malloc'd or (recently) free'd
+	==21471== 
+	==21471== 
+	==21471== Process terminating with default action of signal 11 (SIGSEGV)
+	==21471==  Access not within mapped region at address 0x0
+	==21471==    at 0x11128B: check_color_format (check_content.c:147)
+	==21471==    by 0x1112E3: check_content_fc (check_content.c:165)
+	==21471==    by 0x1104A1: check_content_master (check_map.c:143)
+	==21471==    by 0x110126: checkmap (check_map.c:80)
+	==21471==    by 0x110081: init_map_struct (check_map.c:65)
+	==21471==    by 0x10FBF2: init_game (main.c:44)
+	==21471==    by 0x10FC5F: main (main.c:54)
+	==21471==  If you believe this happened as a result of a stack
+	==21471==  overflow in your program's main thread (unlikely but
+	==21471==  possible), you can try to increase the size of the
+	==21471==  main thread stack using the --main-stacksize= flag.
+	==21471==  The main thread stack size used in this run was 8388608.
+	==21471== 
+	==21471== HEAP SUMMARY:
+	==21471==     in use at exit: 1,648 bytes in 13 blocks
+	==21471==   total heap usage: 467 allocs, 454 frees, 3,578 bytes allocated
+	==21471== 
+	==21471== LEAK SUMMARY:
+	==21471==    definitely lost: 0 bytes in 0 blocks
+	==21471==    indirectly lost: 0 bytes in 0 blocks
+	==21471==      possibly lost: 0 bytes in 0 blocks
+	==21471==    still reachable: 1,648 bytes in 13 blocks
+	==21471==         suppressed: 0 bytes in 0 blocks
+	==21471== Rerun with --leak-check=full to see details of leaked memory
+	==21471== 
+	==21471== ERROR SUMMARY: 1 errors from 1 contexts (suppressed: 0 from 0)
+	==21471== 
+	==21471== 1 errors in context 1 of 1:
+	==21471== Invalid read of size 1
+	==21471==    at 0x11128B: check_color_format (check_content.c:147)
+	==21471==    by 0x1112E3: check_content_fc (check_content.c:165)
+	==21471==    by 0x1104A1: check_content_master (check_map.c:143)
+	==21471==    by 0x110126: checkmap (check_map.c:80)
+	==21471==    by 0x110081: init_map_struct (check_map.c:65)
+	==21471==    by 0x10FBF2: init_game (main.c:44)
+	==21471==    by 0x10FC5F: main (main.c:54)
+	==21471==  Address 0x0 is not stack'd, malloc'd or (recently) free'd
+	==21471== 
+	==21471== ERROR SUMMARY: 1 errors from 1 contexts (suppressed: 0 from 0)
+	[1]    21471 segmentation fault (core dumped)  valgrind -s ./cub3D test_maps/invalid_only_map.cub
+
+./cub3D test_maps/valid_spaces_in_map.cub -----> ne s'ouvre pas
+	DEBUG north:NO Cr.xpm
+	DEBUG Error: map format is not valid
+
+
+
+
+
+
+
 
 
 
