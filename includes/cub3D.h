@@ -6,7 +6,7 @@
 /*   By: vboxuser <vboxuser@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/16 16:52:52 by panne-ro          #+#    #+#             */
-/*   Updated: 2026/03/25 13:58:05 by vboxuser         ###   ########.fr       */
+/*   Updated: 2026/03/25 14:33:15 by vboxuser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -163,6 +163,11 @@ void		check_content_cc(char *tmp, t_map *map, int i, char *line_read);
 char		*copy_content(char *line_read, char *tmp, int i);
 void		dispatch_color_at_good_place(t_map *map, char *tmp, int nbr);
 int			rgb_dispatch_info_file(char *line_read, char *tmp, int i, t_map *map);
+void		flush_and_reopen(t_map *map);
+
+// parse_utils_second.c
+int	sub_check_content_fc(char *tmp, t_map *map, int i, char *line_read);
+int	sub_check_content_cc(char *tmp, t_map *map, int i, char *line_read);
 
 // check_content.c
 char		*check_content_no(t_map *map, char *tmp, int i);
@@ -190,6 +195,7 @@ void		flush_gnl(int fd);
 bool		check_double(char first, char second, t_map *map);
 bool		check_double_master(t_map *map);
 bool		check_color_format(char *line);
+int			sub_ext_is_all_wall(t_map *map, int y, int x);
 
 // parse_map.c
 bool		check_map(t_map *map);

@@ -6,7 +6,7 @@
 /*   By: vboxuser <vboxuser@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/25 13:55:37 by vboxuser          #+#    #+#             */
-/*   Updated: 2026/03/25 13:58:26 by vboxuser         ###   ########.fr       */
+/*   Updated: 2026/03/25 14:16:26 by vboxuser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,35 @@ bool	check_color_format(char *line)
 	return (false);
 }
 
+int	sub_ext_is_all_wall(t_map *map, int y, int x)
+{
+	while (map->mapChar[y])
+	{
+		x = 0;
+		if (map->mapChar[y][0] == '0')
+			return (0);
+		while (map->mapChar[y][x])
+		{
+			if (map->mapChar[y][x] == '0')
+			{
+				if (x == 0 || !map->mapChar[y][x + 1])
+					return (0);
+				if (y == 0 || !map->mapChar[y + 1])
+					return (0);
+				if (map->mapChar[y][x + 1] == ' ' || map->mapChar[y][x - 1]
+					== ' ' || map->mapChar[y - 1][x] == ' '
+					|| map->mapChar[y + 1][x] == ' ')
+					return (0);
+			}
+			x++;
+		}
+		if (map->mapChar[y][ft_strlen(map->mapChar[y]) - 1] == '0')
+			return (0);
+		y++;
+	}
+	return (1);
+}
+
 bool	check_double(char first, char second, t_map *map)
 {
 	char	*line_read;
@@ -50,10 +79,7 @@ bool	check_double(char first, char second, t_map *map)
 
 	i = 0;
 	j = 0;
-	flush_gnl(map->fdMap);
-	close(map->fdMap);
-	map->fdMap = open(map->filePath, O_RDONLY);
-	map->readingHead = 0;
+	flush_and_reopen(map);
 	line_read = read_and_clean_line(NULL, map);
 	while (line_read)
 	{

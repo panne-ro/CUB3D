@@ -6,7 +6,7 @@
 /*   By: vboxuser <vboxuser@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/04 23:21:25 by mleschev          #+#    #+#             */
-/*   Updated: 2026/03/25 13:58:12 by vboxuser         ###   ########.fr       */
+/*   Updated: 2026/03/25 14:30:59 by vboxuser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,26 +146,10 @@ void	check_content_fc(char *tmp, t_map *map, int i, char *line_read)
 	while (line_read)
 	{
 		i = -1;
-		while (line_read[++i])
+		if (sub_check_content_fc(tmp, map, i, line_read))
 		{
-			if (line_read[i] == 'F' && (line_read[i + 1] == ' '
-					|| line_read[i + 1] == '\t'))
-			{
-				if (check_color_format(line_read))
-				{
-					map->valid_nbr_color = false;
-					free(line_read);
-					return ;
-				}
-				i++;
-				while (line_read[i] == ' ')
-					i++;
-				map->boolean = false;
-				if (rgb_dispatch_info_file(line_read, tmp, i, map) == -2)
-					map->valid_nbr_color = false;
-				free(line_read);
-				return ;
-			}
+			free(line_read);
+			return ;
 		}
 		free(line_read);
 		line_read = read_and_clean_line(line_read, map);

@@ -6,7 +6,7 @@
 /*   By: vboxuser <vboxuser@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/10 13:24:38 by panne-ro          #+#    #+#             */
-/*   Updated: 2026/03/25 13:25:40 by vboxuser         ###   ########.fr       */
+/*   Updated: 2026/03/25 14:30:29 by vboxuser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,26 +22,10 @@ void	check_content_cc(char *tmp, t_map *map, int i, char *line_read)
 	while (line_read)
 	{
 		i = -1;
-		while (line_read[++i])
+		if (sub_check_content_cc(tmp, map, i, line_read))
 		{
-			if (line_read[i] == 'C' && (line_read[i + 1] == ' '
-					|| line_read[i + 1] == '\t'))
-			{
-				if (check_color_format(line_read))
-				{
-					map->valid_nbr_color = false;
-					free(line_read);
-					return ;
-				}
-				i++;
-				while (line_read[i] == ' ')
-					i++;
-				map->boolean = true;
-				if (rgb_dispatch_info_file(line_read, tmp, i, map) == -2)
-					map->valid_nbr_color = false;
-				free(line_read);
-				return ;
-			}
+			free(line_read);
+			return ;
 		}
 		free(line_read);
 		line_read = read_and_clean_line(line_read, map);
@@ -103,4 +87,12 @@ int	rgb_dispatch_info_file(char *line_read, char *tmp, int i, t_map *map)
 			return (-2);
 	}
 	return (0);
+}
+
+void	flush_and_reopen(t_map *map)
+{
+	flush_gnl(map->fdMap);
+	close(map->fdMap);
+	map->fdMap = open(map->filePath, O_RDONLY);
+	map->readingHead = 0;
 }

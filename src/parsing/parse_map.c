@@ -6,7 +6,7 @@
 /*   By: vboxuser <vboxuser@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/05 21:15:12 by mleschev          #+#    #+#             */
-/*   Updated: 2026/03/25 13:54:27 by vboxuser         ###   ########.fr       */
+/*   Updated: 2026/03/25 14:13:23 by vboxuser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,32 +112,8 @@ int	ext_is_all_wall(t_map *map)
 			return (0);
 		x++;
 	}
-	y = 0;
-	while (map->mapChar[y])
-	{
-		x = 0;
-		if (map->mapChar[y][0] == '0')
-			return (0);
-		while (map->mapChar[y][x])
-		{
-			if (map->mapChar[y][x] == '0')
-			{
-				if (x == 0 || !map->mapChar[y][x + 1])
-					return (0);
-				if (y == 0 || !map->mapChar[y + 1])
-					return (0);
-				if (map->mapChar[y][x + 1] == ' '
-					|| map->mapChar[y][x - 1] == ' '
-					|| map->mapChar[y - 1][x] == ' '
-					|| map->mapChar[y + 1][x] == ' ')
-					return (0);
-			}
-			x++;
-		}
-		if (map->mapChar[y][ft_strlen(map->mapChar[y]) - 1] == '0')
-			return (0);
-		y++;
-	}
+	if (sub_ext_is_all_wall(map, 0, 0) == 0)
+		return (0);
 	return (1);
 }
 
