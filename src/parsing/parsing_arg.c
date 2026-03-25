@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_arg.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: panne-ro <panne-ro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vboxuser <vboxuser@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/03 17:34:57 by panne-ro          #+#    #+#             */
-/*   Updated: 2026/03/16 16:10:56 by panne-ro         ###   ########.fr       */
+/*   Updated: 2026/03/25 13:55:44 by vboxuser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,3 +56,4 @@ int	extension_check(char *str)
 	}
 	return (1);
 }
+

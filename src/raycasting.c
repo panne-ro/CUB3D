@@ -6,7 +6,7 @@
 /*   By: vboxuser <vboxuser@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/13 13:26:03 by panne-ro          #+#    #+#             */
-/*   Updated: 2026/03/25 01:17:41 by vboxuser         ###   ########.fr       */
+/*   Updated: 2026/03/25 13:08:59 by vboxuser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ void	print_world(t_game *game, double perp, int x)
 	int	line_height;
 	int	draw_start;
 	int	draw_end;
-	
+
 	line_height = (int)((double)Y_WIN / perp);
 	draw_end = line_height / 2 + Y_WIN / 2;
 	draw_start = -line_height / 2 + Y_WIN / 2;

@@ -6,7 +6,7 @@
 /*   By: vboxuser <vboxuser@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/16 16:52:52 by panne-ro          #+#    #+#             */
-/*   Updated: 2026/03/25 12:20:34 by vboxuser         ###   ########.fr       */
+/*   Updated: 2026/03/25 13:58:05 by vboxuser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -158,95 +158,119 @@ typedef struct s_game
 	t_tex		*tex_ea;
 }	t_game;
 
-// parsing:
-int		extension_check(char *str);
-int		check_arg(int argc, char **argv);
-int		ext_is_all_wall(t_map *map);
-bool check_color_format(char *line);
-void	flush_gnl(int fd);
+// check_content_utils.c
+void		check_content_cc(char *tmp, t_map *map, int i, char *line_read);
+char		*copy_content(char *line_read, char *tmp, int i);
+void		dispatch_color_at_good_place(t_map *map, char *tmp, int nbr);
+int			rgb_dispatch_info_file(char *line_read, char *tmp, int i, t_map *map);
 
-void init_map_struct(t_game **gameAddr, char *pathToMapFile);
-int check_content_master(t_map *map);
-char *copy_content(char *line_read, char *tmp, int i);
+// check_content.c
+char		*check_content_no(t_map *map, char *tmp, int i);
+char		*check_content_so(t_map *map, char *tmp, int i);
+char		*check_content_we(t_map *map, char *tmp, int i);
+char		*check_content_ea(t_map *map, char *tmp, int i);
+void		check_content_fc(char *tmp, t_map *map, int i, char *line_read);
 
-int checkmap(t_game **gameAddr);
+// check_map_utils.c
+char		*read_and_clean_line(char *line_read, t_map *map);
+bool		sub_loop_master_in_verif_map(t_map *map, int *i, int *j, int *nbr_player);
+bool		sub_loop_verif_map(t_map *map, int *i, int *j, int *nbr_player);
+int			check_flood_fill(t_map *map, int x, int y);
+void		flood_fill(int x, int y, t_map *map);
 
-// checkcontent.c
+// check_map.c
+char		**copy_map(char **map);
+void		init_map_struct(t_game **gameAddr, char *pathToMap);
+int			checkmap(t_game **gameAddr);
+int			check_content_master(t_map *map);
+bool		verif_map(t_map *map, int i, int nbr_player);
 
-char *check_content_no(t_map *map, char *tmp, int i);
-char *check_content_so(t_map *map, char *tmp, int i);
-char *check_content_we(t_map *map, char *tmp, int i);
-char *check_content_ea(t_map *map, char *tmp, int i);
-void check_content_fc(char *tmp, t_map *map, int i, char *line_read);
-void check_content_cc(char *tmp, t_map *map, int i, char *line_read);
-int rgb_dispatch_info_file(char *line_read, char *tmp, int i, t_map *map);
-void parse_map(t_map *map);
+// parse_utils.c
+void		flush_gnl(int fd);
+bool		check_double(char first, char second, t_map *map);
+bool		check_double_master(t_map *map);
+bool		check_color_format(char *line);
 
-char *read_and_clean_line(char *line_read, t_map *map);
+// parse_map.c
+bool		check_map(t_map *map);
+char		*put_reading_head_in_place(t_map *map);
+void		sub_parse_map(char *line_read, t_map *map, int i, int j);
+int			ext_is_all_wall(t_map *map);
+void		parse_map(t_map *map);
 
-//test
-void init(t_game **game);
-bool	verif_map(t_map *map, int i, int nbr_player);
+// parsing_arg.c
+int			check_arg(int argc, char **argv);
+int			extension_check(char *str);
 
+// error.c
+bool		check_texture_file(t_game *game);
+bool		check_range_color(t_game *game);
+void		close_all(t_game **game_address, char *msg);
+void		verify_all(t_game **game_address);
 
+// free_game.c
+void		sub_free_map_copy_and_char(t_map *map);
+void		free_map(t_map *map);
+void		sub_free_game(t_game **game);
+void		free_game(t_game **game);
+
+// init_player.c
+void		init_var(t_game *game);
+void		init_dir_and_plane(t_game *game);
+void		init_flag_moov(t_game *game);
+void		init_player(t_game *game);
+
+// load_texture.c
+void		init_all_texture(t_game **game_addr);
+t_tex		*load_texture(void *mlx, char *path);
+void		put_texture_on_wall(t_game *game, double perp, int line_height, int y, int x);
+
+// main.c
+void		init_game(t_game **gameAddr, char *pathFile);
+long		get_time(void);
+
+// mlx_init.c
+int			close_mlx(void *param);
+int			key_release(int key, void *game);
+int			on_keypress(int key, void *game);
+int			update(void *game);
+void		init(t_game **game_addr);
+
+//  moov_player_dir.c
+bool		y_max(char **map, int where_we_going);
+bool		check_if_cant_go_w(t_game *game, int dir_x, int dir_y);
+bool		check_if_cant_go_s(t_game *game, int dir_x, int dir_y);
+bool		check_if_cant_go_a(t_game *game, int dir_x, int dir_y);
+bool		check_if_cant_go_d(t_game *game, int dir_x, int dir_y);
+
+// moov_player.c
+bool		x_max(char **map, int player_pos_y, int where_we_going);
+void		refresh_map(t_game *game);
+bool		check_if_cant_go(char dir, t_game *game);
+void		moov_player(t_game *game, char dir);
+void		moov_look_dir(t_game *game, char dir);
+
+// raycasting_utils.c
+void		my_mlx_pixel_put(t_game *game, int x, int y, int color);
+int			int_ceiling_to_rgb(t_game *game);
+int			int_floor_to_rgb(t_game *game);
+void		add_colors(t_game *game);
+
+// raycasting.c
+void		maj_var(t_game *game);
+void		calc_dir(t_game *game, double dirX, double dirY);
+void		calc_side(t_game *game);
+void		print_world(t_game *game, double perp, int x);
+int			dda(t_game *game);
+
+// sub_moov_dir.c
+void		sub_moov_w(t_game *game);
+void		sub_moov_s(t_game *game);
+void		sub_moov_d(t_game *game);
+void		sub_moov_a(t_game *game);
+
+// vector.c
 t_vector	sum_vector(t_vector vector1, t_vector vector2);
 t_vector	*sub_vector(t_vector *vector1, t_vector *vector2);
 t_vector	mul_vector(t_vector vector, int scale);
-//  error.c
-void verify_all(t_game **game_address);
-void free_game(t_game **game);
-void free_map(t_map *map);
-bool check_range_color(t_game *game);
-bool check_texture_file(t_game *game);
-void	close_all(t_game **game_address, char *msg);
-
-// void	raycasting(t_game *game);
-
-void	init_player(t_game *game);
-
-// void    put_pixel(t_img *img, int x, int y, int color);
-
-void	print_map(t_game *game);
-
-// moov_player.c
-void	moov_player(t_game *game, char dir);
-void	moov_look_dir(t_game *game, char dir);
-
-int	dda(t_game *game);
-int key_release(int key, void *game);
-void refresh_map(t_game *game);
-void	init_var(t_game *game);
-
-// checkmap.c
-
-void	my_mlx_pixel_put(t_game *game, int x, int y, int color);
-int		int_ceiling_to_rgb(t_game *game);
-int		int_floor_to_rgb(t_game *game);
-void	add_colors(t_game *game);
-
-// moov_player_dir.c
-bool	check_if_cant_go_w(t_game *game, int dir_x, int dir_y);
-bool	check_if_cant_go_s(t_game *game, int dir_x, int dir_y);
-bool	check_if_cant_go_a(t_game *game, int dir_x, int dir_y);
-bool	check_if_cant_go_d(t_game *game, int dir_x, int dir_y);
-
-// check_map_utils.c
-bool	sub_loop_verif_map(t_map *map, int *i, int *j, int *nbr_player);
-bool	sub_loop_master_in_verif_map(t_map *map, int *i, int *j, int *nbr_player);
-
-long	get_time(void);
-
-// sub_moov_dir.c
-void	sub_moov_w(t_game *game);
-void	sub_moov_a(t_game *game);
-void	sub_moov_d(t_game *game);
-void	sub_moov_s(t_game *game);
-
-// load_texture.c
-void	init_all_texture(t_game **game_addr);
-t_tex	*load_texture(void *mlx, char *path);
-void	put_texture_on_wall(t_game *game, double perp, int line_height, int y, int x);
-void    flood_fill(int x, int y, t_map *map);
-
-
 # endif

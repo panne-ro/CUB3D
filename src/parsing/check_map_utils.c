@@ -6,7 +6,7 @@
 /*   By: vboxuser <vboxuser@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/17 21:06:50 by mleschev          #+#    #+#             */
-/*   Updated: 2026/03/25 02:07:09 by vboxuser         ###   ########.fr       */
+/*   Updated: 2026/03/25 13:21:24 by vboxuser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,12 +105,12 @@ int	check_flood_fill(t_map *map, int x, int y)
 	return (0);
 }
 
-void flood_fill(int x, int y, t_map *map)
+void	flood_fill(int x, int y, t_map *map)
 {
 	if (check_flood_fill(map, x, y))
-		return;
+		return ;
 	if (map->copy_map[y][x] == '1' || map->copy_map[y][x] == 'X')
-		return;
+		return ;
 	map->copy_map[y][x] = 'X';
 	flood_fill(x + 1, y, map);
 	flood_fill(x - 1, y, map);

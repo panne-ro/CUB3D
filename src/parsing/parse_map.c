@@ -6,7 +6,7 @@
 /*   By: vboxuser <vboxuser@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/05 21:15:12 by mleschev          #+#    #+#             */
-/*   Updated: 2026/03/25 02:23:55 by vboxuser         ###   ########.fr       */
+/*   Updated: 2026/03/25 13:54:27 by vboxuser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,18 +42,6 @@ bool	check_map(t_map *map)
 	if (test > 1)
 		return (true);
 	return (false);
-}
-
-void	flush_gnl(int fd)
-{
-	char	*tmp;
-
-	tmp = get_next_line(fd);
-	while (tmp)
-	{
-		free(tmp);
-		tmp = get_next_line(fd);
-	}
 }
 
 char	*put_reading_head_in_place(t_map *map)

@@ -6,7 +6,7 @@
 /*   By: vboxuser <vboxuser@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/10 13:24:38 by panne-ro          #+#    #+#             */
-/*   Updated: 2026/03/25 12:46:40 by vboxuser         ###   ########.fr       */
+/*   Updated: 2026/03/25 13:25:40 by vboxuser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	check_content_cc(char *tmp, t_map *map, int i, char *line_read)
 		while (line_read[++i])
 		{
 			if (line_read[i] == 'C' && (line_read[i + 1] == ' '
-				|| line_read[i + 1] == '\t'))
+					|| line_read[i + 1] == '\t'))
 			{
 				if (check_color_format(line_read))
 				{

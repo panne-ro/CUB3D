@@ -6,7 +6,7 @@
 /*   By: vboxuser <vboxuser@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/04 23:21:25 by mleschev          #+#    #+#             */
-/*   Updated: 2026/03/25 12:46:22 by vboxuser         ###   ########.fr       */
+/*   Updated: 2026/03/25 13:58:12 by vboxuser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,24 +136,6 @@ char	*check_content_ea(t_map *map, char *tmp, int i)
 	return (NULL);
 }
 
-bool check_color_format(char *line)
-{
-	int i;
-	int	j;
-
-	j = 0;
-	i = 0;
-	while (line[i])
-	{
-		if (line[i] == ',')
-			j++;
-		i++;
-	}
-	if (j > 2)
-		return true;
-	return false;
-}
-
 //sub fonction of check_content_master
 //resturn all of rgb in array of t_map for the floor
 //faut faire bellek ya pas les erreurs d'over-nombre pour l'instant
@@ -167,7 +149,7 @@ void	check_content_fc(char *tmp, t_map *map, int i, char *line_read)
 		while (line_read[++i])
 		{
 			if (line_read[i] == 'F' && (line_read[i + 1] == ' '
-				|| line_read[i + 1] == '\t'))
+					|| line_read[i + 1] == '\t'))
 			{
 				if (check_color_format(line_read))
 				{

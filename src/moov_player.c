@@ -3,14 +3,26 @@
 /*                                                        :::      ::::::::   */
 /*   moov_player.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: panne-ro <panne-ro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vboxuser <vboxuser@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/26 11:01:00 by mleschev          #+#    #+#             */
-/*   Updated: 2026/03/23 11:00:30 by panne-ro         ###   ########.fr       */
+/*   Updated: 2026/03/25 13:49:06 by vboxuser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3D.h"
+
+bool	x_max(char **map, int player_pos_y, int where_we_going)
+{
+	int	x_max;
+
+	x_max = 0;
+	while (map[player_pos_y / MINIMAP_RESOLUTION][x_max])
+		x_max++;
+	if (x_max < where_we_going || where_we_going < 0)
+		return (false);
+	return (true);
+}
 
 void	refresh_map(t_game *game)
 {

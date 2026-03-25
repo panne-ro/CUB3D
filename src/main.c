@@ -6,7 +6,7 @@
 /*   By: vboxuser <vboxuser@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/03 17:05:20 by panne-ro          #+#    #+#             */
-/*   Updated: 2026/03/25 01:36:45 by vboxuser         ###   ########.fr       */
+/*   Updated: 2026/03/25 13:09:14 by vboxuser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,5 @@ int	main(int argc, char **argv)
 	init_game(&game, argv[1]);
 	verify_all(&game);
 	init(&game);
-
 	return (0);
 }
-

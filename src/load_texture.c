@@ -6,7 +6,7 @@
 /*   By: vboxuser <vboxuser@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/18 00:05:29 by mleschev          #+#    #+#             */
-/*   Updated: 2026/03/25 01:35:54 by vboxuser         ###   ########.fr       */
+/*   Updated: 2026/03/25 13:16:14 by vboxuser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	init_all_texture(t_game **game_addr)
 	game->tex_we = load_texture(game->mlx->mlx, game->map->westTexture);
 	game->tex_ea = load_texture(game->mlx->mlx, game->map->eastTexture);
 	if (!game->tex_no || !game->tex_so || !game->tex_we || !game->tex_ea)
-		close_all(game_addr,"texture load failed");
+		close_all(game_addr, "texture load failed");
 }
 
 t_tex	*load_texture(void *mlx, char *path)
