@@ -1,15 +1,8 @@
 
 invalid :
 
-./cub3D test_maps/valid_spaces_in_map.cub -----> ne s'ouvre pas
-	DEBUG Error: map format is not valid
 
-
-
-
-
-
-
+space in map ne s'ouvre pas et ca me clc fort
 
 
 

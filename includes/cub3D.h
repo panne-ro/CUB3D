@@ -6,7 +6,7 @@
 /*   By: vboxuser <vboxuser@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/16 16:52:52 by panne-ro          #+#    #+#             */
-/*   Updated: 2026/03/25 14:33:15 by vboxuser         ###   ########.fr       */
+/*   Updated: 2026/03/25 14:58:30 by vboxuser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,6 +140,9 @@ typedef struct s_tex
 	int		endian;
 	int		width;
 	int		height;
+	int		tex_x;
+	int		tex_y;
+	int		color;
 }	t_tex;
 
 typedef struct s_game
@@ -147,6 +150,8 @@ typedef struct s_game
 	long		last_time;
 	long		current_time;
 	double		delta_time;
+	double		perp;
+	int			line_height;
 	t_map		*map;
 	t_img		*img;
 	t_player	*player;
@@ -166,8 +171,8 @@ int			rgb_dispatch_info_file(char *line_read, char *tmp, int i, t_map *map);
 void		flush_and_reopen(t_map *map);
 
 // parse_utils_second.c
-int	sub_check_content_fc(char *tmp, t_map *map, int i, char *line_read);
-int	sub_check_content_cc(char *tmp, t_map *map, int i, char *line_read);
+int			sub_check_content_fc(char *tmp, t_map *map, int i, char *line_read);
+int			sub_check_content_cc(char *tmp, t_map *map, int i, char *line_read);
 
 // check_content.c
 char		*check_content_no(t_map *map, char *tmp, int i);
@@ -229,7 +234,7 @@ void		init_player(t_game *game);
 // load_texture.c
 void		init_all_texture(t_game **game_addr);
 t_tex		*load_texture(void *mlx, char *path);
-void		put_texture_on_wall(t_game *game, double perp, int line_height, int y, int x);
+void		put_texture_on_wall(t_game *game, int y, int x);
 
 // main.c
 void		init_game(t_game **gameAddr, char *pathFile);
@@ -266,7 +271,7 @@ void		add_colors(t_game *game);
 void		maj_var(t_game *game);
 void		calc_dir(t_game *game, double dirX, double dirY);
 void		calc_side(t_game *game);
-void		print_world(t_game *game, double perp, int x);
+void		print_world(t_game *game, int x);
 int			dda(t_game *game);
 
 // sub_moov_dir.c

@@ -6,7 +6,7 @@
 /*   By: vboxuser <vboxuser@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/13 13:26:03 by panne-ro          #+#    #+#             */
-/*   Updated: 2026/03/25 13:08:59 by vboxuser         ###   ########.fr       */
+/*   Updated: 2026/03/25 15:00:41 by vboxuser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,16 +87,15 @@ void	calc_side(t_game *game)
 	}
 }
 
-void	print_world(t_game *game, double perp, int x)
+void	print_world(t_game *game, int x)
 {
 	int	y;
-	int	line_height;
 	int	draw_start;
 	int	draw_end;
 
-	line_height = (int)((double)Y_WIN / perp);
-	draw_end = line_height / 2 + Y_WIN / 2;
-	draw_start = -line_height / 2 + Y_WIN / 2;
+	game->line_height = (int)((double)Y_WIN / game->perp);
+	draw_end = game->line_height / 2 + Y_WIN / 2;
+	draw_start = -game->line_height / 2 + Y_WIN / 2;
 	if (draw_start < 0)
 		draw_start = 0;
 	if (draw_end >= Y_WIN)
@@ -108,7 +107,7 @@ void	print_world(t_game *game, double perp, int x)
 		if (y < draw_start)
 			my_mlx_pixel_put(game, x, y, game->img->ceiling_color);
 		else if (y <= draw_end)
-			put_texture_on_wall(game, perp, line_height, y, x);
+			put_texture_on_wall(game, y, x);
 		else
 			my_mlx_pixel_put(game, x, y, game->img->floor_color);
 		y++;
@@ -117,8 +116,6 @@ void	print_world(t_game *game, double perp, int x)
 
 int	dda(t_game *game)
 {
-	double	perp;
-
 	init_var(game);
 	while (game->dda->col < X_WIN)
 	{
@@ -128,14 +125,14 @@ int	dda(t_game *game)
 		calc_side(game);
 		if (game->dda->hit)
 		{
-			perp = 0;
+			game->perp = 0;
 			if (game->dda->side == 0)
-				perp = game->dda->sideDistX - game->dda->deltaDistX;
+				game->perp = game->dda->sideDistX - game->dda->deltaDistX;
 			else
-				perp = game->dda->sideDistY - game->dda->deltaDistY;
-			if (perp <= 1e-6)
-				perp = 1e-6;
-			print_world(game, perp, game->dda->col);
+				game->perp = game->dda->sideDistY - game->dda->deltaDistY;
+			if (game->perp <= 1e-6)
+				game->perp = 1e-6;
+			print_world(game, game->dda->col);
 		}
 		game->dda->col++;
 	}

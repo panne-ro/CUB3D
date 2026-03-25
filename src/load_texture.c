@@ -6,7 +6,7 @@
 /*   By: vboxuser <vboxuser@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/18 00:05:29 by mleschev          #+#    #+#             */
-/*   Updated: 2026/03/25 13:16:14 by vboxuser         ###   ########.fr       */
+/*   Updated: 2026/03/25 15:03:31 by vboxuser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,19 +46,30 @@ t_tex	*load_texture(void *mlx, char *path)
 	return (tex);
 }
 
-void	put_texture_on_wall(t_game *game, double perp, int line_height,
-	int y, int x)
+void	sub_put_texture_on_wall(t_game *game, int y, int x, t_tex	*tex)
+{
+	int	d;
+
+	d = (y * 256) - (Y_WIN * 128) + (game->line_height * 128);
+	tex->tex_y = (d * tex->height) / game->line_height / 256;
+	if (tex->tex_y < 0)
+		tex->tex_y = 0;
+	if (tex->tex_y >= tex->height)
+		tex->tex_y = tex->height - 1;
+	tex->color = *(unsigned int *)(tex->addr
+			+ (tex->tex_y * tex->line_len + tex->tex_x * (tex->bpp / 8)));
+	my_mlx_pixel_put(game, x, y, tex->color);
+}
+
+void	put_texture_on_wall(t_game *game, int y, int x)
 {
 	double	wall_x;
 	t_tex	*tex;
-	int		tex_x;
-	int		tex_y;
-	int		color;
 
 	if (game->dda->side == 0)
-		wall_x = game->dda->posY + perp * game->dda->dirY;
+		wall_x = game->dda->posY + game->perp * game->dda->dirY;
 	else
-		wall_x = game->dda->posX + perp * game->dda->dirX;
+		wall_x = game->dda->posX + game->perp * game->dda->dirX;
 	wall_x -= floor(wall_x);
 	if (game->dda->side == 0 && game->dda->dirX > 0)
 		tex = game->tex_ea;
@@ -68,14 +79,9 @@ void	put_texture_on_wall(t_game *game, double perp, int line_height,
 		tex = game->tex_so;
 	else
 		tex = game->tex_no;
-	tex_x = (int)(wall_x * tex->width);
+	tex->tex_x = (int)(wall_x * tex->width);
 	if ((game->dda->side == 0 && game->dda->dirX < 0)
 		|| (game->dda->side == 1 && game->dda->dirY > 0))
-		tex_x = tex->width - tex_x - 1;
-	int d = (y * 256) - (Y_WIN * 128) + (line_height * 128);
-	tex_y = (d * tex->height) / line_height / 256;
-	if (tex_y < 0) tex_y = 0;
-	if (tex_y >= tex->height) tex_y = tex->height - 1;
-	color = *(unsigned int *)(tex->addr + (tex_y * tex->line_len + tex_x * (tex->bpp / 8)));
-	my_mlx_pixel_put(game, x, y, color);
+		tex->tex_x = tex->width - tex->tex_x - 1;
+	sub_put_texture_on_wall(game, y, x, tex);
 }
