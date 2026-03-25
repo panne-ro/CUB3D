@@ -6,7 +6,7 @@
 /*   By: vboxuser <vboxuser@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/10 13:24:38 by panne-ro          #+#    #+#             */
-/*   Updated: 2026/03/25 11:40:01 by vboxuser         ###   ########.fr       */
+/*   Updated: 2026/03/25 12:46:40 by vboxuser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,22 +19,26 @@
 void	check_content_cc(char *tmp, t_map *map, int i, char *line_read)
 {
 	line_read = read_and_clean_line(line_read, map);
-	if (check_color_format(line_read))
-		return ;
 	while (line_read)
 	{
 		i = -1;
 		while (line_read[++i])
 		{
-			if (line_read[i] == 'C')
+			if (line_read[i] == 'C' && (line_read[i + 1] == ' '
+				|| line_read[i + 1] == '\t'))
 			{
-				i++;
-				if (!line_read[i])
+				if (check_color_format(line_read))
+				{
+					map->valid_nbr_color = false;
+					free(line_read);
 					return ;
-				while (line_read[i] && line_read[i] == ' ')
+				}
+				i++;
+				while (line_read[i] == ' ')
 					i++;
 				map->boolean = true;
-				rgb_dispatch_info_file(line_read, tmp, i, map);
+				if (rgb_dispatch_info_file(line_read, tmp, i, map) == -2)
+					map->valid_nbr_color = false;
 				free(line_read);
 				return ;
 			}
@@ -42,7 +46,6 @@ void	check_content_cc(char *tmp, t_map *map, int i, char *line_read)
 		free(line_read);
 		line_read = read_and_clean_line(line_read, map);
 	}
-	free(line_read);
 }
 
 // a sub_functions for CheckContent_XXXX
