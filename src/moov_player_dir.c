@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   moov_player_dir.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vboxuser <vboxuser@student.42.fr>          +#+  +:+       +#+        */
+/*   By: panne-ro <panne-ro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/17 19:51:41 by mleschev          #+#    #+#             */
-/*   Updated: 2026/03/25 13:48:58 by vboxuser         ###   ########.fr       */
+/*   Updated: 2026/03/30 16:26:05 by panne-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,9 @@ bool	check_if_cant_go_w(t_game *game, int dir_x, int dir_y)
 {
 	dir_x = (dir_x + game->player->dir->x * MOVESPEED) / MINIMAP_RESOLUTION;
 	dir_y = (dir_y + game->player->dir->y * MOVESPEED) / MINIMAP_RESOLUTION;
-	if (y_max(game->map->mapChar, dir_y) && x_max(game->map->mapChar,
+	if (y_max(game->map->map_char, dir_y) && x_max(game->map->map_char,
 			game->player->pos->y, dir_x)
-		&& game->map->mapChar[dir_y][dir_x] == '1')
+		&& game->map->map_char[dir_y][dir_x] == '1')
 		return (false);
 	return (true);
 }
@@ -39,9 +39,9 @@ bool	check_if_cant_go_s(t_game *game, int dir_x, int dir_y)
 {
 	dir_x = (dir_x - game->player->dir->x * MOVESPEED) / MINIMAP_RESOLUTION;
 	dir_y = (dir_y - game->player->dir->y * MOVESPEED) / MINIMAP_RESOLUTION;
-	if (y_max(game->map->mapChar, dir_y) && x_max(game->map->mapChar,
+	if (y_max(game->map->map_char, dir_y) && x_max(game->map->map_char,
 			game->player->pos->y, dir_x)
-		&& game->map->mapChar[dir_y][dir_x] == '1')
+		&& game->map->map_char[dir_y][dir_x] == '1')
 		return (false);
 	return (true);
 }
@@ -50,9 +50,9 @@ bool	check_if_cant_go_a(t_game *game, int dir_x, int dir_y)
 {
 	dir_x = (dir_x + game->player->dir->y * MOVESPEED) / MINIMAP_RESOLUTION;
 	dir_y = (dir_y - game->player->dir->x * MOVESPEED) / MINIMAP_RESOLUTION;
-	if (y_max(game->map->mapChar, dir_y) && x_max(game->map->mapChar,
+	if (y_max(game->map->map_char, dir_y) && x_max(game->map->map_char,
 			game->player->pos->y, dir_x)
-		&& game->map->mapChar[dir_y][dir_x] == '1')
+		&& game->map->map_char[dir_y][dir_x] == '1')
 		return (false);
 	return (true);
 }
@@ -61,9 +61,9 @@ bool	check_if_cant_go_d(t_game *game, int dir_x, int dir_y)
 {
 	dir_x = (dir_x - game->player->dir->y * MOVESPEED) / MINIMAP_RESOLUTION;
 	dir_y = (dir_y + game->player->dir->x * MOVESPEED) / MINIMAP_RESOLUTION;
-	if (y_max(game->map->mapChar, dir_y) && x_max(game->map->mapChar,
+	if (y_max(game->map->map_char, dir_y) && x_max(game->map->map_char,
 			game->player->pos->y, dir_x)
-		&& game->map->mapChar[dir_y][dir_x] == '1')
+		&& game->map->map_char[dir_y][dir_x] == '1')
 		return (false);
 	return (true);
 }

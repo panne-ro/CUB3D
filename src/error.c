@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mleschev <mleschev@student.42.fr>          +#+  +:+       +#+        */
+/*   By: panne-ro <panne-ro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/13 17:14:48 by mleschev          #+#    #+#             */
-/*   Updated: 2026/03/30 13:31:21 by mleschev         ###   ########.fr       */
+/*   Updated: 2026/03/30 16:23:16 by panne-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,19 +16,19 @@ bool	check_texture_file(t_game *game)
 {
 	int	fd_test;
 
-	fd_test = open(game->map->eastTexture, O_RDONLY);
+	fd_test = open(game->map->east_texture, O_RDONLY);
 	if (fd_test < 0)
 		return (true);
 	close(fd_test);
-	fd_test = open(game->map->westTexture, O_RDONLY);
+	fd_test = open(game->map->west_texture, O_RDONLY);
 	if (fd_test < 0)
 		return (true);
 	close(fd_test);
-	fd_test = open(game->map->northTexture, O_RDONLY);
+	fd_test = open(game->map->north_texture, O_RDONLY);
 	if (fd_test < 0)
 		return (true);
 	close(fd_test);
-	fd_test = open(game->map->southTexture, O_RDONLY);
+	fd_test = open(game->map->south_texture, O_RDONLY);
 	if (fd_test < 0)
 		return (true);
 	close(fd_test);
@@ -37,17 +37,17 @@ bool	check_texture_file(t_game *game)
 
 bool	check_range_color(t_game *game)
 {
-	if (game->map->floorColor[0] < 0 || game->map->floorColor[0] > 255)
+	if (game->map->floor_color[0] < 0 || game->map->floor_color[0] > 255)
 		return (true);
-	if (game->map->floorColor[1] < 0 || game->map->floorColor[1] > 255)
+	if (game->map->floor_color[1] < 0 || game->map->floor_color[1] > 255)
 		return (true);
-	if (game->map->floorColor[2] < 0 || game->map->floorColor[2] > 255)
+	if (game->map->floor_color[2] < 0 || game->map->floor_color[2] > 255)
 		return (true);
-	if (game->map->ceilingColor[0] < 0 || game->map->ceilingColor[0] > 255)
+	if (game->map->ceilling_color[0] < 0 || game->map->ceilling_color[0] > 255)
 		return (true);
-	if (game->map->ceilingColor[1] < 0 || game->map->ceilingColor[1] > 255)
+	if (game->map->ceilling_color[1] < 0 || game->map->ceilling_color[1] > 255)
 		return (true);
-	if (game->map->ceilingColor[2] < 0 || game->map->ceilingColor[2] > 255)
+	if (game->map->ceilling_color[2] < 0 || game->map->ceilling_color[2] > 255)
 		return (true);
 	if (game->map->valid_nbr_color == false)
 		return (true);
@@ -66,17 +66,17 @@ void	verify_all(t_game **game_address)
 	t_game	*game;
 
 	game = *game_address;
-	if (game->map->ceilingColor[0] == -1 || game->map->ceilingColor[1] == -1
-		|| game->map->ceilingColor[2] == -1)
+	if (game->map->ceilling_color[0] == -1 || game->map->ceilling_color[1] == -1
+		|| game->map->ceilling_color[2] == -1)
 		close_all(game_address, "color of ceiling is missing");
-	if (game->map->floorColor[0] == -1 || game->map->floorColor[1] == -1
-		|| game->map->floorColor[2] == -1)
+	if (game->map->floor_color[0] == -1 || game->map->floor_color[1] == -1
+		|| game->map->floor_color[2] == -1)
 		close_all(game_address, "color of floor is missing");
 	if (check_range_color(game))
 		close_all(game_address,
 			"color of ceiling or floor have invalidate format");
-	if (!game->map->eastTexture || !game->map->northTexture
-		|| !game->map->southTexture || !game->map->westTexture)
+	if (!game->map->east_texture || !game->map->north_texture
+		|| !game->map->south_texture || !game->map->west_texture)
 		close_all(game_address, "some texture is missing");
 	if (check_texture_file(game))
 		close_all(game_address, "file texture is invalidate");

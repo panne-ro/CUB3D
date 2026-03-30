@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_arg.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vboxuser <vboxuser@student.42.fr>          +#+  +:+       +#+        */
+/*   By: panne-ro <panne-ro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/03 17:34:57 by panne-ro          #+#    #+#             */
-/*   Updated: 2026/03/25 14:03:18 by vboxuser         ###   ########.fr       */
+/*   Updated: 2026/03/30 16:18:27 by panne-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,22 +37,16 @@ int	extension_check(char *str)
 	int		j;
 	char	tmp[7000];
 
-	i = 0;
+	i = ft_strlen(str) - 4;
 	j = 0;
-	while (str[i] && str[i] != '.')
-		i++;
-	if (str[i] == '.')
+	while (str[i])
 	{
-		while (str[i])
-		{
-			tmp[j] = str[i];
-			i++;
-			j++;
-		}
-		tmp[j] = '\0';
-		if (ft_strncmp(tmp, ".cub", ft_strlen(tmp)) == 0
-			&& ft_strncmp(tmp, ".cub", ft_strlen(str)) == 0)
-			return (0);
+		tmp[j] = str[i];
+		i++;
+		j++;
 	}
-	return (1);
+	tmp[j] = '\0';
+	if (ft_strncmp(tmp, ".cub", 5))
+		return (1);
+	return (0);
 }

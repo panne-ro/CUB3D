@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   load_texture.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vboxuser <vboxuser@student.42.fr>          +#+  +:+       +#+        */
+/*   By: panne-ro <panne-ro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/18 00:05:29 by mleschev          #+#    #+#             */
-/*   Updated: 2026/03/25 15:03:31 by vboxuser         ###   ########.fr       */
+/*   Updated: 2026/03/30 16:30:14 by panne-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,10 @@ void	init_all_texture(t_game **game_addr)
 	t_game	*game;
 
 	game = *game_addr;
-	game->tex_no = load_texture(game->mlx->mlx, game->map->northTexture);
-	game->tex_so = load_texture(game->mlx->mlx, game->map->southTexture);
-	game->tex_we = load_texture(game->mlx->mlx, game->map->westTexture);
-	game->tex_ea = load_texture(game->mlx->mlx, game->map->eastTexture);
+	game->tex_no = load_texture(game->mlx->mlx, game->map->north_texture);
+	game->tex_so = load_texture(game->mlx->mlx, game->map->south_texture);
+	game->tex_we = load_texture(game->mlx->mlx, game->map->west_texture);
+	game->tex_ea = load_texture(game->mlx->mlx, game->map->east_texture);
 	if (!game->tex_no || !game->tex_so || !game->tex_we || !game->tex_ea)
 		close_all(game_addr, "texture load failed");
 }
@@ -67,21 +67,21 @@ void	put_texture_on_wall(t_game *game, int y, int x)
 	t_tex	*tex;
 
 	if (game->dda->side == 0)
-		wall_x = game->dda->posY + game->perp * game->dda->dirY;
+		wall_x = game->dda->pos_y + game->perp * game->dda->dir_y;
 	else
-		wall_x = game->dda->posX + game->perp * game->dda->dirX;
+		wall_x = game->dda->pos_x + game->perp * game->dda->dir_x;
 	wall_x -= floor(wall_x);
-	if (game->dda->side == 0 && game->dda->dirX > 0)
+	if (game->dda->side == 0 && game->dda->dir_x > 0)
 		tex = game->tex_ea;
-	else if (game->dda->side == 0 && game->dda->dirX < 0)
+	else if (game->dda->side == 0 && game->dda->dir_x < 0)
 		tex = game->tex_we;
-	else if (game->dda->side == 1 && game->dda->dirY > 0)
+	else if (game->dda->side == 1 && game->dda->dir_y > 0)
 		tex = game->tex_so;
 	else
 		tex = game->tex_no;
 	tex->tex_x = (int)(wall_x * tex->width);
-	if ((game->dda->side == 0 && game->dda->dirX < 0)
-		|| (game->dda->side == 1 && game->dda->dirY > 0))
+	if ((game->dda->side == 0 && game->dda->dir_x < 0)
+		|| (game->dda->side == 1 && game->dda->dir_y > 0))
 		tex->tex_x = tex->width - tex->tex_x - 1;
 	sub_put_texture_on_wall(game, y, x, tex);
 }

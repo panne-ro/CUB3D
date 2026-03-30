@@ -6,7 +6,7 @@
 /*   By: panne-ro <panne-ro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/05 21:15:12 by mleschev          #+#    #+#             */
-/*   Updated: 2026/03/30 14:26:17 by panne-ro         ###   ########.fr       */
+/*   Updated: 2026/03/30 16:26:05 by panne-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,13 +27,13 @@ bool	check_map(t_map *map)
 	while (line_read)
 	{
 		i = 0;
-		while (line_read[i] && map->startMapInReading == 0)
+		while (line_read[i] && map->start_map_in_reading == 0)
 		{
 			if (line_read[i] != ' ' && line_read[i] != '\n'
 				&& line_read[i] != '\f' && line_read[i] != '\r'
 				&& line_read[i] != '\t' && line_read[i] != '\n'
 				&& line_read[i] != '\v')
-				map->startMapInReading = map->readingHead;
+				map->start_map_in_reading = map->reading_head;
 			i++;
 		}
 		free(line_read);
@@ -49,13 +49,13 @@ char	*put_reading_head_in_place(t_map *map)
 	char	*line_read;
 
 	line_read = NULL;
-	map->LineOfEof = map->readingHead;
-	flush_gnl(map->fdMap);
-	close(map->fdMap);
-	map->fdMap = open(map->filePath, O_RDONLY);
-	map->readingHead = 0;
+	map->line_of_eof = map->reading_head;
+	flush_gnl(map->fd_map);
+	close(map->fd_map);
+	map->fd_map = open(map->file_path, O_RDONLY);
+	map->reading_head = 0;
 	line_read = read_and_clean_line(line_read, map);
-	while (line_read && map->readingHead < map->startMapInReading)
+	while (line_read && map->reading_head < map->start_map_in_reading)
 	{
 		free(line_read);
 		line_read = read_and_clean_line(line_read, map);
@@ -66,27 +66,27 @@ char	*put_reading_head_in_place(t_map *map)
 void	sub_parse_map(char *line_read, t_map *map, int i, int j)
 {
 	line_read = put_reading_head_in_place(map);
-	map->mapChar = malloc(sizeof(char *)
-			* (map->LineOfEof - map->startMapInReading + 2));
-	map->heightOfMap = map->LineOfEof - map->startMapInReading + 1;
+	map->map_char = malloc(sizeof(char *)
+			* (map->line_of_eof - map->start_map_in_reading + 2));
+	map->height_of_map = map->line_of_eof - map->start_map_in_reading + 1;
 	while (line_read)
 	{
 		i = 0;
 		while (line_read[i])
 			i++;
-		map->mapChar[j] = malloc(sizeof(char) * (i + 2));
+		map->map_char[j] = malloc(sizeof(char) * (i + 2));
 		i = 0;
 		while (line_read[i])
 		{
-			map->mapChar[j][i] = line_read[i];
+			map->map_char[j][i] = line_read[i];
 			i++;
 		}
-		map->mapChar[j][i] = '\0';
+		map->map_char[j][i] = '\0';
 		free(line_read);
 		line_read = read_and_clean_line(line_read, map);
 		j++;
 	}
-	map->mapChar[j] = NULL;
+	map->map_char[j] = NULL;
 	free(line_read);
 }
 
@@ -97,18 +97,18 @@ int	ext_is_all_wall(t_map *map)
 
 	x = 0;
 	y = 0;
-	while (map->mapChar[0][x])
+	while (map->map_char[0][x])
 	{
-		if (map->mapChar[0][x] == '0')
+		if (map->map_char[0][x] == '0')
 			return (0);
 		x++;
 	}
-	while (map->mapChar[y + 1])
+	while (map->map_char[y + 1])
 		y++;
 	x = 0;
-	while (map->mapChar[y][x])
+	while (map->map_char[y][x])
 	{
-		if (map->mapChar[y][x] == '0')
+		if (map->map_char[y][x] == '0')
 			return (0);
 		x++;
 	}

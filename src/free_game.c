@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free_game.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vboxuser <vboxuser@student.42.fr>          +#+  +:+       +#+        */
+/*   By: panne-ro <panne-ro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/17 20:08:25 by mleschev          #+#    #+#             */
-/*   Updated: 2026/03/25 13:37:33 by vboxuser         ###   ########.fr       */
+/*   Updated: 2026/03/30 16:26:05 by panne-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,15 +26,15 @@ void	sub_free_map_copy_and_char(t_map *map)
 		}
 		free(map->copy_map);
 	}
-	if (map->mapChar)
+	if (map->map_char)
 	{
 		i = 0;
-		while (map->mapChar[i])
+		while (map->map_char[i])
 		{
-			free(map->mapChar[i]);
+			free(map->map_char[i]);
 			i++;
 		}
-		free(map->mapChar);
+		free(map->map_char);
 	}
 }
 
@@ -42,16 +42,16 @@ void	free_map(t_map *map)
 {
 	if (!map)
 		return ;
-	if (map->fdMap >= 0)
-		close(map->fdMap);
-	if (map->eastTexture)
-		free(map->eastTexture);
-	if (map->westTexture)
-		free(map->westTexture);
-	if (map->northTexture)
-		free(map->northTexture);
-	if (map->southTexture)
-		free(map->southTexture);
+	if (map->fd_map >= 0)
+		close(map->fd_map);
+	if (map->east_texture)
+		free(map->east_texture);
+	if (map->west_texture)
+		free(map->west_texture);
+	if (map->north_texture)
+		free(map->north_texture);
+	if (map->south_texture)
+		free(map->south_texture);
 	sub_free_map_copy_and_char(map);
 }
 

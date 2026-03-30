@@ -6,7 +6,7 @@
 /*   By: panne-ro <panne-ro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/25 14:51:06 by panne-ro          #+#    #+#             */
-/*   Updated: 2026/03/16 16:46:10 by panne-ro         ###   ########.fr       */
+/*   Updated: 2026/03/30 16:26:05 by panne-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,16 +21,16 @@
 
 	x = 0;
 	h = 0;
-	while(game->map->mapChar[x])
+	while(game->map->map_char[x])
 	{
 		y = 0;
 		w = 0;
-		while(game->map->mapChar[x][y])
+		while(game->map->map_char[x][y])
 		{
-			// if(game->map->mapChar[x][y] == '0')
+			// if(game->map->map_char[x][y] == '0')
 			// 	mlx_put_image_to_window(game->mlx->mlx, game->mlx->window,
 			game->img->floor, w, h);
-			// else if (game->map->mapChar[x][y] == '1')
+			// else if (game->map->map_char[x][y] == '1')
 			// 	mlx_put_image_to_window(game->mlx->mlx, game->mlx->window,
 			game->img->wall, w, h);
 			w += 64;

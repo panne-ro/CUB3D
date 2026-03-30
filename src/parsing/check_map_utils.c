@@ -6,7 +6,7 @@
 /*   By: panne-ro <panne-ro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/17 21:06:50 by mleschev          #+#    #+#             */
-/*   Updated: 2026/03/30 14:26:02 by panne-ro         ###   ########.fr       */
+/*   Updated: 2026/03/30 16:26:05 by panne-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,10 @@ char	*read_and_clean_line(char *line_read, t_map *map)
 	int	i;
 
 	i = 0;
-	line_read = get_next_line(map->fdMap);
+	line_read = get_next_line(map->fd_map);
 	if (!line_read)
 		return (line_read);
-	map->readingHead++;
+	map->reading_head++;
 	while (line_read[i])
 	{
 		if (line_read[i] == '\n')
@@ -40,16 +40,16 @@ bool	sub_loop_master_in_verif_map(t_map *map, int *i, int *j,
 	bool	map_is_start;
 
 	map_is_start = false;
-	while (map->mapChar[*i])
+	while (map->map_char[*i])
 	{
 		*j = 0;
-		if (ft_strlen(map->mapChar[*i]) == 0)
+		if (ft_strlen(map->map_char[*i]) == 0)
 			return (true);
-		map->isClosed = true;
-		if (!map_is_start && ft_strlen(map->mapChar[*i]))
+		map->is_closed = true;
+		if (!map_is_start && ft_strlen(map->map_char[*i]))
 			map_is_start = true;
-		if (map_is_start && ft_strlen(map->mapChar[*i]) == 1
-			&& map->mapChar[*i][0] == '\n')
+		if (map_is_start && ft_strlen(map->map_char[*i]) == 1
+			&& map->map_char[*i][0] == '\n')
 			return (true);
 		if (sub_loop_verif_map(map, i, j, nbr_player) == true)
 			return (true);
@@ -60,19 +60,19 @@ bool	sub_loop_master_in_verif_map(t_map *map, int *i, int *j,
 
 bool	sub_loop_verif_map(t_map *map, int *i, int *j, int *nbr_player)
 {
-	while (map->mapChar[*i][*j])
+	while (map->map_char[*i][*j])
 	{
-		if ((map->mapChar[*i][*j] != '0' && map->mapChar[*i][*j] != '1')
-			&& map->mapChar[*i][*j] != ' ' && (map->mapChar[*i][*j] != 'E'
-			&& map->mapChar[*i][*j] != 'W' && map->mapChar[*i][*j] != 'N'
-			&& map->mapChar[*i][*j] != 'S'))
+		if ((map->map_char[*i][*j] != '0' && map->map_char[*i][*j] != '1')
+			&& map->map_char[*i][*j] != ' ' && (map->map_char[*i][*j] != 'E'
+			&& map->map_char[*i][*j] != 'W' && map->map_char[*i][*j] != 'N'
+			&& map->map_char[*i][*j] != 'S'))
 			return (true);
-		if (map->mapChar[*i][*j] == 'E' || map->mapChar[*i][*j] == 'W'
-			|| map->mapChar[*i][*j] == 'N' || map->mapChar[*i][*j] == 'S')
+		if (map->map_char[*i][*j] == 'E' || map->map_char[*i][*j] == 'W'
+			|| map->map_char[*i][*j] == 'N' || map->map_char[*i][*j] == 'S')
 		{
 			map->player_x = *j;
 			map->player_y = *i;
-			map->start_dir = map->mapChar[*i][*j];
+			map->start_dir = map->map_char[*i][*j];
 			*nbr_player = *nbr_player + 1;
 		}
 		*j = *j + 1;
@@ -84,22 +84,22 @@ int	check_flood_fill(t_map *map, int x, int y)
 {
 	if (y < 0 || x < 0)
 	{
-		map->isClosed = false;
+		map->is_closed = false;
 		return (1);
 	}
 	if (!map->copy_map[y])
 	{
-		map->isClosed = false;
+		map->is_closed = false;
 		return (1);
 	}
 	if (x >= (int)ft_strlen(map->copy_map[y]))
 	{
-		map->isClosed = false;
+		map->is_closed = false;
 		return (1);
 	}
 	if (map->copy_map[y][x] == ' ')
 	{
-		map->isClosed = false;
+		map->is_closed = false;
 		return (1);
 	}
 	return (0);

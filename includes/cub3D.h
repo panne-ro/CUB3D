@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mleschev <mleschev@student.42.fr>          +#+  +:+       +#+        */
+/*   By: panne-ro <panne-ro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/16 16:52:52 by panne-ro          #+#    #+#             */
-/*   Updated: 2026/03/30 15:22:57 by mleschev         ###   ########.fr       */
+/*   Updated: 2026/03/30 16:31:25 by panne-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,35 +36,35 @@
 // struct for map with all his data's like gov.site for j
 typedef struct s_map
 {
-	int			fdMap;
-	char		*filePath;
+	int			fd_map;
+	char		*file_path;
 
-	char		*northTexture;
-	char		*southTexture;
-	char		*westTexture;
-	char		*eastTexture;
+	char		*north_texture;
+	char		*south_texture;
+	char		*west_texture;
+	char		*east_texture;
 
-	long int	floorColor[3];
+	long int	floor_color[3];
 	bool		fc_taken;
 	bool		is_fc;
-	long int	ceilingColor[3];
+	long int	ceilling_color[3];
 	bool		cc_taken;
 	bool		is_cc;
 
-	int			heightOfMap;
-	int			LineOfEof;
-	int			readingHead;
-	int			startMapInReading;
+	int			height_of_map;
+	int			line_of_eof;
+	int			reading_head;
+	int			start_map_in_reading;
 
-	bool		isClosed;
-	bool		isValid;
+	bool		is_closed;
+	bool		is_valid;
 	bool		boolean;
 	bool		valid_nbr_color;
 
 	float		player_x;
 	float		player_y;
 
-	char		**mapChar;
+	char		**map_char;
 	char		**copy_map;
 
 	char		start_dir;
@@ -116,21 +116,21 @@ typedef struct s_img
 
 typedef struct s_dda
 {
-	double	posY;
-	double	posX;
+	double	pos_y;
+	double	pos_x;
 	int		hit;
 	int		side;
-	double	sideDistX;
-	double	sideDistY;
-	int		mapX;
-	int		mapY;
-	int		stepX;
-	int		stepY;
-	double	deltaDistX;
-	double	deltaDistY;
-	double	cameraX;
-	double	dirX;
-	double	dirY;
+	double	side_dist_x;
+	double	side_dist_y;
+	int		map_x;
+	int		map_y;
+	int		step_x;
+	int		step_y;
+	double	delta_dist_x;
+	double	delta_dist_y;
+	double	camera_x;
+	double	dir_x;
+	double	dir_y;
 	int		col;
 	char	*data;
 }	t_dda;
@@ -171,7 +171,8 @@ typedef struct s_game
 void		check_content_cc(char *tmp, t_map *map, int i, char *line_read);
 char		*copy_content(char *line_read, char *tmp, int i);
 void		dispatch_color_at_good_place(t_map *map, char *tmp, int nbr);
-int			rgb_dispatch_info_file(char *line_read, char *tmp, int i, t_map *map);
+int			rgb_dispatch_info_file(char *line_read, char *tmp,
+				int i, t_map *map);
 void		flush_and_reopen(t_map *map);
 
 // parse_utils_second.c
@@ -187,7 +188,8 @@ void		check_content_fc(char *tmp, t_map *map, int i, char *line_read);
 
 // check_map_utils.c
 char		*read_and_clean_line(char *line_read, t_map *map);
-bool		sub_loop_master_in_verif_map(t_map *map, int *i, int *j, int *nbr_player);
+bool		sub_loop_master_in_verif_map(t_map *map, int *i,
+				int *j, int *nbr_player);
 bool		sub_loop_verif_map(t_map *map, int *i, int *j, int *nbr_player);
 int			check_flood_fill(t_map *map, int x, int y);
 void		flood_fill(int x, int y, t_map *map);
@@ -273,7 +275,7 @@ void		add_colors(t_game *game);
 
 // raycasting.c
 void		maj_var(t_game *game);
-void		calc_dir(t_game *game, double dirX, double dirY);
+void		calc_dir(t_game *game, double dir_x, double dir_y);
 void		calc_side(t_game *game);
 void		print_world(t_game *game, int x);
 int			dda(t_game *game);
@@ -292,5 +294,5 @@ t_vector	mul_vector(t_vector vector, int scale);
 // check_content_master.c
 int			check_content_master(t_map *map);
 bool		verif_map(t_map *map, int i, int nbr_player);
-void	process_token(t_map *map, char *line_read, char tmp[1000], int i);
-# endif
+void		process_token(t_map *map, char *line_read, char tmp[1000], int i);
+#endif

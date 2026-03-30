@@ -6,7 +6,7 @@
 /*   By: panne-ro <panne-ro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/25 13:55:37 by vboxuser          #+#    #+#             */
-/*   Updated: 2026/03/30 14:24:36 by panne-ro         ###   ########.fr       */
+/*   Updated: 2026/03/30 16:26:05 by panne-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,27 +44,27 @@ bool	check_color_format(char *line)
 
 int	sub_ext_is_all_wall(t_map *map, int y, int x)
 {
-	while (map->mapChar[y])
+	while (map->map_char[y])
 	{
 		x = 0;
-		if (map->mapChar[y][0] == '0')
+		if (map->map_char[y][0] == '0')
 			return (0);
-		while (map->mapChar[y][x])
+		while (map->map_char[y][x])
 		{
-			if (map->mapChar[y][x] == '0')
+			if (map->map_char[y][x] == '0')
 			{
-				if (!map->mapChar[y][x + 1] || !map->mapChar[y][x - 1]
-					|| !map->mapChar[y - 1][x]
-					|| !map->mapChar[y + 1][x])
+				if (!map->map_char[y][x + 1] || !map->map_char[y][x - 1]
+					|| !map->map_char[y - 1][x]
+					|| !map->map_char[y + 1][x])
 					return (0);
-				if (map->mapChar[y][x + 1] == ' ' || map->mapChar[y][x - 1]
-					== ' ' || map->mapChar[y - 1][x] == ' '
-					|| map->mapChar[y + 1][x] == ' ')
+				if (map->map_char[y][x + 1] == ' ' || map->map_char[y][x - 1]
+					== ' ' || map->map_char[y - 1][x] == ' '
+					|| map->map_char[y + 1][x] == ' ')
 					return (0);
 			}
 			x++;
 		}
-		if (map->mapChar[y][ft_strlen(map->mapChar[y]) - 1] == '0')
+		if (map->map_char[y][ft_strlen(map->map_char[y]) - 1] == '0')
 			return (0);
 		y++;
 	}
@@ -113,10 +113,10 @@ bool	check_double_master(t_map *map)
 		return (true);
 	if (check_double('C', ' ', map))
 		return (true);
-	flush_gnl(map->fdMap);
-	close(map->fdMap);
-	map->fdMap = open(map->filePath, O_RDONLY);
-	map->readingHead = 0;
-	map->startMapInReading = 0;
+	flush_gnl(map->fd_map);
+	close(map->fd_map);
+	map->fd_map = open(map->file_path, O_RDONLY);
+	map->reading_head = 0;
+	map->start_map_in_reading = 0;
 	return (false);
 }

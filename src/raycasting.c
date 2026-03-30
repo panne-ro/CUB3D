@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vboxuser <vboxuser@student.42.fr>          +#+  +:+       +#+        */
+/*   By: panne-ro <panne-ro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/13 13:26:03 by panne-ro          #+#    #+#             */
-/*   Updated: 2026/03/25 15:00:41 by vboxuser         ###   ########.fr       */
+/*   Updated: 2026/03/30 16:30:36 by panne-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,48 +14,48 @@
 
 void	maj_var(t_game *game)
 {
-	game->dda->cameraX = 2.0 * game->dda->col / (double)X_WIN - 1.0;
-	game->dda->dirX = game->player->dir->x + game->player->plane.x
-		* game->dda->cameraX;
-	game->dda->dirY = game->player->dir->y + game->player->plane.y
-		* game->dda->cameraX;
-	if (game->dda->dirX == 0.0)
-		game->dda->deltaDistX = 1e30;
+	game->dda->camera_x = 2.0 * game->dda->col / (double)X_WIN - 1.0;
+	game->dda->dir_x = game->player->dir->x + game->player->plane.x
+		* game->dda->camera_x;
+	game->dda->dir_y = game->player->dir->y + game->player->plane.y
+		* game->dda->camera_x;
+	if (game->dda->dir_x == 0.0)
+		game->dda->delta_dist_x = 1e30;
 	else
-		game->dda->deltaDistX = fabs(1.0 / game->dda->dirX);
-	if (game->dda->dirY == 0.0)
-		game->dda->deltaDistY = 1e30;
+		game->dda->delta_dist_x = fabs(1.0 / game->dda->dir_x);
+	if (game->dda->dir_y == 0.0)
+		game->dda->delta_dist_y = 1e30;
 	else
-		game->dda->deltaDistY = fabs(1.0 / game->dda->dirY);
-	game->dda->mapX = (int)floor(game->dda->posX);
-	game->dda->mapY = (int)floor(game->dda->posY);
+		game->dda->delta_dist_y = fabs(1.0 / game->dda->dir_y);
+	game->dda->map_x = (int)floor(game->dda->pos_x);
+	game->dda->map_y = (int)floor(game->dda->pos_y);
 }
 
-void	calc_dir(t_game *game, double dirX, double dirY)
+void	calc_dir(t_game *game, double dir_x, double dir_y)
 {
-	if (dirX < 0)
+	if (dir_x < 0)
 	{
-		game->dda->stepX = -1;
-		game->dda->sideDistX = (game->dda->posX - game->dda->mapX)
-			* game->dda->deltaDistX;
+		game->dda->step_x = -1;
+		game->dda->side_dist_x = (game->dda->pos_x - game->dda->map_x)
+			* game->dda->delta_dist_x;
 	}
 	else
 	{
-		game->dda->stepX = 1;
-		game->dda->sideDistX = (game->dda->mapX + 1.0 - game->dda->posX)
-			* game->dda->deltaDistX;
+		game->dda->step_x = 1;
+		game->dda->side_dist_x = (game->dda->map_x + 1.0 - game->dda->pos_x)
+			* game->dda->delta_dist_x;
 	}
-	if (dirY < 0)
+	if (dir_y < 0)
 	{
-		game->dda->stepY = -1;
-		game->dda->sideDistY = (game->dda->posY - game->dda->mapY)
-			* game->dda->deltaDistY;
+		game->dda->step_y = -1;
+		game->dda->side_dist_y = (game->dda->pos_y - game->dda->map_y)
+			* game->dda->delta_dist_y;
 	}
 	else
 	{
-		game->dda->stepY = 1;
-		game->dda->sideDistY = (game->dda->mapY + 1.0 - game->dda->posY)
-			* game->dda->deltaDistY;
+		game->dda->step_y = 1;
+		game->dda->side_dist_y = (game->dda->map_y + 1.0 - game->dda->pos_y)
+			* game->dda->delta_dist_y;
 	}
 }
 
@@ -63,26 +63,26 @@ void	calc_side(t_game *game)
 {
 	while (!game->dda->hit)
 	{
-		if (game->dda->sideDistX < game->dda->sideDistY)
+		if (game->dda->side_dist_x < game->dda->side_dist_y)
 		{
-			game->dda->sideDistX += game->dda->deltaDistX;
-			game->dda->mapX += game->dda->stepX;
+			game->dda->side_dist_x += game->dda->delta_dist_x;
+			game->dda->map_x += game->dda->step_x;
 			game->dda->side = 0;
 		}
 		else
 		{
-			game->dda->sideDistY += game->dda->deltaDistY;
-			game->dda->mapY += game->dda->stepY;
+			game->dda->side_dist_y += game->dda->delta_dist_y;
+			game->dda->map_y += game->dda->step_y;
 			game->dda->side = 1;
 		}
-		if (game->dda->mapY < 0 || game->dda->mapX < 0)
+		if (game->dda->map_y < 0 || game->dda->map_x < 0)
 			break ;
-		if (!game->map->mapChar[game->dda->mapY])
+		if (!game->map->map_char[game->dda->map_y])
 			break ;
-		if (game->dda->mapX >= (int)
-			ft_strlen(game->map->mapChar[game->dda->mapY]))
+		if (game->dda->map_x >= (int)
+			ft_strlen(game->map->map_char[game->dda->map_y]))
 			break ;
-		if (game->map->mapChar[game->dda->mapY][game->dda->mapX] == '1')
+		if (game->map->map_char[game->dda->map_y][game->dda->map_x] == '1')
 			game->dda->hit = 1;
 	}
 }
@@ -120,16 +120,16 @@ int	dda(t_game *game)
 	while (game->dda->col < X_WIN)
 	{
 		maj_var(game);
-		calc_dir(game, game->dda->dirX, game->dda->dirY);
+		calc_dir(game, game->dda->dir_x, game->dda->dir_y);
 		game->dda->hit = 0;
 		calc_side(game);
 		if (game->dda->hit)
 		{
 			game->perp = 0;
 			if (game->dda->side == 0)
-				game->perp = game->dda->sideDistX - game->dda->deltaDistX;
+				game->perp = game->dda->side_dist_x - game->dda->delta_dist_x;
 			else
-				game->perp = game->dda->sideDistY - game->dda->deltaDistY;
+				game->perp = game->dda->side_dist_y - game->dda->delta_dist_y;
 			if (game->perp <= 1e-6)
 				game->perp = 1e-6;
 			print_world(game, game->dda->col);

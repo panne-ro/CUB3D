@@ -6,7 +6,7 @@
 /*   By: panne-ro <panne-ro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/16 15:05:28 by panne-ro          #+#    #+#             */
-/*   Updated: 2026/03/16 16:50:55 by panne-ro         ###   ########.fr       */
+/*   Updated: 2026/03/30 16:23:16 by panne-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,9 @@ int	int_ceiling_to_rgb(t_game *game)
 	int	g;
 	int	b;
 
-	r = game->map->ceilingColor[0];
-	g = game->map->ceilingColor[1];
-	b = game->map->ceilingColor[2];
+	r = game->map->ceilling_color[0];
+	g = game->map->ceilling_color[1];
+	b = game->map->ceilling_color[2];
 	return ((r << 16) | (g << 8) | b);
 }
 
@@ -39,9 +39,9 @@ int	int_floor_to_rgb(t_game *game)
 	int	g;
 	int	b;
 
-	r = game->map->floorColor[0];
-	g = game->map->floorColor[1];
-	b = game->map->floorColor[2];
+	r = game->map->floor_color[0];
+	g = game->map->floor_color[1];
+	b = game->map->floor_color[2];
 	return ((r << 16) | (g << 8) | b);
 }
 

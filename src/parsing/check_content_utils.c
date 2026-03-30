@@ -6,7 +6,7 @@
 /*   By: panne-ro <panne-ro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/10 13:24:38 by panne-ro          #+#    #+#             */
-/*   Updated: 2026/03/30 14:25:02 by panne-ro         ###   ########.fr       */
+/*   Updated: 2026/03/30 16:24:09 by panne-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,9 +46,9 @@ char	*copy_content(char *line_read, char *tmp, int i)
 void	dispatch_color_at_good_place(t_map *map, char *tmp, int nbr)
 {
 	if (map->is_cc)
-		map->ceilingColor[nbr] = ft_atoi(tmp);
+		map->ceilling_color[nbr] = ft_atoi(tmp);
 	else if (map->is_fc)
-		map->floorColor[nbr] = ft_atoi(tmp);
+		map->floor_color[nbr] = ft_atoi(tmp);
 }
 
 // sub fonction for dispatch rgb (floor or ceiling) into t_map data
@@ -81,8 +81,8 @@ int	rgb_dispatch_info_file(char *line_read, char *tmp, int i, t_map *map)
 
 void	flush_and_reopen(t_map *map)
 {
-	flush_gnl(map->fdMap);
-	close(map->fdMap);
-	map->fdMap = open(map->filePath, O_RDONLY);
-	map->readingHead = 0;
+	flush_gnl(map->fd_map);
+	close(map->fd_map);
+	map->fd_map = open(map->file_path, O_RDONLY);
+	map->reading_head = 0;
 }

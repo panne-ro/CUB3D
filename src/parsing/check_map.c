@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mleschev <mleschev@student.42.fr>          +#+  +:+       +#+        */
+/*   By: panne-ro <panne-ro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/03 18:02:13 by mleschev          #+#    #+#             */
-/*   Updated: 2026/03/30 15:18:31 by mleschev         ###   ########.fr       */
+/*   Updated: 2026/03/30 16:26:05 by panne-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,25 +40,25 @@ void	init_map_struct(t_game **gameAddr, char *pathToMap)
 
 	game = *gameAddr;
 	i = 0;
-	game->map->filePath = pathToMap;
-	game->map->fdMap = -1;
-	game->map->mapChar = NULL;
-	game->map->readingHead = 0;
+	game->map->file_path = pathToMap;
+	game->map->fd_map = -1;
+	game->map->map_char = NULL;
+	game->map->reading_head = 0;
 	while (i < 3)
 	{
-		game->map->ceilingColor[i] = -1;
-		game->map->floorColor[i] = -1;
+		game->map->ceilling_color[i] = -1;
+		game->map->floor_color[i] = -1;
 		i++;
 	}
-	game->map->eastTexture = NULL;
-	game->map->westTexture = NULL;
-	game->map->northTexture = NULL;
-	game->map->southTexture = NULL;
-	game->map->startMapInReading = 0;
-	game->map->LineOfEof = 0;
+	game->map->east_texture = NULL;
+	game->map->west_texture = NULL;
+	game->map->north_texture = NULL;
+	game->map->south_texture = NULL;
+	game->map->start_map_in_reading = 0;
+	game->map->line_of_eof = 0;
 	game->map->valid_nbr_color = true;
-	game->map->isValid = false;
-	game->map->isClosed = false;
+	game->map->is_valid = false;
+	game->map->is_closed = false;
 	checkmap(gameAddr);
 }
 
@@ -69,8 +69,8 @@ int	checkmap(t_game **gameAddr)
 	t_game	*game;
 
 	game = *gameAddr;
-	game->map->fdMap = open(game->map->filePath, O_RDONLY);
-	if (game->map->fdMap < 0)
+	game->map->fd_map = open(game->map->file_path, O_RDONLY);
+	if (game->map->fd_map < 0)
 		close_all(gameAddr, "can't open map");
 	if (check_double_master(game->map))
 		close_all(gameAddr, "doublon file detected");
