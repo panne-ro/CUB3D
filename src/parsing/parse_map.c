@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vboxuser <vboxuser@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mleschev <mleschev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/05 21:15:12 by mleschev          #+#    #+#             */
-/*   Updated: 2026/03/25 14:13:23 by vboxuser         ###   ########.fr       */
+/*   Updated: 2026/03/30 13:08:44 by mleschev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ char	*put_reading_head_in_place(t_map *map)
 void	sub_parse_map(char *line_read, t_map *map, int i, int j)
 {
 	line_read = put_reading_head_in_place(map);
+	// printf("ALED: leof:%d startmapinreading:%d\n", map->LineOfEof, map->startMapInReading);
 	map->mapChar = malloc(sizeof(char *)
 			* (map->LineOfEof - map->startMapInReading + 2));
 	map->heightOfMap = map->LineOfEof - map->startMapInReading + 1;

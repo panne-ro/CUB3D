@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vboxuser <vboxuser@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mleschev <mleschev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/03 17:05:20 by panne-ro          #+#    #+#             */
-/*   Updated: 2026/03/25 13:09:14 by vboxuser         ###   ########.fr       */
+/*   Updated: 2026/03/30 13:28:04 by mleschev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,10 @@ void	init_game(t_game **gameAddr, char *pathFile)
 	current->tex_so = NULL;
 	current->tex_we = NULL;
 	current->map->copy_map = NULL;
+	current->map->cc_taken = false;
+	current->map->fc_taken = false;
+	current->map->is_cc = false;
+	current->map->is_fc = false;
 	init_map_struct(gameAddr, pathFile);
 }
 

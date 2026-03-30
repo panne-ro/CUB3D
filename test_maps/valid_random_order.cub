@@ -1,9 +1,9 @@
 F 220,100,0
-EA ./texture/east.xpm
+EA Cr.xpm
 C 225,30,0
-NO ./texture/north.xpm
-WE ./texture/west.xpm
-SO ./texture/south.xpm
+NO Cr.xpm
+WE Cr.xpm
+SO Cr.xpm
 
 111111
 100001

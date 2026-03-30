@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_map_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vboxuser <vboxuser@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mleschev <mleschev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/17 21:06:50 by mleschev          #+#    #+#             */
-/*   Updated: 2026/03/25 13:21:24 by vboxuser         ###   ########.fr       */
+/*   Updated: 2026/03/30 13:11:04 by mleschev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ bool	sub_loop_master_in_verif_map(t_map *map, int *i, int *j,
 			return (true);
 		*i = *i + 1;
 	}
+
 	return (false);
 }
 

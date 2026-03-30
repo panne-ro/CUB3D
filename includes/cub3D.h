@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vboxuser <vboxuser@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mleschev <mleschev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/16 16:52:52 by panne-ro          #+#    #+#             */
-/*   Updated: 2026/03/25 14:58:30 by vboxuser         ###   ########.fr       */
+/*   Updated: 2026/03/30 13:26:13 by mleschev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,11 @@ typedef struct s_map
 	char		*eastTexture;
 
 	long int	floorColor[3];
+	bool		fc_taken;
+	bool		is_fc;
 	long int	ceilingColor[3];
+	bool		cc_taken;
+	bool		is_cc;
 
 	int			heightOfMap;
 	int			LineOfEof;
@@ -175,10 +179,10 @@ int			sub_check_content_fc(char *tmp, t_map *map, int i, char *line_read);
 int			sub_check_content_cc(char *tmp, t_map *map, int i, char *line_read);
 
 // check_content.c
-char		*check_content_no(t_map *map, char *tmp, int i);
-char		*check_content_so(t_map *map, char *tmp, int i);
-char		*check_content_we(t_map *map, char *tmp, int i);
-char		*check_content_ea(t_map *map, char *tmp, int i);
+char		*check_content_no(t_map *map, char *tmp, int i, char*line_read);
+char		*check_content_so(t_map *map, char *tmp, int i, char*line_read);
+char		*check_content_we(t_map *map, char *tmp, int i, char*line_read);
+char		*check_content_ea(t_map *map, char *tmp, int i, char*line_read);
 void		check_content_fc(char *tmp, t_map *map, int i, char *line_read);
 
 // check_map_utils.c

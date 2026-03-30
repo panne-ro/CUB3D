@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_utils_second.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vboxuser <vboxuser@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mleschev <mleschev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/25 14:30:18 by vboxuser          #+#    #+#             */
-/*   Updated: 2026/03/25 14:31:03 by vboxuser         ###   ########.fr       */
+/*   Updated: 2026/03/30 13:34:18 by mleschev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ int	sub_check_content_cc(char *tmp, t_map *map, int i, char *line_read)
 		{
 			if (check_color_format(line_read))
 			{
+				printf("couper moi les couilles 3\n");
 				map->valid_nbr_color = false;
 				return (1);
 			}
@@ -29,7 +30,10 @@ int	sub_check_content_cc(char *tmp, t_map *map, int i, char *line_read)
 				i++;
 			map->boolean = true;
 			if (rgb_dispatch_info_file(line_read, tmp, i, map) == -2)
+			{
+				printf("couper moi les couilles 4\n");
 				map->valid_nbr_color = false;
+			}
 			return (1);
 		}
 	}
@@ -45,6 +49,7 @@ int	sub_check_content_fc(char *tmp, t_map *map, int i, char *line_read)
 		{
 			if (check_color_format(line_read))
 			{
+				printf("couper moi les couilles 1\n");
 				map->valid_nbr_color = false;
 				return (1);
 			}
@@ -53,8 +58,12 @@ int	sub_check_content_fc(char *tmp, t_map *map, int i, char *line_read)
 				i++;
 			map->boolean = false;
 			if (rgb_dispatch_info_file(line_read, tmp, i, map) == -2)
+			{
+				printf("couper moi les couilles 2\n");
 				map->valid_nbr_color = false;
+			}
 			return (1);
 		}
 	}
+	return (0);
 }

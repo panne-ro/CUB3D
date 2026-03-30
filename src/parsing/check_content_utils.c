@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_content_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vboxuser <vboxuser@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mleschev <mleschev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/10 13:24:38 by panne-ro          #+#    #+#             */
-/*   Updated: 2026/03/25 14:30:29 by vboxuser         ###   ########.fr       */
+/*   Updated: 2026/03/30 13:30:25 by mleschev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,18 +18,9 @@
 //(F 0,250,300,54654,484,31,5156,4,51,48,4,3,84,5)
 void	check_content_cc(char *tmp, t_map *map, int i, char *line_read)
 {
-	line_read = read_and_clean_line(line_read, map);
-	while (line_read)
-	{
 		i = -1;
 		if (sub_check_content_cc(tmp, map, i, line_read))
-		{
-			free(line_read);
 			return ;
-		}
-		free(line_read);
-		line_read = read_and_clean_line(line_read, map);
-	}
 }
 
 // a sub_functions for CheckContent_XXXX
@@ -49,15 +40,14 @@ char	*copy_content(char *line_read, char *tmp, int i)
 	tmp[j] = 0;
 	result = malloc(sizeof(char) * (j + 1));
 	ft_strlcpy(result, tmp, j + 1);
-	free(line_read);
 	return (result);
 }
 
 void	dispatch_color_at_good_place(t_map *map, char *tmp, int nbr)
 {
-	if (map->boolean)
+	if (map->is_cc)
 		map->ceilingColor[nbr] = ft_atoi(tmp);
-	else
+	else if (map->is_fc)
 		map->floorColor[nbr] = ft_atoi(tmp);
 }
 
