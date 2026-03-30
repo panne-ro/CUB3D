@@ -6,7 +6,7 @@
 /*   By: mleschev <mleschev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/16 16:52:52 by panne-ro          #+#    #+#             */
-/*   Updated: 2026/03/30 13:26:13 by mleschev         ###   ########.fr       */
+/*   Updated: 2026/03/30 15:22:57 by mleschev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -179,10 +179,10 @@ int			sub_check_content_fc(char *tmp, t_map *map, int i, char *line_read);
 int			sub_check_content_cc(char *tmp, t_map *map, int i, char *line_read);
 
 // check_content.c
-char		*check_content_no(t_map *map, char *tmp, int i, char*line_read);
-char		*check_content_so(t_map *map, char *tmp, int i, char*line_read);
-char		*check_content_we(t_map *map, char *tmp, int i, char*line_read);
-char		*check_content_ea(t_map *map, char *tmp, int i, char*line_read);
+char		*check_content_no(char *tmp, int i, char*line_read);
+char		*check_content_so(char *tmp, int i, char*line_read);
+char		*check_content_we(char *tmp, int i, char*line_read);
+char		*check_content_ea(char *tmp, int i, char*line_read);
 void		check_content_fc(char *tmp, t_map *map, int i, char *line_read);
 
 // check_map_utils.c
@@ -196,8 +196,8 @@ void		flood_fill(int x, int y, t_map *map);
 char		**copy_map(char **map);
 void		init_map_struct(t_game **gameAddr, char *pathToMap);
 int			checkmap(t_game **gameAddr);
-int			check_content_master(t_map *map);
-bool		verif_map(t_map *map, int i, int nbr_player);
+int			return_of_the_token(char	*line_read);
+int			return_of_the_value(char *line_read, int i);
 
 // parse_utils.c
 void		flush_gnl(int fd);
@@ -288,4 +288,9 @@ void		sub_moov_a(t_game *game);
 t_vector	sum_vector(t_vector vector1, t_vector vector2);
 t_vector	*sub_vector(t_vector *vector1, t_vector *vector2);
 t_vector	mul_vector(t_vector vector, int scale);
+
+// check_content_master.c
+int			check_content_master(t_map *map);
+bool		verif_map(t_map *map, int i, int nbr_player);
+void	process_token(t_map *map, char *line_read, char tmp[1000], int i);
 # endif

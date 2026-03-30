@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_content_master.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: panne-ro <panne-ro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mleschev <mleschev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/30 14:26:50 by panne-ro          #+#    #+#             */
-/*   Updated: 2026/03/30 14:33:54 by panne-ro         ###   ########.fr       */
+/*   Updated: 2026/03/30 15:24:19 by mleschev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,15 +16,15 @@ void	process_token(t_map *map, char *line_read, char tmp[1000], int i)
 {
 	int	token_nbr;
 
-	token_nbr = return_of_the_token(map, line_read);
+	token_nbr = return_of_the_token(line_read);
 	if (token_nbr == 1)
-		map->northTexture = check_content_no(map, tmp, i, line_read);
+		map->northTexture = check_content_no(tmp, i, line_read);
 	else if (token_nbr == 2)
-		map->southTexture = check_content_so(map, tmp, i, line_read);
+		map->southTexture = check_content_so(tmp, i, line_read);
 	else if (token_nbr == 3)
-		map->westTexture = check_content_we(map, tmp, i, line_read);
+		map->westTexture = check_content_we(tmp, i, line_read);
 	else if (token_nbr == 4)
-		map->eastTexture = check_content_ea(map, tmp, i, line_read);
+		map->eastTexture = check_content_ea(tmp, i, line_read);
 	else if (token_nbr == 5)
 	{
 		map->fc_taken = true;

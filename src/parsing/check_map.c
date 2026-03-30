@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: panne-ro <panne-ro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mleschev <mleschev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/03 18:02:13 by mleschev          #+#    #+#             */
-/*   Updated: 2026/03/30 14:27:56 by panne-ro         ###   ########.fr       */
+/*   Updated: 2026/03/30 15:18:31 by mleschev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ int	return_of_the_value(char *line_read, int i)
 	return (0);
 }
 
-int	return_of_the_token(t_map *map, char	*line_read)
+int	return_of_the_token(char	*line_read)
 {
 	int		i;
 	int		value_return;

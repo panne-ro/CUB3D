@@ -1,6 +1,6 @@
 NAME = cub3D
 CC = cc
-FLAGS = -g3 -g
+FLAGS = -Wall -Wextra -Werror -g3 -g
 SRC_DIR = ./src
 OBJ_DIR = ./objects
 SRC = 	$(SRC_DIR)/main.c \

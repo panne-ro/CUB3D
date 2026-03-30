@@ -6,7 +6,7 @@
 /*   By: mleschev <mleschev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/04 23:21:25 by mleschev          #+#    #+#             */
-/*   Updated: 2026/03/30 12:28:25 by mleschev         ###   ########.fr       */
+/*   Updated: 2026/03/30 15:25:22 by mleschev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 // a sub_functions for find NO in files and
 // returns texture of north (NO ./holakalainorth.texture)
-char	*check_content_no(t_map *map, char *tmp, int i, char *line_read)
+char	*check_content_no(char *tmp, int i, char *line_read)
 {
 	i = -1;
 	while (line_read[++i])
@@ -35,7 +35,7 @@ char	*check_content_no(t_map *map, char *tmp, int i, char *line_read)
 
 // a sub_functions for find SO in files and returns
 // texture of south (NO ./ilovepdfsouth.texture)
-char	*check_content_so(t_map *map, char *tmp, int i, char *line_read)
+char	*check_content_so(char *tmp, int i, char *line_read)
 {
 	i = -1;
 	while (line_read[++i])
@@ -56,7 +56,7 @@ char	*check_content_so(t_map *map, char *tmp, int i, char *line_read)
 
 // a sub_functions for find WE in files and returns
 // texture of west (WE ./westside.2pac.bigi...texture)
-char	*check_content_we(t_map *map, char *tmp, int i, char *line_read)
+char	*check_content_we(char *tmp, int i, char *line_read)
 {
 	i = -1;
 	while (line_read[++i])
@@ -77,7 +77,7 @@ char	*check_content_we(t_map *map, char *tmp, int i, char *line_read)
 
 // a sub_functions for find EA in files and returns
 // texture of east (EA ./bigchybreeastcost.texture)
-char	*check_content_ea(t_map *map, char *tmp, int i, char *line_read)
+char	*check_content_ea(char *tmp, int i, char *line_read)
 {
 	i = -1;
 	while (line_read[++i])
@@ -98,8 +98,6 @@ char	*check_content_ea(t_map *map, char *tmp, int i, char *line_read)
 
 //sub fonction of check_content_master
 //resturn all of rgb in array of t_map for the floor
-//faut faire bellek ya pas les erreurs d'over-nombre pour l'instant
-//(F 0,250,300,54654,484,31,5156,4,51,48,4,3,84,5)
 void	check_content_fc(char *tmp, t_map *map, int i, char *line_read)
 {
 	i = -1;
