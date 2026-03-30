@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_content_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mleschev <mleschev@student.42.fr>          +#+  +:+       +#+        */
+/*   By: panne-ro <panne-ro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/10 13:24:38 by panne-ro          #+#    #+#             */
-/*   Updated: 2026/03/30 13:30:25 by mleschev         ###   ########.fr       */
+/*   Updated: 2026/03/30 14:25:02 by panne-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,9 @@
 //(F 0,250,300,54654,484,31,5156,4,51,48,4,3,84,5)
 void	check_content_cc(char *tmp, t_map *map, int i, char *line_read)
 {
-		i = -1;
-		if (sub_check_content_cc(tmp, map, i, line_read))
-			return ;
+	i = -1;
+	if (sub_check_content_cc(tmp, map, i, line_read))
+		return ;
 }
 
 // a sub_functions for CheckContent_XXXX

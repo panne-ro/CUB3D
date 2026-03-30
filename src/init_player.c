@@ -6,7 +6,7 @@
 /*   By: panne-ro <panne-ro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/13 15:40:01 by panne-ro          #+#    #+#             */
-/*   Updated: 2026/03/24 13:39:03 by panne-ro         ###   ########.fr       */
+/*   Updated: 2026/03/30 14:38:41 by panne-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,8 @@ void	init_flag_moov(t_game *game)
 
 void	init_player(t_game *game)
 {
-	game->player->pos->x = game->map->player_x * MINIMAP_RESOLUTION;
-	game->player->pos->y = game->map->player_y * MINIMAP_RESOLUTION;
+	game->player->pos->x = (game->map->player_x + 0.5) * MINIMAP_RESOLUTION;
+	game->player->pos->y = (game->map->player_y + 0.5) * MINIMAP_RESOLUTION;
 	init_flag_moov(game);
 	init_dir_and_plane(game);
 }

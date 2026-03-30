@@ -6,7 +6,7 @@
 /*   By: panne-ro <panne-ro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/25 13:55:37 by vboxuser          #+#    #+#             */
-/*   Updated: 2026/03/27 15:39:57 by panne-ro         ###   ########.fr       */
+/*   Updated: 2026/03/30 14:24:36 by panne-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ int	sub_ext_is_all_wall(t_map *map, int y, int x)
 			if (map->mapChar[y][x] == '0')
 			{
 				if (!map->mapChar[y][x + 1] || !map->mapChar[y][x - 1]
-				 || !map->mapChar[y - 1][x]
+					|| !map->mapChar[y - 1][x]
 					|| !map->mapChar[y + 1][x])
 					return (0);
 				if (map->mapChar[y][x + 1] == ' ' || map->mapChar[y][x - 1]

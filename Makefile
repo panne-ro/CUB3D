@@ -23,7 +23,8 @@ SRC = 	$(SRC_DIR)/main.c \
 		$(SRC_DIR)/sub_moov_dir.c \
 		$(SRC_DIR)/load_texture.c \
 		$(SRC_DIR)/parsing/parse_utils_second.c \
-		$(SRC_DIR)/parsing/parse_utils.c 
+		$(SRC_DIR)/parsing/parse_utils.c \
+		$(SRC_DIR)/parsing/check_content_master.c
 
 OBJS = $(SRC:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
 
